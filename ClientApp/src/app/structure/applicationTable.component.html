@@ -1,0 +1,54 @@
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>Company</th>
+      <th>Industry</th>
+      <th>Product</th>
+      <th>Environment</th>
+      <th>Patch Number</th>
+      <th>QA Status</th>
+      <th>Deployed Date</th>
+      <th>Link</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let release of releases">
+      <td>
+        <img class="img-thumbnail" src="{{ release?.company?.logo }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:40px;width:60px;" maxwidth="30" maxheight="15" />
+      </td>
+      <td>
+        <span>{{ release?.releaseId }}</span>
+      </td>
+      <td>
+        <span>{{ release?.company?.name }}</span>
+      </td>
+      <td>
+        <span>{{ release?.company?.industry?.name }}</span>
+      </td>
+      <td>
+        <span>{{ release?.product?.name }}</span>
+      </td>
+      <td>
+        <span>{{ release?.environmentType?.name }}</span>
+      </td>
+      <td>
+        <span>{{ release?.patchNumber }}</span>
+      </td>
+      <td>
+        <span>{{ release?.qualityAssurance?.isPassed }}</span>
+      </td>
+      <td>
+        <span>{{ release?.deployedDate }}</span>
+      </td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="{{ release?.environment?.applicationHyperLink }}"> Visit </a>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-primary" [routerLink]="['/applicationdetail', release?.releaseId]">Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

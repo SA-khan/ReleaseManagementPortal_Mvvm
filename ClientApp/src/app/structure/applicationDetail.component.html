@@ -1,0 +1,92 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th colspan="2">
+        Application Details
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> ID </td>
+      <td> {{ release?.releaseId }} </td>
+    </tr>
+    <tr>
+      <td> Title </td>
+      <td> {{ release?.title }} </td>
+    </tr>
+    <tr>
+      <td> Description </td>
+      <td> {{ release?.description }} </td>
+    </tr>
+    <tr>
+      <td> Patch Number </td>
+      <td> {{ release?.patchNumber }} </td>
+    </tr>
+    <tr>
+      <td> Developed By </td>
+      <td> {{ release?.developedBy?.firstName }} {{ release?.developedBy?.middleName }} {{ release?.developedBy?.lastName }} </td>
+    </tr>
+    <tr>
+      <td> Deployed By </td>
+      <td> {{ release?.deployedBy?.firstName }} {{ release?.deployedBy?.middleName }} {{ release?.deployedBy?.lastName }} </td>
+    </tr>
+    <tr>
+      <td> Created Date </td>
+      <td> {{ release?.createdDate }} </td>
+    </tr>
+    <tr>
+      <td> Deployed Date </td>
+      <td> {{ release?.deployedDate }} </td>
+    </tr>
+    <tr>
+      <td> Quality Assurance </td>
+      <td> {{ release?.qualityAssurance?.isPassed }} </td>
+    </tr>
+    <tr>
+      <td> Performed By </td>
+      <td> {{ release?.qualityAssurance?.performedBy?.firstName }} {{ release?.qualityAssurance?.performedBy?.middleName }} {{ release?.qualityAssurance?.performedBy?.lastName }} </td>
+    </tr>
+    <tr>
+      <td> Verified By </td>
+      <td> {{ release?.qualityAssurance?.verifiedBy?.firstName }} {{ release?.qualityAssurance?.verifiedBy?.middleName }} {{ release?.qualityAssurance?.verifiedBy?.lastName }} </td>
+    </tr>
+    <tr>
+      <td> Quality Assurance Remarks </td>
+      <td> {{ release?.qualityAssurance?.remarks }} </td>
+    </tr>
+    <tr>
+      <td> Company Name </td>
+      <td> {{ release?.company?.name }} </td>
+    </tr>
+    <tr>
+      <td> Industry Type </td>
+      <td> {{ release?.company?.industry?.name }} </td>
+    </tr>
+    <tr>
+      <td> Application </td>
+      <td> {{ release?.product?.name }} </td>
+    </tr>
+    <tr>
+      <td> App Category </td>
+      <td> {{ release?.product?.category }} </td>
+    </tr>
+    <tr>
+      <td> Environment </td>
+      <td> {{ release?.environmentType?.name }} </td>
+    </tr>
+    <tr>
+      <td> Remarks </td>
+      <td> {{ release?.remarks }} </td>
+    </tr>
+    <tr>
+      <td> Link </td>
+      <td> <a class="btn btn-sm btn-primary" href="{{ release?.environment?.applicationHyperLink }}"> Visit </a> </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="text-center">
+  <button class="btn btn-primary m-1" [routerLink]="['/application']">Back</button>
+</div>

@@ -1,0 +1,11 @@
+
+    <div *ngIf=" environments.length > 0; else nodata ">
+
+    </div>
+
+
+<ng-template #nodata>
+  <div class="text-center">
+    <h2 style="font-family:Tahoma;color:gray"> There is no environment found. </h2>
+  </div>
+</ng-template>

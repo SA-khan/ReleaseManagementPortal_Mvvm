@@ -1,0 +1,414 @@
+<div class="container border border-dark">
+  <div class="row">
+    <div class="col-sm-3 p-1 align-items-center">
+      <img class="img-thumbnail card-img-bottom align-content-around" src="{{ product?.logo }}" style="width:220px;height:180px;" />
+    </div>
+    <div class="col-sm-9 p-1">
+      <div class="align-content-sm-center">
+        <div class="container p-2">
+          <div class="row">
+            <div class="col-6">
+              <div class="h2 p-2" style="font-family:Tahoma">{{ product?.name }}</div>
+              <div class="p-2">
+                <div class="row">
+                  <div class="col">
+                    <img class="img-thumbnail card-img-bottom align-content-around m-1 uk-display-inline" src="{{ product?.type?.logo }}" style="width:70px;height:50px;" />
+                  </div>
+                  <div class="col float-left uk-align-right">
+                    <div class="h4 m-1 p-2" style="font-family:Tahoma">{{ product?.type?.name }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1 align-bottom align-text-bottom">
+                <img class="img-thumbnail card-img-bottom align-content-around" src="{{ product?.parentProduct?.logo }}" style="width:160px;height:80px;" />
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ product?.parentProduct?.name }}
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1 align-bottom text-center">
+                <img class="img-thumbnail card-img-bottom align-content-around" src="{{ product?.supplier?.logo }}" style="width:160px;height:80px;" />
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ product?.supplier?.name }}
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <!--<div class="h4 p-2" style="font-family:Tahoma">{{ product?.type?.name }}</div>-->
+            </div>
+            <div class="col-6">
+              <div class="text-right m-1">
+                
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1">
+                
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th class="bg-warning text-center" colspan="2">
+        <div class="h3 p-2" style="font-family:Tahoma">
+          Application Details
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Name
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.name }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Type
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.type?.name }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Category
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.category }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Description
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.description }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Updated
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.updated }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Release Notes
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.releaseNotes }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Supplier Details</th>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Logo
+        </div>
+      </td>
+      <td>
+        <img class="img-thumbnail card-img-bottom align-content-around" src="{{ product?.supplier?.logo }}" style="width:120px;height:80px;" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Name
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.name }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Short Name
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.shortName }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Website
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.website }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Email
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.email }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Phone
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.phone }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Fax
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.fax }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          City &Aacute; State
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.city }} - {{ product?.supplier?.state }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Total Solutions
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2 badge-pill" style="font-family:Tahoma">
+          {{ product?.supplier?.products?.Count }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Product Category Details</th>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Logo
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          <img class="img-thumbnail card-img-bottom align-content-around" src="{{ product?.parentProduct?.logo }}" style="width:120px;height:80px;" />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Name
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.name }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Tag
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.tagLine }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Description
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.description }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Manual Link
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.userManualLink }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Team Lead
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.mainPoc?.firstName }} {{ product?.parentProduct?.mainPoc?.middleName }} {{ product?.parentProduct?.mainPoc?.lastName }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Email
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.parentProduct?.mainPoc?.email }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          Phone
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ product?.supplier?.phone }} - {{ product?.parentProduct?.mainPoc?.phoneExtension }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Product Prerequisites</th>
+    </tr>
+    <tr *ngFor="let prerequisite of product.prerequisites">
+      <td>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img class="img-thumbnail card-img-bottom align-content-around" src="{{ prerequisite?.logo }}" style="width:120px;height:80px;" />
+            </div>
+            <div class="col">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                {{ prerequisite?.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ prerequisite?.description }}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Operating System Support</th>
+    </tr>
+
+    <tr *ngFor="let os of product.operatingSystemSupport float-right" style="font-family:Tahoma">
+      <td>
+        <img class="img-thumbnail card-img-bottom align-content-around" src="{{ os?.operatingSystem?.logo }}" alt="{{ os?.operatingSystem?.name }}" title="{{ os?.operatingSystem?.description }}" style="width:120px;height:80px;" />
+      </td>
+      <td><span class="badge badge-pill">{{ os?.operatingSystem?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ os?.operatingSystem?.version || 'None' }} </span></td>
+    </tr>
+
+    <tr style="font-family:Tahoma">
+      <th class="bg-dark text-white" colspan="2">Web Browser Support &nbsp; <span class="badge badge-pill badge-dark"> {{ product?.clientBrowserSupports?.length }}</span></th>
+    </tr>
+
+    <tr *ngFor="let clientbrowser of product.clientBrowserSupports" style="font-family:Tahoma">
+      <td>
+        <img class="img-thumbnail card-img-bottom align-content-around" src="{{ clientbrowser?.browser?.logo }}" alt="{{ os?.name }}" title="{{os?.description}}" style="width:80px;height:60px;" />
+      </td>
+      <td><span class="badge badge-pill">{{ clientbrowser?.browser?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ clientbrowser?.browser?.version || 'None' }} </span></td>
+    </tr>
+
+    <tr style="font-family:Tahoma">
+      <th class="bg-dark text-white" colspan="2">Product Ratings &nbsp; <span class="badge badge-pill badge-dark"> {{ product?.ratings?.length }}</span></th>
+    </tr>
+
+    <tr *ngFor="let rating of product.ratings">
+      <td>
+        <img class="img-thumbnail card-img-bottom align-content-around m-1 uk-display-inline" src="{{ rating?.user?.logo }}" alt="{{ rating?.user?.middleName }}" title="{{rating?.user?.middleName}}" style="width:80px;height:60px;display:inline;" />
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ rating?.user?.firstName }} {{ rating?.user?.middleName }} {{ rating?.user?.lastName }}
+        </div>
+      </td>
+      <td>
+        <div class="h5 p-2" style="font-family:Tahoma">
+          {{ rating?.stars }}
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/product">Back</button></div>
+
+</div>

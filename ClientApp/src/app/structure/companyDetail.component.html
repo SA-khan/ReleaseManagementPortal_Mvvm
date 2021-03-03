@@ -1,0 +1,134 @@
+<table class="table table-sm table-hover">
+  <thead>
+    <tr>
+      <th class="bg-info p-2 text-center" colspan="2">Client Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="bg-dark p-sm-3 text-white" colspan="2">Client Info</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{company?.name}}</td>
+    </tr>
+    <tr>
+      <td>Tag Line</td>
+      <td>{{company?.tagLine}}</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>{{company?.industry.name}}</td>
+    </tr>
+    <tr>
+      <td>Image Source</td>
+      <td>{{company?.logo}}</td>
+    </tr>
+    <tr>
+      <td>NTN</td>
+      <td>{{company?.ntn}}</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>{{company?.email}}</td>
+    </tr>
+    <tr>
+      <td>Fax</td>
+      <td>{{company?.fax}}</td>
+    </tr>
+    <tr>
+      <td>Website</td>
+      <td>{{company?.website}}</td>
+    </tr>
+    <tr>
+      <td>Ratings</td>
+      <td>{{company?.ratings?.length || 0}}</td>
+    </tr>
+    <tr>
+      <td>Current Status</td>
+      <td>{{company?.still}}</td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td>{{company?.comments}}</td>
+    </tr>
+    <tr>
+      <th class="bg-dark p-sm-3 text-white" colspan="2">Operational Contact Person Details</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ company?.operationalPoc?.firstName }} {{ company?.operationalPoc?.middleName }} {{ company?.operationalPoc?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Phone Ext.</td>
+      <td>{{ company?.operationalPoc?.phoneExtension }}</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>{{ company?.operationalPoc?.email }}</td>
+    </tr>
+    <tr>
+      <td>Mobile Number</td>
+      <td>{{ company?.operationalPoc?.mobile }}</td>
+    </tr>
+    <tr>
+      <th class="bg-dark p-sm-3 text-white" colspan="2">Technical Contact Person Details</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ company?.technicalPoc?.firstName }} {{ company?.technicalPoc?.middleName }} {{ company?.technicalPoc?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Phone Ext.</td>
+      <td>{{ company?.technicalPoc?.phoneExtension }}</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>{{ company?.technicalPoc?.email }}</td>
+    </tr>
+    <tr>
+      <td>Mobile Number</td>
+      <td>{{ company?.technicalPoc?.mobile }}</td>
+    </tr>
+    <tr>
+      <th class="bg-dark p-sm-3 text-white" colspan="2">Financial Contact Person Details</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ company?.financialPoc?.firstName }} {{ company?.financialPoc?.middleName }} {{ company?.financialPoc?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Phone Ext.</td>
+      <td>{{company?.financialPoc?.phoneExtension}}</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>{{company?.financialPoc?.email}}</td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td>{{company?.financialPoc?.mobile}}</td>
+    </tr>
+    <tr>
+      <th class="bg-dark p-sm-3 text-white" colspan="2">Project Manager Details</th>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>{{ company?.projectPoc?.firstName }} {{ company?.projectPoc?.middleName }} {{ company?.projectPoc?.lastName }}</td>
+    </tr>
+    <tr>
+      <td>Phone Ext.</td>
+      <td>{{ company?.projectPoc?.phoneExtension }}</td>
+    </tr>
+    <tr>
+      <td>Email Address</td>
+      <td>{{ company?.projectPoc?.email }}</td>
+    </tr>
+    <tr>
+      <td>Mobile Number</td>
+      <td>{{ company?.projectPoc?.mobile }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-center"> <button class="btn btn-primary m-1" routerLink="/company">Back</button></div>

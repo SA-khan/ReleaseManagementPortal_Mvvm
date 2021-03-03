@@ -1,0 +1,17 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr><th>Name</th><th>Type</th><th>Email</th><th>Landline</th><th>Fax</th><th>Comments</th><th>Details</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of companies">
+      <td><img class="rounded-circle img-thumbnail card-img" style="width:60px;height:40px;background-position:center;image-rendering:optimizeQuality;" src="{{ company?.logo }}" width="60" height="40" /></td>
+      <td><p title="{{company?.tagline}}">{{company?.name}}</p></td>
+      <td>{{company?.industry?.name}}</td>
+      <td>{{company?.email}}</td>
+      <td>{{company?.phone}}</td>
+      <td>{{company?.fax}}</td>
+      <td>{{company?.comments}}</td>
+      <td><button class="btn btn-primary btn-sm" [routerLink]="['/detail', company?.companyId]">Details</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,118 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th colspan="2">Environment Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Environment ID</td>
+      <td>{{ environment?.environmentId || "Loading.." }}</td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td>{{ environment?.title }}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{ environment?.description }}</td>
+    </tr>
+    <tr>
+      <td>Server</td>
+      <td> {{ environment?.server?.serverType?.category }} </td>
+    </tr>
+    <tr>
+      <td>I.P.</td>
+      <td> {{ environment?.server?.ip }} </td>
+    </tr>
+    <tr>
+      <td>User ID</td>
+      <td> {{ environment?.server?.domain }} \ {{ environment?.server?.userId }} </td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td> {{ environment?.server?.password }} </td>
+    </tr>
+    <tr>
+      <td>Web Server</td>
+      <td>{{ environment?.webServer?.name }} Version {{ environment?.webServer?.version }}</td>
+    </tr>
+    <tr>
+      <td>Website Link</td>
+      <td>{{ environment?.applicationHyperLink }}</td>
+    </tr>
+    <tr>
+      <td>Working Directory</td>
+      <td>{{ environment?.workingDirectory }}</td>
+    </tr>
+    <tr>
+      <td>Dependency</td>
+      <td>{{ environment?.dependency }}</td>
+    </tr>
+    <tr>
+      <td>Company</td>
+      <td>{{ environment?.company?.name }}</td>
+    </tr>
+    <tr>
+      <td>Company Type</td>
+      <td>{{ environment?.company?.industry?.name }}</td>
+    </tr>
+    <tr>
+      <td>Application</td>
+      <td>{{ environment?.product?.name }}</td>
+    </tr>
+    <tr>
+      <td>Application Category</td>
+      <td>{{ environment?.product?.category }}</td>
+    </tr>
+    <tr>
+      <td>Environment</td>
+      <td>{{ environment?.environmentType?.name }}</td>
+    </tr>
+    <tr>
+      <td>Docker Support Available</td>
+      <td>{{ environment?.dockerized }}</td>
+    </tr>
+    <tr>
+      <td>Docker Image Link</td>
+      <td>{{ environment?.dockerImage }}</td>
+    </tr>
+    <tr>
+      <td>Docker Image Description</td>
+      <td>{{ environment?.dockerDescription }}</td>
+    </tr>
+    <tr>
+      <td>Environment Updated</td>
+      <td>{{ environment?.updated }}</td>
+    </tr>
+    <tr>
+      <td>Health Check Perform Date</td>
+      <td>{{ environment?.lastHealthCheck?.date }}</td>
+    </tr>
+    <tr>
+      <td>Health Check Status</td>
+      <td>{{ environment?.lastHealthCheck?.passed }}</td>
+    </tr>
+    <tr>
+      <td>Environment Created Date</td>
+      <td>{{ environment?.createdDate }}</td>
+    </tr>
+    <tr>
+      <td>Modified Date</td>
+      <td>{{ environment?.modifiedDate }}</td>
+    </tr>
+    <tr>
+      <td>Logo</td>
+      <td>{{ environment?.logo }}</td>
+    </tr>
+    <tr>
+      <td>Remarks</td>
+      <td>{{ environment?.remarks }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-primary m-1" [routerLink]="['/environment']">Back</button>
+
+
+
