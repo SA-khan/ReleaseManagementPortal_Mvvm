@@ -1,6 +1,19 @@
 
     <div *ngIf=" environments.length > 0; else nodata ">
-
+      <div *ngFor="let environment of environments" class="card m-1 p-1 bg-light">
+        <h4>
+          {{ environment?.company?.name }}
+          <span class="float-right badge badge-primary badge-pill">
+            {{ environment?.environmentType?.name }}
+          </span>
+        </h4>
+        <div class="card-text">
+          {{ environment?.product?.name }}
+          <button class="float-right btn btn-sm btn-success" (click)="environmentdetail(environment)">
+            Details
+          </button>
+        </div>
+      </div>
     </div>
 
 

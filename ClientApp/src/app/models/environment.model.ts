@@ -14,7 +14,6 @@ export class Environment {
     public title: string,
     public description: string,
     public server: Server,
-    public operatingSystem: OperatingSystem,
     public webServer: WebServer,
     public applicationHyperLink: string,
     public workingDirectory: string,

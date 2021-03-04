@@ -22,13 +22,13 @@ namespace ServerApp.Controllers
         [HttpGet("{id}")]
         public ServerApp.Models.Environment GetEnvironment(long id)
         {
-            return _context.Environments.Include(e => e.Company).ThenInclude( e => e.Industry ).Include(e => e.EnvironmentType).Include(e => e.LastHealthCheck).Include(e=>e.OperatingSystem).Include(e=>e.Product).Include(e=>e.Server).ThenInclude( e => e.ServerType ).Include( e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
+            return _context.Environments.Include(e => e.Company).ThenInclude( e => e.Industry ).Include(e => e.EnvironmentType).Include(e => e.LastHealthCheck).Include(e=>e.Product).Include(e=>e.Server).ThenInclude( e => e.ServerType ).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include( e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
         }
 
         [HttpGet]
-        public IEnumerable<ServerApp.Models.Environment> GetEnvironments()
+        public IEnumerable<ServerApp.Models.Environment> GetEnvironments(string type, string company, bool metatdata = false)
         {
-            IQueryable<Models.Environment> envs = _context.Environments.Include(env => env.Company).Include(env => env.EnvironmentType).Include(env => env.LastHealthCheck).Include(env => env.OperatingSystem).Include(env => env.Product).Include(env => env.Server).ThenInclude( e => e.ServerType ).Include(env => env.WebServer).OrderBy(e => e.Title);
+            IQueryable<Models.Environment> envs = _context.Environments.Include(env => env.Company).Include(env => env.EnvironmentType).Include(env => env.LastHealthCheck).Include(env => env.Product).Include(env => env.Server).ThenInclude( e => e.ServerType ).Include( e => e.Server ).ThenInclude( e => e.operatingSystem ).Include(env => env.WebServer).OrderBy(e => e.Product).OrderBy( e => e.Company ).OrderBy( e => e.EnvironmentType.EnvironmentTypeId);
             return envs;
         }
 
@@ -69,10 +69,6 @@ namespace ServerApp.Controllers
                 if(environment.LastHealthCheck != null && environment.LastHealthCheck.HealthCheckId != 0)
                 {
                     _context.Attach(environment.LastHealthCheck);
-                }
-                if(environment.OperatingSystem != null && environment.OperatingSystem.OperatingSystemId != 0)
-                {
-                    _context.Attach(environment.OperatingSystem);
                 }
                 if(environment.Product != null && environment.Product.ProductId != 0)
                 {
@@ -134,10 +130,6 @@ namespace ServerApp.Controllers
                 if (environment.LastHealthCheck != null && environment.LastHealthCheck.HealthCheckId != 0)
                 {
                     _context.Attach(environment.LastHealthCheck);
-                }
-                if (environment.OperatingSystem != null && environment.OperatingSystem.OperatingSystemId != 0)
-                {
-                    _context.Attach(environment.OperatingSystem);
                 }
                 if (environment.Product != null && environment.Product.ProductId != 0)
                 {

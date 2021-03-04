@@ -17,11 +17,12 @@ import { ProductDetailComponent } from "./structure/productDetail.component";
 import { EnvironmentTableComponent } from "./structure/environmentTable.component";
 import { EnvironmentDetailComponent } from "./structure/environmentDetail.component";
 
-import { EnvironmentSupplierComponent } from "./environment/environmentSupplier.component";
 import { EnvironmentModule } from "./environment/environment.module";
 
 import { ApplicationTableComponent } from "./structure/applicationTable.component";
 import { ApplicationDetailComponent } from "./structure/applicationDetail.component";
+
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,6 @@ import { ApplicationDetailComponent } from "./structure/applicationDetail.compon
     ProductDetailComponent,
     EnvironmentTableComponent,
     EnvironmentDetailComponent,
-    EnvironmentSupplierComponent,
     ApplicationTableComponent,
     ApplicationDetailComponent
   ],
@@ -42,7 +42,8 @@ import { ApplicationDetailComponent } from "./structure/applicationDetail.compon
     BrowserModule,
     AppRoutingModule,
     ModelModule,
-    EnvironmentModule
+    EnvironmentModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

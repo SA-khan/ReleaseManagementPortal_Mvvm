@@ -18,6 +18,7 @@ namespace ServerApp.Models
         public bool isRemoteBased { get; set; }
         public bool isVirtualized { get; set; }
         public bool isCloudBased { get; set; }
+        public OperatingSystem operatingSystem { get; set; }
         public string Processor { get; set; }
         public string Memory { get; set; }
         public string Description { get; set; }

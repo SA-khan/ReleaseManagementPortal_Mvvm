@@ -1,18 +1,19 @@
 <div class="container-fluid">
   <div class="bg-dark text-white navbar">
     <div class="navbar-brand">Release Management Portal</div>
-    <div class="float-right"><userSummary></userSummary></div>
+    <div class="float-right navbar-text"><userSummary></userSummary></div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-sm-3">
-
+<div class="row no-gutters">
+  <div class="col-sm-3 bg-secondary">
+    <environment-filter></environment-filter>
   </div>
   <div class="col">
-    <div *ngIf=" environments.length > 0; else nodata ">
-
-    </div>
+      <environments-list></environments-list>
+      <div class="float-right p-1">
+        <environment-pagination></environment-pagination>
+      </div>
   </div>
 </div>
 

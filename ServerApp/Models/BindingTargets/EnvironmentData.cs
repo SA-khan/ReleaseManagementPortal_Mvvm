@@ -37,7 +37,7 @@ namespace ServerApp.Models.BindingTargets
 			Dependency = Dependency, Description = Description, DockerDescription = DockerDescription,
 			DockerImage = DockerImage, Dockerized = Dockerized, EnvironmentType = EnvironmentType,
 			LastHealthCheck = LastHealthCheck, Logo = Logo, Main = Main, ModifiedDate = ModifiedDate,
-			OperatingSystem = OperatingSystem, Product = Product, Remarks = Remarks,
+		    Product = Product, Remarks = Remarks,
 			Server = Server, Title = Title, Updated = Updated, WebServer = WebServer,
 			WorkingDirectory = WorkingDirectory
 		};

@@ -20,6 +20,8 @@ namespace ServerApp.Models
         public List<Release> Releases { get; set; }
         public List<Rating> Ratings { get; set; }
         public bool Updated { get; set; }
+        public string masterReleaseLink { get; set; }
+        public string masterReleaseWorkingDirecotory { get; set; }
         public List<ClientBrowserSupport> ClientBrowserSupports { get; set; }
         public string ReleaseNotes { get; set; }
     }

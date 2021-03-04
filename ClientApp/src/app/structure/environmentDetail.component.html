@@ -22,6 +22,10 @@
       <td> {{ environment?.server?.serverType?.category }} </td>
     </tr>
     <tr>
+      <td>Running Operating System</td>
+      <td> {{ environment?.server?.operatingSystem?.name }} {{ environment?.server?.operatingSystem?.version }} </td>
+    </tr>
+    <tr>
       <td>I.P.</td>
       <td> {{ environment?.server?.ip }} </td>
     </tr>
@@ -112,7 +116,9 @@
   </tbody>
 </table>
 
-<button class="btn btn-primary m-1" [routerLink]="['/environment']">Back</button>
+<div class="text-center">
+  <button class="btn btn-primary m-1" [routerLink]="['/environment']">Back</button>
+</div>
 
 
 

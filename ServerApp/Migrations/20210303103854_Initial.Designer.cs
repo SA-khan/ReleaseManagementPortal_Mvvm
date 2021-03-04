@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210226072416_Initial")]
+    [Migration("20210303103854_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -428,9 +428,6 @@ namespace ServerApp.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("OperatingSystemId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
 
@@ -459,8 +456,6 @@ namespace ServerApp.Migrations
                     b.HasIndex("EnvironmentTypeId");
 
                     b.HasIndex("LastHealthCheckHealthCheckId");
-
-                    b.HasIndex("OperatingSystemId");
 
                     b.HasIndex("ProductId");
 
@@ -922,6 +917,12 @@ namespace ServerApp.Migrations
                     b.Property<bool>("Updated")
                         .HasColumnType("bit");
 
+                    b.Property<string>("masterReleaseLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("masterReleaseWorkingDirecotory")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ProductId");
 
                     b.HasIndex("ParentProductId");
@@ -1226,6 +1227,9 @@ namespace ServerApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("OperatingSystemId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -1294,6 +1298,8 @@ namespace ServerApp.Migrations
 
                     b.HasIndex("MailServerSupportMailServerId");
 
+                    b.HasIndex("OperatingSystemId");
+
                     b.HasIndex("PrintServerSupportPrintServerId");
 
                     b.HasIndex("ServerTypeId");
@@ -1344,6 +1350,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
@@ -1639,10 +1648,6 @@ namespace ServerApp.Migrations
                         .WithMany()
                         .HasForeignKey("LastHealthCheckHealthCheckId");
 
-                    b.HasOne("ServerApp.Models.OperatingSystem", "OperatingSystem")
-                        .WithMany()
-                        .HasForeignKey("OperatingSystemId");
-
                     b.HasOne("ServerApp.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
@@ -1789,6 +1794,10 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.MailServer", "MailServerSupport")
                         .WithMany()
                         .HasForeignKey("MailServerSupportMailServerId");
+
+                    b.HasOne("ServerApp.Models.OperatingSystem", "operatingSystem")
+                        .WithMany()
+                        .HasForeignKey("OperatingSystemId");
 
                     b.HasOne("ServerApp.Models.PrintServer", "PrintServerSupport")
                         .WithMany()

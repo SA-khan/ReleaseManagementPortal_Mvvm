@@ -284,6 +284,7 @@ namespace ServerApp.Migrations
                     SupplierId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true),
                     Logo = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -639,6 +640,7 @@ namespace ServerApp.Migrations
                     isRemoteBased = table.Column<bool>(nullable: false),
                     isVirtualized = table.Column<bool>(nullable: false),
                     isCloudBased = table.Column<bool>(nullable: false),
+                    OperatingSystemId = table.Column<long>(nullable: true),
                     Processor = table.Column<string>(nullable: true),
                     Memory = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -681,6 +683,12 @@ namespace ServerApp.Migrations
                         principalColumn: "MailServerId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Servers_OperatingSystems_OperatingSystemId",
+                        column: x => x.OperatingSystemId,
+                        principalTable: "OperatingSystems",
+                        principalColumn: "OperatingSystemId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Servers_PrintServer_PrintServerSupportPrintServerId",
                         column: x => x.PrintServerSupportPrintServerId,
                         principalTable: "PrintServer",
@@ -714,6 +722,8 @@ namespace ServerApp.Migrations
                     ParentProductId = table.Column<long>(nullable: true),
                     SupplierId = table.Column<long>(nullable: true),
                     Updated = table.Column<bool>(nullable: false),
+                    masterReleaseLink = table.Column<string>(nullable: true),
+                    masterReleaseWorkingDirecotory = table.Column<string>(nullable: true),
                     ReleaseNotes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -774,7 +784,6 @@ namespace ServerApp.Migrations
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ServerId = table.Column<long>(nullable: true),
-                    OperatingSystemId = table.Column<long>(nullable: true),
                     WebServerId = table.Column<long>(nullable: true),
                     ApplicationHyperLink = table.Column<string>(nullable: true),
                     WorkingDirectory = table.Column<string>(nullable: true),
@@ -813,12 +822,6 @@ namespace ServerApp.Migrations
                         column: x => x.LastHealthCheckHealthCheckId,
                         principalTable: "HealthChecks",
                         principalColumn: "HealthCheckId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Environments_OperatingSystems_OperatingSystemId",
-                        column: x => x.OperatingSystemId,
-                        principalTable: "OperatingSystems",
-                        principalColumn: "OperatingSystemId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Environments_Products_ProductId",
@@ -1248,11 +1251,6 @@ namespace ServerApp.Migrations
                 column: "LastHealthCheckHealthCheckId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Environments_OperatingSystemId",
-                table: "Environments",
-                column: "OperatingSystemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Environments_ProductId",
                 table: "Environments",
                 column: "ProductId");
@@ -1408,6 +1406,11 @@ namespace ServerApp.Migrations
                 column: "MailServerSupportMailServerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Servers_OperatingSystemId",
+                table: "Servers",
+                column: "OperatingSystemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Servers_PrintServerSupportPrintServerId",
                 table: "Servers",
                 column: "PrintServerSupportPrintServerId");
@@ -1509,9 +1512,6 @@ namespace ServerApp.Migrations
                 name: "HealthChecks");
 
             migrationBuilder.DropTable(
-                name: "OperatingSystems");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
@@ -1537,6 +1537,9 @@ namespace ServerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "MailServer");
+
+            migrationBuilder.DropTable(
+                name: "OperatingSystems");
 
             migrationBuilder.DropTable(
                 name: "PrintServer");

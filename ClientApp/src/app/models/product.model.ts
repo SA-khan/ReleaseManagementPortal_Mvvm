@@ -20,6 +20,8 @@ export class Product {
     public supplier?: Supplier,
     public ratings?: Rating[],
     public updated?: boolean,
+    public masterReleaseLink?: string,
+    public masterReleaseWorkingDirecotory?: string,
     public releaseNotes?: string,
   ) { }
 }

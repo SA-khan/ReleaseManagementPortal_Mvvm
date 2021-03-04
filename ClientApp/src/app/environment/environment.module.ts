@@ -1,13 +1,15 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
 import { EnvironmentListComponent } from "./environmentList.component";
 import { UserSummaryComponent } from "./userSummary.component";
 import { EnvironmentSupplierComponent } from "./environmentSupplier.component";
+import { EnvironmentFilterComponent } from "./environmentFilter.component";
+import { EnvironmentPaginationComponent } from "./environmentPagination.component";
+import { EnvironmentRatingComponent } from "./environmentRating.component";
 
 @NgModule({
-  providers: [EnvironmentListComponent, UserSummaryComponent],
-  imports: [BrowserModule, FormsModule],
+  declarations: [EnvironmentListComponent, UserSummaryComponent, EnvironmentSupplierComponent, EnvironmentFilterComponent, EnvironmentPaginationComponent, EnvironmentRatingComponent],
+  imports: [BrowserModule],
   exports: [EnvironmentSupplierComponent]
 })
 

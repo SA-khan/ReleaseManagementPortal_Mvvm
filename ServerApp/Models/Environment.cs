@@ -11,7 +11,6 @@ namespace ServerApp.Models
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public Models.Server Server { get; set; }
-		public Models.OperatingSystem OperatingSystem { get; set; }
 		public Models.WebServer WebServer { get; set; }
 		public List<Api> ApiDependency { get; set; }
 		public List<Database> DatabaseDependency { get; set; }
