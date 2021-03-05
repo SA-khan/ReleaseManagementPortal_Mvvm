@@ -11,6 +11,8 @@ const productsUrl = "api/products";
 const environmentUrl = "api/environments";
 const releaseUrl = "api/releases";
 
+type environmentsMetadata = { envsdata: Environment[], environmenttypes: string[], companies: string[], products: string[]  }
+
 @Injectable()
 export class Repository {
   company: Company;
