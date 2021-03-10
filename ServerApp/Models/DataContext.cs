@@ -17,6 +17,8 @@ namespace ServerApp.Models
         public DbSet<ClientBrowser> ClientBrowsers { get; set; }
         public DbSet<Database> Databases { get; set; }
         public DbSet<DataLogFile> DataLogFiles { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
         public DbSet<Environment> Environments { get; set; }
         public DbSet<EnvironmentType> EnvironmentTypes { get; set; }
         public DbSet<HealthCheck> HealthChecks { get; set; }

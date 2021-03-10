@@ -29,7 +29,7 @@ namespace ServerApp.Controllers
         [HttpGet]
         public IActionResult GetEnvironments(string environmentType, string company, string product, string search, bool related = false , bool metatdata = false)
         {
-            IQueryable<Models.Environment> query = _context.Environments;
+            IQueryable<Models.Environment> query = _context.Environments.Include( env => env.Company).Include( env => env.EnvironmentType ).Include( env => env.Product );
             if (!String.IsNullOrWhiteSpace(environmentType))
             {
                 string environmentTypeLower = environmentType.ToLower();

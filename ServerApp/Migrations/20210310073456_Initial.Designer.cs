@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210303103854_Initial")]
+    [Migration("20210310073456_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -382,6 +382,33 @@ namespace ServerApp.Migrations
                     b.ToTable("DatabaseServer");
                 });
 
+            modelBuilder.Entity("ServerApp.Models.Department", b =>
+                {
+                    b.Property<long>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.ToTable("Departments");
+                });
+
             modelBuilder.Entity("ServerApp.Models.Environment", b =>
                 {
                     b.Property<long>("EnvironmentId")
@@ -480,6 +507,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EnvironmentTypeId");
@@ -638,6 +668,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IndustryId");
@@ -1060,6 +1093,30 @@ namespace ServerApp.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("ServerApp.Models.Rank", b =>
+                {
+                    b.Property<long>("RankId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("Code")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RankId");
+
+                    b.ToTable("Ranks");
+                });
+
             modelBuilder.Entity("ServerApp.Models.Rating", b =>
                 {
                     b.Property<long>("RatingId")
@@ -1113,6 +1170,9 @@ namespace ServerApp.Migrations
 
                     b.Property<decimal>("Latitude")
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Longitude")
                         .HasColumnType("decimal(18,4)");
@@ -1415,6 +1475,9 @@ namespace ServerApp.Migrations
                     b.Property<string>("CurrentPassword")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("DepartmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -1481,6 +1544,9 @@ namespace ServerApp.Migrations
                     b.Property<long?>("Question3QuestionId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("RankId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("RegionId")
                         .HasColumnType("bigint");
 
@@ -1495,6 +1561,8 @@ namespace ServerApp.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("DepartmentId");
+
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("PasswordPolicyId");
@@ -1504,6 +1572,8 @@ namespace ServerApp.Migrations
                     b.HasIndex("Question2QuestionId");
 
                     b.HasIndex("Question3QuestionId");
+
+                    b.HasIndex("RankId");
 
                     b.HasIndex("RegionId");
 
@@ -1814,6 +1884,10 @@ namespace ServerApp.Migrations
 
             modelBuilder.Entity("ServerApp.Models.User", b =>
                 {
+                    b.HasOne("ServerApp.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
                     b.HasOne("ServerApp.Models.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId");
@@ -1833,6 +1907,10 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.Question", "Question3")
                         .WithMany()
                         .HasForeignKey("Question3QuestionId");
+
+                    b.HasOne("ServerApp.Models.Rank", "Rank")
+                        .WithMany()
+                        .HasForeignKey("RankId");
 
                     b.HasOne("ServerApp.Models.Region", "Region")
                         .WithMany()

@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { Environment } from "../models/environment.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "environmentSupplier",
@@ -6,5 +8,8 @@ import { Component } from "@angular/core";
 })
 
 export class EnvironmentSupplierComponent {
-
+  constructor(private router: Router) { }
+  environmentoverview(environment: Environment) {
+    this.router.navigateByUrl("/environmentoverview/" + environment.environmentId);
+  }
 }

@@ -1,7 +1,7 @@
 import { Company } from "./company.model";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Filter } from "./configCompanies.repository";
+import { Filter, Pagination } from "./configCompanies.repository";
 import { Product } from './product.model';
 import { Environment } from './environment.model';
 import { Release } from "./release.model";
@@ -15,6 +15,7 @@ type environmentsMetadata = { envsdata: Environment[], environmenttypes: string[
 
 @Injectable()
 export class Repository {
+
   company: Company;
   companies: Company[];
 
@@ -24,10 +25,16 @@ export class Repository {
   environment: Environment;
   environments: Environment[];
 
+  environmentTypes: string[];
+
   release: Release;
   releases: Release[];
 
   filter = new Filter();
+  paginationObject = new Pagination();
+  envFilter = new Filter();
+
+
   constructor(public http: HttpClient) {
     //this.filter.industry = null;
     //this.filter.search = null;
@@ -78,6 +85,8 @@ export class Repository {
   }
 
   getEnvironments() {
+    let url = environmentUrl;
+
     this.http.get<Environment[]>(`${environmentUrl}`).subscribe(envs => this.environments = envs);
   }
 

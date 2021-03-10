@@ -1,134 +1,515 @@
-<table class="table table-sm table-hover">
-  <thead>
-    <tr>
-      <th class="bg-info p-2 text-center" colspan="2">Client Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th class="bg-dark p-sm-3 text-white" colspan="2">Client Info</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{company?.name}}</td>
-    </tr>
-    <tr>
-      <td>Tag Line</td>
-      <td>{{company?.tagLine}}</td>
-    </tr>
-    <tr>
-      <td>Type</td>
-      <td>{{company?.industry.name}}</td>
-    </tr>
-    <tr>
-      <td>Image Source</td>
-      <td>{{company?.logo}}</td>
-    </tr>
-    <tr>
-      <td>NTN</td>
-      <td>{{company?.ntn}}</td>
-    </tr>
-    <tr>
-      <td>Email Address</td>
-      <td>{{company?.email}}</td>
-    </tr>
-    <tr>
-      <td>Fax</td>
-      <td>{{company?.fax}}</td>
-    </tr>
-    <tr>
-      <td>Website</td>
-      <td>{{company?.website}}</td>
-    </tr>
-    <tr>
-      <td>Ratings</td>
-      <td>{{company?.ratings?.length || 0}}</td>
-    </tr>
-    <tr>
-      <td>Current Status</td>
-      <td>{{company?.still}}</td>
-    </tr>
-    <tr>
-      <td>Comments</td>
-      <td>{{company?.comments}}</td>
-    </tr>
-    <tr>
-      <th class="bg-dark p-sm-3 text-white" colspan="2">Operational Contact Person Details</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{ company?.operationalPoc?.firstName }} {{ company?.operationalPoc?.middleName }} {{ company?.operationalPoc?.lastName }}</td>
-    </tr>
-    <tr>
-      <td>Phone Ext.</td>
-      <td>{{ company?.operationalPoc?.phoneExtension }}</td>
-    </tr>
-    <tr>
-      <td>Email Address</td>
-      <td>{{ company?.operationalPoc?.email }}</td>
-    </tr>
-    <tr>
-      <td>Mobile Number</td>
-      <td>{{ company?.operationalPoc?.mobile }}</td>
-    </tr>
-    <tr>
-      <th class="bg-dark p-sm-3 text-white" colspan="2">Technical Contact Person Details</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{ company?.technicalPoc?.firstName }} {{ company?.technicalPoc?.middleName }} {{ company?.technicalPoc?.lastName }}</td>
-    </tr>
-    <tr>
-      <td>Phone Ext.</td>
-      <td>{{ company?.technicalPoc?.phoneExtension }}</td>
-    </tr>
-    <tr>
-      <td>Email Address</td>
-      <td>{{ company?.technicalPoc?.email }}</td>
-    </tr>
-    <tr>
-      <td>Mobile Number</td>
-      <td>{{ company?.technicalPoc?.mobile }}</td>
-    </tr>
-    <tr>
-      <th class="bg-dark p-sm-3 text-white" colspan="2">Financial Contact Person Details</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{ company?.financialPoc?.firstName }} {{ company?.financialPoc?.middleName }} {{ company?.financialPoc?.lastName }}</td>
-    </tr>
-    <tr>
-      <td>Phone Ext.</td>
-      <td>{{company?.financialPoc?.phoneExtension}}</td>
-    </tr>
-    <tr>
-      <td>Email Address</td>
-      <td>{{company?.financialPoc?.email}}</td>
-    </tr>
-    <tr>
-      <td>Phone</td>
-      <td>{{company?.financialPoc?.mobile}}</td>
-    </tr>
-    <tr>
-      <th class="bg-dark p-sm-3 text-white" colspan="2">Project Manager Details</th>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td>{{ company?.projectPoc?.firstName }} {{ company?.projectPoc?.middleName }} {{ company?.projectPoc?.lastName }}</td>
-    </tr>
-    <tr>
-      <td>Phone Ext.</td>
-      <td>{{ company?.projectPoc?.phoneExtension }}</td>
-    </tr>
-    <tr>
-      <td>Email Address</td>
-      <td>{{ company?.projectPoc?.email }}</td>
-    </tr>
-    <tr>
-      <td>Mobile Number</td>
-      <td>{{ company?.projectPoc?.mobile }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="m-1 p-1" *ngIf="company?.name != null ; else nodata">
+  <div class="container border border-dark">
+    <div class="row">
+      <div class="col-sm-3 p-1 align-items-center">
+        <img class="img-thumbnail card-img-bottom align-content-around" src="{{ company?.logo }}" style="width:220px;height:180px;" />
+      </div>
+      <div class="col-sm-9 p-1">
+        <div class="align-content-sm-center">
+          <div class="container p-2">
+            <div class="row">
+              <div class="col-6">
+                <div class="h2 p-2" style="font-family:Tahoma">{{ company?.name }}</div>
+                <div class="p-2">
+                  <div class="row">
+                    <div class="col">
+                      <img class="img-thumbnail card-img-bottom align-content-around m-1 uk-display-inline" src="{{ company?.industry?.logo }}" style="width:70px;height:50px;" />
+                    </div>
+                    <div class="col float-left uk-align-right">
+                      <div class="h4 m-1 p-2" style="font-family:Tahoma">{{ company?.industry?.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom align-text-bottom">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="../../assets/THUMBS_UP.png" style="width:160px;height:80px;" />
+                  <div class="h5 p-2 badge-pill badge-warning" style="font-family:Tahoma">
+                    {{ company?.ratings?.length || 0 }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom text-center">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="{{ company?.industry?.logo }}" style="width:160px;height:80px;" />
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    {{ company?.industry?.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
 
-<div class="text-center"> <button class="btn btn-primary m-1" routerLink="/company">Back</button></div>
+            </div>
+            <div class="col-6">
+              <div class="text-right m-1">
+
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th class="bg-warning text-center" colspan="2">
+          <div class="h3 p-2" style="font-family:Tahoma">
+            Company Details
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Type
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.industry?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Tag Line
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.tagLine }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Description
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.description }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            NTN Number
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.ntn }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Email
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            <a href="{{ company?.email }}" target="_blank"> Login </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Website
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.website }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            FAX
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.fax }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Phone
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.phone }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Active
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.still }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Comments
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.comments }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Technical Contact Person Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            First Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.technicalPoc?.firstName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Middle Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.technicalPoc?.middleName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.technicalPoc?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Phone(Ext.)
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.phone }}( {{ company?.technicalPoc?.phoneExtension }} )
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Email Address
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.technicalPoc?.email }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Mobile
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.technicalPoc?.mobile }}
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Technical Contact Person Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            First Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.projectPoc?.firstName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Middle Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.projectPoc?.middleName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.projectPoc?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Phone(Ext.)
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.phone }}( {{ company?.projectPoc?.phoneExtension }} )
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Email Address
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.projectPoc?.email }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Mobile
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.projectPoc?.mobile }}
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Financial Contact Person Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            First Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.operationalPoc?.firstName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Middle Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.operationalPoc?.middleName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.operationalPoc?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Phone(Ext.)
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.phone }}( {{ company?.operationalPoc?.phoneExtension }} )
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Email Address
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.operationalPoc?.email }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Mobile
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.operationalPoc?.mobile }}
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Technical Contact Person Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            First Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.financialPoc?.firstName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Middle Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.financialPoc?.middleName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.financialPoc?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Phone(Ext.)
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.phone }}( {{ company?.financialPoc?.phoneExtension }} )
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Email Address
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.financialPoc?.email }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Mobile
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ company?.financialPoc?.mobile }}
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/environment">Back</button></div>
+
+  </div>
+
+</div>
+
+<ng-template #nodata>
+  <div class="text-center">
+    <img src="../../assets/Loading.gif" />
+  </div>
+</ng-template>

@@ -73,14 +73,32 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    DepartmentId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true),
+                    Code = table.Column<long>(nullable: false),
+                    Comments = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.DepartmentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EnvironmentTypes",
                 columns: table => new
                 {
                     EnvironmentTypeId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Logo = table.Column<string>(nullable: true)
+                    Logo = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,9 +128,10 @@ namespace ServerApp.Migrations
                 {
                     IndustryId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Logo = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Logo = table.Column<string>(nullable: true)
+                    ShortName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -246,12 +265,29 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ranks",
+                columns: table => new
+                {
+                    RankId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    Code = table.Column<long>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ranks", x => x.RankId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Regions",
                 columns: table => new
                 {
                     RegionId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
                     ISO2 = table.Column<string>(maxLength: 2, nullable: true),
                     ISO3 = table.Column<string>(maxLength: 3, nullable: true),
                     OfficialName = table.Column<string>(nullable: true),
@@ -367,11 +403,19 @@ namespace ServerApp.Migrations
                     LanguageId = table.Column<long>(nullable: true),
                     ThemeId = table.Column<long>(nullable: true),
                     RegionId = table.Column<long>(nullable: true),
+                    DepartmentId = table.Column<long>(nullable: true),
+                    RankId = table.Column<long>(nullable: true),
                     TermsAgreeed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Languages_LanguageId",
                         column: x => x.LanguageId,
@@ -401,6 +445,12 @@ namespace ServerApp.Migrations
                         column: x => x.Question3QuestionId,
                         principalTable: "Questions",
                         principalColumn: "QuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Users_Ranks_RankId",
+                        column: x => x.RankId,
+                        principalTable: "Ranks",
+                        principalColumn: "RankId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Regions_RegionId",
@@ -1426,6 +1476,11 @@ namespace ServerApp.Migrations
                 column: "WebServerSupportWebServerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_DepartmentId",
+                table: "Users",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_LanguageId",
                 table: "Users",
                 column: "LanguageId");
@@ -1449,6 +1504,11 @@ namespace ServerApp.Migrations
                 name: "IX_Users_Question3QuestionId",
                 table: "Users",
                 column: "Question3QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RankId",
+                table: "Users",
+                column: "RankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RegionId",
@@ -1557,6 +1617,9 @@ namespace ServerApp.Migrations
                 name: "DataLogFiles");
 
             migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
                 name: "Languages");
 
             migrationBuilder.DropTable(
@@ -1564,6 +1627,9 @@ namespace ServerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "Ranks");
 
             migrationBuilder.DropTable(
                 name: "Regions");

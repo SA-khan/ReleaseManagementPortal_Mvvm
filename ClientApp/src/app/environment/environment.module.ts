@@ -7,6 +7,7 @@ import { EnvironmentFilterComponent } from "./environmentFilter.component";
 import { EnvironmentPaginationComponent } from "./environmentPagination.component";
 import { EnvironmentRatingComponent } from "./environmentRating.component";
 
+
 @NgModule({
   declarations: [EnvironmentListComponent, UserSummaryComponent, EnvironmentSupplierComponent, EnvironmentFilterComponent, EnvironmentPaginationComponent, EnvironmentRatingComponent],
   imports: [BrowserModule],

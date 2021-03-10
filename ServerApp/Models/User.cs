@@ -40,6 +40,8 @@ namespace ServerApp.Models
 		public Language Language { get; set; }
 		public Theme Theme { get; set; }
 		public Region Region { get; set; }
+		public Department Department { get; set; }
+		public Rank Rank { get; set; }
 		public bool TermsAgreeed { get; set; }
 	}
 }

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ServerApp.Models
 {
-    public class EnvironmentType
+    public class Rank
     {
-        public long EnvironmentTypeId { get; set; }
+        public long RankId { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
-        public string ShortName { get; set; }
+        public long Code { get; set; }
         public string Description { get; set; }
     }
 }

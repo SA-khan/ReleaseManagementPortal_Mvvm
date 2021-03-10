@@ -11,6 +11,7 @@ namespace ServerApp.Models
     {
         public long RegionId { get; set; }
         public string Name { get; set; }
+        public string Logo { get; set; }
         [StringLength(2, ErrorMessage = "ISO2 standard only support 2 charactors")]
         public string ISO2 { get; set; }
         [StringLength(3, ErrorMessage = "ISO3 standard only support 3 charactors")]
