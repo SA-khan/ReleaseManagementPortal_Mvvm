@@ -962,6 +962,7 @@ namespace ServerApp.Migrations
                     ApiId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
+                    Hash = table.Column<string>(nullable: true),
                     TagLine = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     EnvironmentId = table.Column<long>(nullable: true),
@@ -1014,11 +1015,14 @@ namespace ServerApp.Migrations
                 {
                     DatabaseId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
                     CompanyId = table.Column<long>(nullable: true),
                     ProductId = table.Column<long>(nullable: true),
                     EnvironmentTypeId = table.Column<long>(nullable: true),
                     Main = table.Column<bool>(nullable: false),
                     ServerId = table.Column<long>(nullable: true),
+                    Instance = table.Column<string>(nullable: true),
+                    Hash = table.Column<string>(nullable: true),
                     MdfInformationDataLogFileId = table.Column<long>(nullable: true),
                     LdfInformationDataLogFileId = table.Column<long>(nullable: true),
                     LastBackUpDate = table.Column<DateTime>(nullable: false),

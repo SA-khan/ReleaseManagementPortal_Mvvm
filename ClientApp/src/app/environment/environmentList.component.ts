@@ -22,7 +22,7 @@ export class EnvironmentListComponent {
   }
 
   environmentoverview(environment: Environment) {
-    this.router.navigateByUrl("/environmentoverview/" + environment.environmentId);
+    this.router.navigateByUrl("/environmentdetail/" + environment.environmentId);
   }
 
 }

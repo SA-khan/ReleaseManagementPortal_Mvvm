@@ -8,12 +8,15 @@ namespace ServerApp.Models
     public class Database
     {
         public long DatabaseId { get; set; }
+        public string Name { get; set; }
         public Company Company { get; set; }
         public Product Product { get; set; }
         public EnvironmentType environmentType { get; set; }
         //public Models.OperatingSystem OperatingSystem { get; set; }
         public bool Main { get; set; }
         public Server Server { get; set; }
+        public string Instance { get; set; }
+        public string Hash { get; set; }
         public DataLogFile MdfInformation { get; set; }
         public DataLogFile LdfInformation { get; set; }
         public DateTime LastBackUpDate { get; set; }

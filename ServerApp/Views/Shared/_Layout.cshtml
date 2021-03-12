@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <div class="navbar bg-dark fixed-top">
+    @*<div class="navbar bg-dark fixed-top">
         <div style="padding-top:1px;margin-left:15px;margin-bottom:2px;margin-right:2px;">
             <a href="/">
                 <img src="../../assets/release.png" class="rounded-circle" alt="Release Management Portal" width="35" height="30" />
@@ -20,14 +20,14 @@
             <button style="width:100px;margin-left:3px;float:left;" id="btnSearch" type="button" class="btn btn-success" onclick="mySearchFunction()"><span class="glyphicon glyphicon-search"></span> Search</button>
         </div>
     </div>
-    <div style="margin-top:70px;margin-bottom:50px;">
+    <div style="margin-top:70px;margin-bottom:50px;">*@
         @RenderBody()
         @RenderSection("scripts", required: false)
-    </div>
+    @*</div>
     <div class="navbar bg-dark fixed-bottom">
         <footer style="align-content:center;color:white;"> 
             <span style="margin-left:20px;margin-top:3px;margin-bottom:3px;color:white;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:11px;font-style:italic;">2021 - All Rights Reserved - Release Management Portal</span>
         </footer>
-    </div>
+    </div>*@
 </body>
 </html>

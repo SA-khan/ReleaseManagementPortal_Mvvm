@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210310073456_Initial")]
+    [Migration("20210312080833_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace ServerApp.Migrations
 
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Hash")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Main")
                         .HasColumnType("bit");
@@ -296,6 +299,12 @@ namespace ServerApp.Migrations
                     b.Property<long?>("EnvironmentTypeId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Hash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instance")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastBackUpDate")
                         .HasColumnType("datetime2");
 
@@ -310,6 +319,9 @@ namespace ServerApp.Migrations
 
                     b.Property<long?>("MdfInformationDataLogFileId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");

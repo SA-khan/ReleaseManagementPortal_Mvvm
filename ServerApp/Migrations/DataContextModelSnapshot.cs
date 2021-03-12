@@ -35,6 +35,9 @@ namespace ServerApp.Migrations
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Hash")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Main")
                         .HasColumnType("bit");
 
@@ -294,6 +297,12 @@ namespace ServerApp.Migrations
                     b.Property<long?>("EnvironmentTypeId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Hash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instance")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastBackUpDate")
                         .HasColumnType("datetime2");
 
@@ -308,6 +317,9 @@ namespace ServerApp.Migrations
 
                     b.Property<long?>("MdfInformationDataLogFileId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ProductId")
                         .HasColumnType("bigint");
