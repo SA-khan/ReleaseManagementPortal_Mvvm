@@ -20,14 +20,14 @@ namespace ServerApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public Models.Environment GetEnvironment(long id)
+        public IActionResult GetEnvironment(long id)
         {
-            Models.Environment env = _context.Environments.Include(e => e.Company).ThenInclude(e => e.Industry).Include(e => e.EnvironmentType).Include(e => e.DatabaseDependency).Include(e => e.ApiDependency).Include(e => e.LastHealthCheck).Include(e => e.Product).Include(e => e.Server).ThenInclude(e => e.ServerType).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include(e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
-            return env;
+            Models.Environment env = _context.Environments.Include(e => e.Company).ThenInclude(e => e.Industry).Include(e => e.EnvironmentType).Include(e => e.DatabaseDependency).ThenInclude( e => e.Server ).Include(e => e.ApiDependency).Include(e => e.LastHealthCheck).Include(e => e.Product).Include(e => e.Server).ThenInclude(e => e.ServerType).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include(e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
+            return Ok(env);
         }
 
         [HttpGet]
-        public IEnumerable<Models.Environment> GetEnvironments(string environmentType, string company, string product, string search, bool related = false , bool metatdata = false)
+        public IActionResult GetEnvironments(string environmentType, string company, string product, string search, bool related = false , bool metatdata = false)
         {
             IQueryable<Models.Environment> query = _context.Environments.Include( env => env.Company).Include( env => env.EnvironmentType ).Include( env => env.Product );
             if (!String.IsNullOrWhiteSpace(environmentType))
@@ -138,29 +138,29 @@ namespace ServerApp.Controllers
                     }
                 });
 
-                return data;
-                //return metatdata ? CreateMetadata(data) : Ok(data);
+                //return data;
+                return metatdata ? CreateMetadata(data) : Ok(data);
             }
             else
             {
-                return query;
-                //return metatdata ? CreateMetadata(query) : Ok(query);
+                //return query;
+                return metatdata ? CreateMetadata(query) : Ok(query);
             }
         }
 
-        public IActionResult CreateMetadata(IEnumerable<Models.Environment> environments)
+        private IActionResult CreateMetadata(IEnumerable<Models.Environment> environments)
         {
             return Ok(new
             {
                 data = environments,
-                environmentTypes = _context.Environments.Select(env => env.EnvironmentType).Distinct().OrderBy( e => e),
+                environmentTypes = _context.Environments.Select(env => env.EnvironmentType).Distinct().OrderBy(e => e),
                 companies = _context.Environments.Select(env => env.Company).Distinct().OrderBy(e => e),
                 products = _context.Environments.Select(env => env.Product).Distinct().OrderBy(e => e)
-            }); 
+            });
         }
 
         [HttpPost]
-        public ActionResult AddEnvironment([FromBody] EnvironmentData eData )
+        public IActionResult AddEnvironment([FromBody] EnvironmentData eData )
         {
             if (ModelState.IsValid)
             {
@@ -220,7 +220,7 @@ namespace ServerApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateEnvironment(long id ,[FromBody] EnvironmentData eData)
+        public IActionResult UpdateEnvironment(long id ,[FromBody] EnvironmentData eData)
         {
             if (ModelState.IsValid)
             {
@@ -281,7 +281,7 @@ namespace ServerApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteEnvironment(long id)
+        public IActionResult DeleteEnvironment(long id)
         {
             Models.Environment environment = _context.Environments.Find(id);
             if (environment != null && environment.EnvironmentId != 0)

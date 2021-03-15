@@ -29,13 +29,16 @@ namespace ServerApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<long?>("DescriptionProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DirectoryLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Hash")
+                    b.Property<string>("FolderHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Main")
@@ -47,7 +50,12 @@ namespace ServerApp.Migrations
                     b.Property<string>("TagLine")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ApiId");
+
+                    b.HasIndex("DescriptionProductId");
 
                     b.HasIndex("EnvironmentId");
 
@@ -1618,6 +1626,10 @@ namespace ServerApp.Migrations
 
             modelBuilder.Entity("ServerApp.Models.Api", b =>
                 {
+                    b.HasOne("ServerApp.Models.Product", "Description")
+                        .WithMany()
+                        .HasForeignKey("DescriptionProductId");
+
                     b.HasOne("ServerApp.Models.Environment", "Environment")
                         .WithMany("ApiDependency")
                         .HasForeignKey("EnvironmentId");

@@ -8,11 +8,14 @@ import { DataLogFile } from './dataLogFile.model';
 export class Database {
   constructor(
     public databaseId?: number,
+    public name?: string,
     public company?: Company,
     public product?: Product,
     public environmentType?: EnvironmentType,
     public main?: boolean,
     public server?: Server,
+    public instance?: string,
+    public hash?: string,
     public mdfInformation?: DataLogFile,
     public ldfInformation?: DataLogFile,
     public lastBackupDate?: string,
@@ -25,3 +28,5 @@ export class Database {
     public comments?: string
   ) { }
 }
+
+

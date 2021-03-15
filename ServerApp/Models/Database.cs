@@ -8,8 +8,8 @@ namespace ServerApp.Models
     public class Database
     {
         public long DatabaseId { get; set; }
+        public DatabaseVendor Vendor { get; set; }
         public string Name { get; set; }
-        public Company Company { get; set; }
         public Product Product { get; set; }
         public EnvironmentType environmentType { get; set; }
         //public Models.OperatingSystem OperatingSystem { get; set; }

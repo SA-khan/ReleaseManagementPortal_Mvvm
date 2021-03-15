@@ -13,9 +13,11 @@ namespace ServerApp.Models
         public DbSet<AppArchitype> AppArchitypes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Corporation> Corporations { get; set; }
         public DbSet<ClientBrowserSupport> ClientBrowserSupport { get; set; }
         public DbSet<ClientBrowser> ClientBrowsers { get; set; }
         public DbSet<Database> Databases { get; set; }
+        public DbSet<DatabaseVendor> DatabaseVendors { get; set; }
         public DbSet<DataLogFile> DataLogFiles { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Rank> Ranks { get; set; }

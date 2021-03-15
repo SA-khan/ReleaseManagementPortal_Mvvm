@@ -962,9 +962,11 @@ namespace ServerApp.Migrations
                     ApiId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Hash = table.Column<string>(nullable: true),
+                    FolderHash = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    DirectoryLocation = table.Column<string>(nullable: true),
+                    DescriptionProductId = table.Column<long>(nullable: true),
                     TagLine = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
                     EnvironmentId = table.Column<long>(nullable: true),
                     Main = table.Column<bool>(nullable: false),
                     Comments = table.Column<string>(nullable: true)
@@ -972,6 +974,12 @@ namespace ServerApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Apis", x => x.ApiId);
+                    table.ForeignKey(
+                        name: "FK_Apis_Products_DescriptionProductId",
+                        column: x => x.DescriptionProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Apis_Environments_EnvironmentId",
                         column: x => x.EnvironmentId,
@@ -1193,6 +1201,11 @@ namespace ServerApp.Migrations
                         principalColumn: "ProductPrerequisiteId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apis_DescriptionProductId",
+                table: "Apis",
+                column: "DescriptionProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Apis_EnvironmentId",

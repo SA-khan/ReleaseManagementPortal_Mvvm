@@ -1,124 +1,482 @@
-<table class="table table-sm">
-  <thead>
-    <tr>
-      <th colspan="2">Environment Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Environment ID</td>
-      <td>{{ environment?.environmentId || "Loading.." }}</td>
-    </tr>
-    <tr>
-      <td>Title</td>
-      <td>{{ environment?.title }}</td>
-    </tr>
-    <tr>
-      <td>Description</td>
-      <td>{{ environment?.description }}</td>
-    </tr>
-    <tr>
-      <td>Server</td>
-      <td> {{ environment?.server?.serverType?.category }} </td>
-    </tr>
-    <tr>
-      <td>Running Operating System</td>
-      <td> {{ environment?.server?.operatingSystem?.name }} {{ environment?.server?.operatingSystem?.version }} </td>
-    </tr>
-    <tr>
-      <td>I.P.</td>
-      <td> {{ environment?.server?.ip }} </td>
-    </tr>
-    <tr>
-      <td>User ID</td>
-      <td> {{ environment?.server?.domain }} \ {{ environment?.server?.userId }} </td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td> {{ environment?.server?.password }} </td>
-    </tr>
-    <tr>
-      <td>Web Server</td>
-      <td>{{ environment?.webServer?.name }} Version {{ environment?.webServer?.version }}</td>
-    </tr>
-    <tr>
-      <td>Website Link</td>
-      <td>{{ environment?.applicationHyperLink }}</td>
-    </tr>
-    <tr>
-      <td>Working Directory</td>
-      <td>{{ environment?.workingDirectory }}</td>
-    </tr>
-    <tr>
-      <td>Dependency</td>
-      <td>{{ environment?.dependency }}</td>
-    </tr>
-    <tr>
-      <td>Company</td>
-      <td>{{ environment?.company?.name }}</td>
-    </tr>
-    <tr>
-      <td>Company Type</td>
-      <td>{{ environment?.company?.industry?.name }}</td>
-    </tr>
-    <tr>
-      <td>Application</td>
-      <td>{{ environment?.product?.name }}</td>
-    </tr>
-    <tr>
-      <td>Application Category</td>
-      <td>{{ environment?.product?.category }}</td>
-    </tr>
-    <tr>
-      <td>Environment</td>
-      <td>{{ environment?.environmentType?.name }}</td>
-    </tr>
-    <tr>
-      <td>Docker Support Available</td>
-      <td>{{ environment?.dockerized }}</td>
-    </tr>
-    <tr>
-      <td>Docker Image Link</td>
-      <td>{{ environment?.dockerImage }}</td>
-    </tr>
-    <tr>
-      <td>Docker Image Description</td>
-      <td>{{ environment?.dockerDescription }}</td>
-    </tr>
-    <tr>
-      <td>Environment Updated</td>
-      <td>{{ environment?.updated }}</td>
-    </tr>
-    <tr>
-      <td>Health Check Perform Date</td>
-      <td>{{ environment?.lastHealthCheck?.date }}</td>
-    </tr>
-    <tr>
-      <td>Health Check Status</td>
-      <td>{{ environment?.lastHealthCheck?.passed }}</td>
-    </tr>
-    <tr>
-      <td>Environment Created Date</td>
-      <td>{{ environment?.createdDate }}</td>
-    </tr>
-    <tr>
-      <td>Modified Date</td>
-      <td>{{ environment?.modifiedDate }}</td>
-    </tr>
-    <tr>
-      <td>Logo</td>
-      <td>{{ environment?.logo }}</td>
-    </tr>
-    <tr>
-      <td>Remarks</td>
-      <td>{{ environment?.remarks }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="m-1 p-1" *ngIf="environment?.title != null; else nodata">
+  <div class="container border border-dark">
+    <div class="row">
+      <div class="col-sm-3 p-1 align-items-center">
+        <img class="img-thumbnail card-img-bottom align-content-around" src="{{ environment?.logo }}" style="width:220px;height:180px;" />
+      </div>
+      <div class="col-sm-9 p-1">
+        <div class="align-content-sm-center">
+          <div class="container p-2">
+            <div class="row">
+              <div class="col-6">
+                <div class="h2 p-2" style="font-family:Tahoma">{{ environment?.title || "Loading.." }}</div>
+                <div class="p-2">
+                  <div class="row">
+                    <div class="col">
+                      <img class="img-thumbnail card-img-bottom align-content-around m-1 uk-display-inline" src="{{ environment?.product?.logo }}" style="width:70px;height:50px;" />
+                    </div>
+                    <div class="col float-left uk-align-right">
+                      <div class="h4 m-1 p-2" style="font-family:Tahoma">{{ environment?.product?.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom align-text-bottom">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="{{ environment?.company?.logo }}" style="width:160px;height:80px;" />
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    {{ environment?.company?.name }} - {{ environment?.company?.industry?.name }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom text-center">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="{{ environment?.server?.operatingSystem?.logo }}" style="width:160px;height:80px;" />
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    {{ environment?.server?.operatingSystem?.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <!--<div class="h4 p-2" style="font-family:Tahoma">{{ product?.type?.name }}</div>-->
+            </div>
+            <div class="col-6">
+              <div class="text-right m-1">
 
-<div class="text-center">
-  <button class="btn btn-primary m-1" [routerLink]="['/environmentoverview']">Back</button>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th class="bg-warning text-center" colspan="2">
+          <div class="h3 p-2" style="font-family:Tahoma">
+            Environment Details
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            ID
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.environmentId }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Title
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.title }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Type
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.environmentType?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Description
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.description }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Company
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.company?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Industry
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.company?.industry?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Application
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.product?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Parent Application
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.product?.parentProduct?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Dependency
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.dependency }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Environment Updated
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.updated }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Modified Date
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.modifiedDate }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Created Date
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.createdDate }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Server Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Name
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            I.P.
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.ip }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Port
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.port }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            User ID
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.domain }} \ {{ environment?.server?.userId }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Password
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.password }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Operating System
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.server?.operatingSystem?.name }} {{ environment?.server?.operatingSystem?.version }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Health Check Status
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.lastHealthCheck?.passed }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Health Check Perform Date
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.lastHealthCheck?.date }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Last Health Check Remarks
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.lastHealthCheck?.remarks }}
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Docker Support Details</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Is Dockerized
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            <div class="h5 p-2" style="font-family:Tahoma">
+              {{ environment?.dockerized }}
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Docker Image URL
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.dockerImage }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Description
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ environment?.dockerDescription }}
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Database Dependencies</th>
+      </tr>
+      <tr *ngFor="let database of environment?.databaseDependency">
+        <td colspan="2">
+          <div class="border border-dark card mx-1" style="font-family:Tahoma">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-3">
+                  {{ database?.databaseId }}
+                </div>
+                <div class="col-sm-3">
+                  {{ database?.vendor?.corporation?.logo }}
+                </div>
+                <div class="col-sm-3">
+                  {{ database?.vendor?.logo }}
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    Server Instance
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    {{ database?.server?.ip }}\{{ database?.instance }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    Database Name
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" value="{{ database?.name }}" id="txt{{ database?.name }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    User ID
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" value="{{ database?.name }}" id="txt{{ database?.name }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    Password
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" value="{{ database?.password }}" id="txt{{ database?.password }}" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">API Dependency</th>
+      </tr>
+
+      <tr *ngIf="environment?.apiDependency.length > 0; else nosource">
+        <td colspan="2">
+          <table>
+            <tr *ngFor="let api of environment?.apiDependency" style="font-family:Tahoma">
+              <td><span class="badge badge-pill">{{ api?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ api?.description || 'None' }} </span></td>
+              <td><span class="badge badge-pill">{{ api?.tagline || 'None' }} </span> </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+  </table>
+
+  <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/environmentoverview">Back</button></div>
+
 </div>
+
+</div>
+
+<ng-template #nodata>
+  <div class="text-center">
+    <img src="../../assets/Loading.gif" />
+  </div>
+</ng-template>
+
+<ng-template #nosource>
+  <div class="text-center">
+    <div class="card border border-light">
+      <h4>
+        No Source Found or Exist.
+      </h4>
+    </div>
+  </div>
+</ng-template>
+
 
 
 
