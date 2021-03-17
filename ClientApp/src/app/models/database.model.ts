@@ -4,11 +4,13 @@ import { EnvironmentType } from "./environmentType.model";
 import { Server } from "./server.model";
 import { User } from "./user.model";
 import { DataLogFile } from './dataLogFile.model';
+import { DatabaseVendor } from "./databaseVendor.model";
 
 export class Database {
   constructor(
     public databaseId?: number,
     public name?: string,
+    public vendor?: DatabaseVendor,
     public company?: Company,
     public product?: Product,
     public environmentType?: EnvironmentType,

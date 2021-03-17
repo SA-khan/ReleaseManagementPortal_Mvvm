@@ -38,6 +38,21 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Corporations",
+                columns: table => new
+                {
+                    CorporationId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Corporations", x => x.CorporationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DatabaseServer",
                 columns: table => new
                 {
@@ -363,6 +378,32 @@ namespace ServerApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WebBrowsers", x => x.WebServerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DatabaseVendors",
+                columns: table => new
+                {
+                    DatabaseVendorId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    CorporationId = table.Column<long>(nullable: true),
+                    Edition = table.Column<string>(nullable: true),
+                    Version = table.Column<string>(nullable: true),
+                    Runtime = table.Column<long>(nullable: false),
+                    Build = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DatabaseVendors", x => x.DatabaseVendorId);
+                    table.ForeignKey(
+                        name: "FK_DatabaseVendors_Corporations_CorporationId",
+                        column: x => x.CorporationId,
+                        principalTable: "Corporations",
+                        principalColumn: "CorporationId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1023,8 +1064,8 @@ namespace ServerApp.Migrations
                 {
                     DatabaseId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    VendorDatabaseVendorId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    CompanyId = table.Column<long>(nullable: true),
                     ProductId = table.Column<long>(nullable: true),
                     EnvironmentTypeId = table.Column<long>(nullable: true),
                     Main = table.Column<bool>(nullable: false),
@@ -1051,12 +1092,6 @@ namespace ServerApp.Migrations
                         column: x => x.BackupTakenPOCUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Databases_Environments_EnvironmentId",
@@ -1099,6 +1134,12 @@ namespace ServerApp.Migrations
                         column: x => x.ServerId,
                         principalTable: "Servers",
                         principalColumn: "ServerId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_DatabaseVendors_VendorDatabaseVendorId",
+                        column: x => x.VendorDatabaseVendorId,
+                        principalTable: "DatabaseVendors",
+                        principalColumn: "DatabaseVendorId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1263,11 +1304,6 @@ namespace ServerApp.Migrations
                 column: "BackupTakenPOCUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Databases_CompanyId",
-                table: "Databases",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Databases_EnvironmentId",
                 table: "Databases",
                 column: "EnvironmentId");
@@ -1301,6 +1337,16 @@ namespace ServerApp.Migrations
                 name: "IX_Databases_ServerId",
                 table: "Databases",
                 column: "ServerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Databases_VendorDatabaseVendorId",
+                table: "Databases",
+                column: "VendorDatabaseVendorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DatabaseVendors_CorporationId",
+                table: "DatabaseVendors",
+                column: "CorporationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Environments_CompanyId",
@@ -1571,6 +1617,9 @@ namespace ServerApp.Migrations
                 name: "ClientBrowsers");
 
             migrationBuilder.DropTable(
+                name: "DatabaseVendors");
+
+            migrationBuilder.DropTable(
                 name: "ProductPrerequisites");
 
             migrationBuilder.DropTable(
@@ -1578,6 +1627,9 @@ namespace ServerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "QualityAssurances");
+
+            migrationBuilder.DropTable(
+                name: "Corporations");
 
             migrationBuilder.DropTable(
                 name: "Companies");

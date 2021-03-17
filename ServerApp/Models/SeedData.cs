@@ -412,6 +412,7 @@ namespace ServerApp.Models
                 DatabaseVendor databaseVendorOracle12C = new DatabaseVendor { Name = "Oracle 12C", Logo = "../../assets/ORACLE_DATABASE_12C.png", Corporation = corporationOracle, Edition = "Developer Edition", Version = "12 C", Build = "-", Runtime = 64 };
                 DatabaseVendor databaseVendorOracle18C = new DatabaseVendor { Name = "Oracle 18C", Logo = "../../assets/ORACLE_DATABASE_18C.png", Corporation = corporationOracle, Edition = "Developer Edition", Version = "18 C", Build = "-", Runtime = 64 };
                 DatabaseVendor databaseVendorOracle19C = new DatabaseVendor { Name = "Oracle 19C", Logo = "../../assets/ORACLE_DATABASE_19C.png", Corporation = corporationOracle, Edition = "Developer Edition", Version = "19 C", Build = "-", Runtime = 64 };
+                DatabaseVendor databaseVendorMySql = new DatabaseVendor { Name = "MySql", Logo = "../../assets/MYSQL_DATABASE.png", Corporation = corporationOracle, Edition = "Developer Edition", Version = "-", Build = "-", Runtime = 64 };
                 context.DatabaseVendors.AddRange(
                     databaseVendorMicrosoftSqlServer2008,
                     databaseVendorMicrosoftSqlServer2012,
@@ -423,7 +424,8 @@ namespace ServerApp.Models
                     databaseVendorOracle11G,
                     databaseVendorOracle12C,
                     databaseVendorOracle18C,
-                    databaseVendorOracle19C
+                    databaseVendorOracle19C,
+                    databaseVendorMySql
                 );
                 // Database Vendor Logic End
 

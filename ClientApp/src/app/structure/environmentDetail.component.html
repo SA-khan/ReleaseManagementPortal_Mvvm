@@ -121,7 +121,8 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ environment?.company?.name }}
+            <a href="/detail/{{ environment?.company?.companyId }}" target="_blank">{{ environment?.company?.name }}</a>
+            
           </div>
         </td>
       </tr>
@@ -145,7 +146,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ environment?.product?.name }}
+            <a href="/productdetail/{{ environment?.product?.productId }}" target="_blank">{{ environment?.product?.name }}</a>
           </div>
         </td>
       </tr>
@@ -193,7 +194,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ environment?.modifiedDate }}
+            {{ environment?.modifiedDate.substring(0, 10) }}
           </div>
         </td>
       </tr>
@@ -205,7 +206,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ environment?.createdDate }}
+            {{ environment?.createdDate.substring(0, 10) }}
           </div>
         </td>
       </tr>
@@ -316,7 +317,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ environment?.lastHealthCheck?.remarks }}
+            {{ environment?.lastHealthCheck?.description }}
           </div>
         </td>
       </tr>
@@ -333,9 +334,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            <div class="h5 p-2" style="font-family:Tahoma">
-              {{ environment?.dockerized }}
-            </div>
+              {{ environment?.dockerized.toupper() }}
           </div>
         </td>
       </tr>
@@ -370,8 +369,8 @@
       <tr *ngFor="let database of environment?.databaseDependency">
         <td colspan="2">
           <div class="border border-dark card mx-1" style="font-family:Tahoma">
-            <div class="container">
-              <div class="row">
+            <div class="container bg-warning">
+              <div class="row p-1">
                 <div class="col-sm-3">
                   {{ database?.databaseId }}
                 </div>
@@ -393,7 +392,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    {{ database?.server?.ip }}\{{ database?.instance }}
+                    <input type="text" value="{{ database?.server?.ip }}\{{ database?.instance }}" id="txt_{{ database?.server?.ip }}_{{ database?.instance }}" />
                   </div>
                 </div>
               </div>
@@ -417,7 +416,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.name }}" id="txt{{ database?.name }}" />
+                    <input type="text" value="{{ database?.server?.userId }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_userid_{{ database?.server?.userId }}" />
                   </div>
                 </div>
               </div>
@@ -429,7 +428,19 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.password }}" id="txt{{ database?.password }}" />
+                    <input type="text" value="{{ database?.server?.password }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_pwd_{{ database?.server?.password }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    
+                  </div>
+                </div>
+                <div class="col-sm-6 float-right text-center">
+                  <div class="h5 p-2">
+                    <input class="btn btn-danger btn-sm m-1" type="button" value="UPDATE" style="font-family:Tahoma" id="btn_env_{{ environment?.environmentId }}_server_{{ database?.server?.ip }}\{{ database?.instance }}_db_{{ database?.name }}_userid_{{ database?.server?.userId }}_pwd_{{ database?.server?.password }}" (click)="databaseupdate(database)" />
                   </div>
                 </div>
               </div>

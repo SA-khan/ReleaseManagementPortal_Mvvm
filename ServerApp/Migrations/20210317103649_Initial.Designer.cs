@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210315094648_Initial")]
+    [Migration("20210317103649_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,6 +258,27 @@ namespace ServerApp.Migrations
                     b.ToTable("Financials");
                 });
 
+            modelBuilder.Entity("ServerApp.Models.Corporation", b =>
+                {
+                    b.Property<long>("CorporationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CorporationId");
+
+                    b.ToTable("Corporations");
+                });
+
             modelBuilder.Entity("ServerApp.Models.DataLogFile", b =>
                 {
                     b.Property<long>("DataLogFileId")
@@ -297,9 +318,6 @@ namespace ServerApp.Migrations
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("CompanyId")
-                        .HasColumnType("bigint");
 
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
@@ -343,11 +361,12 @@ namespace ServerApp.Migrations
                     b.Property<long?>("ServerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("VendorDatabaseVendorId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("DatabaseId");
 
                     b.HasIndex("BackupTakenPOCUserId");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("EnvironmentId");
 
@@ -362,6 +381,8 @@ namespace ServerApp.Migrations
                     b.HasIndex("RestoredPOCUserId");
 
                     b.HasIndex("ServerId");
+
+                    b.HasIndex("VendorDatabaseVendorId");
 
                     b.ToTable("Databases");
                 });
@@ -400,6 +421,44 @@ namespace ServerApp.Migrations
                     b.HasKey("DatabaseServerId");
 
                     b.ToTable("DatabaseServer");
+                });
+
+            modelBuilder.Entity("ServerApp.Models.DatabaseVendor", b =>
+                {
+                    b.Property<long>("DatabaseVendorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Build")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("CorporationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Edition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Runtime")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DatabaseVendorId");
+
+                    b.HasIndex("CorporationId");
+
+                    b.ToTable("DatabaseVendors");
                 });
 
             modelBuilder.Entity("ServerApp.Models.Department", b =>
@@ -1695,10 +1754,6 @@ namespace ServerApp.Migrations
                         .WithMany()
                         .HasForeignKey("BackupTakenPOCUserId");
 
-                    b.HasOne("ServerApp.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId");
-
                     b.HasOne("ServerApp.Models.Environment", null)
                         .WithMany("DatabaseDependency")
                         .HasForeignKey("EnvironmentId");
@@ -1726,6 +1781,17 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.Server", "Server")
                         .WithMany()
                         .HasForeignKey("ServerId");
+
+                    b.HasOne("ServerApp.Models.DatabaseVendor", "Vendor")
+                        .WithMany()
+                        .HasForeignKey("VendorDatabaseVendorId");
+                });
+
+            modelBuilder.Entity("ServerApp.Models.DatabaseVendor", b =>
+                {
+                    b.HasOne("ServerApp.Models.Corporation", "Corporation")
+                        .WithMany()
+                        .HasForeignKey("CorporationId");
                 });
 
             modelBuilder.Entity("ServerApp.Models.Environment", b =>
