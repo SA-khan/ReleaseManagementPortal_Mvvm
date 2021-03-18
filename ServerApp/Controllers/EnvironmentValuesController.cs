@@ -22,7 +22,7 @@ namespace ServerApp.Controllers
         [HttpGet("{id}")]
         public IActionResult GetEnvironment(long id)
         {
-            Models.Environment env = _context.Environments.Include(e => e.Company).ThenInclude(e => e.Industry).Include(e => e.EnvironmentType).Include(e => e.DatabaseDependency).ThenInclude( e => e.Server ).Include(e => e.ApiDependency).Include(e => e.LastHealthCheck).Include(e => e.Product).Include(e => e.Server).ThenInclude(e => e.ServerType).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include(e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
+            Models.Environment env = _context.Environments.Include(e => e.Company).ThenInclude(e => e.Industry).Include(e => e.EnvironmentType).Include(e => e.DatabaseDependency).ThenInclude( e => e.Server ).Include(e => e.DatabaseDependency).ThenInclude(e => e.DatabaseVendor).ThenInclude(e => e.Corporation).Include(e => e.ApiDependency).Include(e => e.LastHealthCheck).Include(e => e.Product).Include(e => e.Server).ThenInclude(e => e.ServerType).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include(e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
             if(env.ApiDependency != null)
             {
                 env.ApiDependency.ForEach(ap => ap.Environment = null );

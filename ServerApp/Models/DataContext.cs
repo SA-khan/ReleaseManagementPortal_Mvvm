@@ -23,6 +23,7 @@ namespace ServerApp.Models
         public DbSet<Rank> Ranks { get; set; }
         public DbSet<Environment> Environments { get; set; }
         public DbSet<EnvironmentType> EnvironmentTypes { get; set; }
+        public DbSet<CompanyFinancial> Financials { get; set; }
         public DbSet<HealthCheck> HealthChecks { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<Language> Languages { get; set; }
@@ -42,10 +43,11 @@ namespace ServerApp.Models
         public DbSet<ServerType> ServerTypes { get; set; }
         public DbSet<Server> Servers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<TechnicalVendor> TechnicalVendors { get; set; }
+        public DbSet<TechnicalVendorSupport> TechnicalVendorSupport { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<WebServer> WebBrowsers { get; set; }
-        public DbSet<CompanyFinancial> Financials { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

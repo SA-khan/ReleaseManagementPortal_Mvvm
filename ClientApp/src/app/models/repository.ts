@@ -5,6 +5,7 @@ import { Filter, Pagination } from "./configCompanies.repository";
 import { Product } from './product.model';
 import { Environment } from './environment.model';
 import { Release } from "./release.model";
+import { Database } from "./database.model";
 
 const companiesUrl = "api/companies";
 const productsUrl = "api/products";
@@ -82,6 +83,11 @@ export class Repository {
 
   getEnvironment(id: number) {
     this.http.get<Environment>(`${environmentUrl}/${id}`).subscribe(env => this.environment = env);
+  }
+
+  setEnvironment(database: Database): boolean {
+    //this.http.patch
+    return true;
   }
 
   getEnvironments() {

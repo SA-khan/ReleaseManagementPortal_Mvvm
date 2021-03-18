@@ -407,6 +407,28 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TechnicalVendors",
+                columns: table => new
+                {
+                    TechnicalVendorId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Logo = table.Column<string>(nullable: true),
+                    CorporationId = table.Column<long>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TechnicalVendors", x => x.TechnicalVendorId);
+                    table.ForeignKey(
+                        name: "FK_TechnicalVendors_Corporations_CorporationId",
+                        column: x => x.CorporationId,
+                        principalTable: "Corporations",
+                        principalColumn: "CorporationId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -815,6 +837,7 @@ namespace ServerApp.Migrations
                     Updated = table.Column<bool>(nullable: false),
                     masterReleaseLink = table.Column<string>(nullable: true),
                     masterReleaseWorkingDirecotory = table.Column<string>(nullable: true),
+                    QualityAssuranceId = table.Column<long>(nullable: true),
                     ReleaseNotes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -825,6 +848,12 @@ namespace ServerApp.Migrations
                         column: x => x.ParentProductId,
                         principalTable: "ParentProducts",
                         principalColumn: "ParentProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_QualityAssurances_QualityAssuranceId",
+                        column: x => x.QualityAssuranceId,
+                        principalTable: "QualityAssurances",
+                        principalColumn: "QualityAssuranceId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Products_Suppliers_SupplierId",
@@ -997,6 +1026,32 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TechnicalVendorSupport",
+                columns: table => new
+                {
+                    TechnicalVendorSupportId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TechnicalVendorId = table.Column<long>(nullable: true),
+                    ProductId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TechnicalVendorSupport", x => x.TechnicalVendorSupportId);
+                    table.ForeignKey(
+                        name: "FK_TechnicalVendorSupport_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TechnicalVendorSupport_TechnicalVendors_TechnicalVendorId",
+                        column: x => x.TechnicalVendorId,
+                        principalTable: "TechnicalVendors",
+                        principalColumn: "TechnicalVendorId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Apis",
                 columns: table => new
                 {
@@ -1064,7 +1119,7 @@ namespace ServerApp.Migrations
                 {
                     DatabaseId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VendorDatabaseVendorId = table.Column<long>(nullable: true),
+                    DatabaseVendorId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ProductId = table.Column<long>(nullable: true),
                     EnvironmentTypeId = table.Column<long>(nullable: true),
@@ -1092,6 +1147,12 @@ namespace ServerApp.Migrations
                         column: x => x.BackupTakenPOCUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_DatabaseVendors_DatabaseVendorId",
+                        column: x => x.DatabaseVendorId,
+                        principalTable: "DatabaseVendors",
+                        principalColumn: "DatabaseVendorId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Databases_Environments_EnvironmentId",
@@ -1134,12 +1195,6 @@ namespace ServerApp.Migrations
                         column: x => x.ServerId,
                         principalTable: "Servers",
                         principalColumn: "ServerId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_DatabaseVendors_VendorDatabaseVendorId",
-                        column: x => x.VendorDatabaseVendorId,
-                        principalTable: "DatabaseVendors",
-                        principalColumn: "DatabaseVendorId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1304,6 +1359,11 @@ namespace ServerApp.Migrations
                 column: "BackupTakenPOCUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Databases_DatabaseVendorId",
+                table: "Databases",
+                column: "DatabaseVendorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Databases_EnvironmentId",
                 table: "Databases",
                 column: "EnvironmentId");
@@ -1337,11 +1397,6 @@ namespace ServerApp.Migrations
                 name: "IX_Databases_ServerId",
                 table: "Databases",
                 column: "ServerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Databases_VendorDatabaseVendorId",
-                table: "Databases",
-                column: "VendorDatabaseVendorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DatabaseVendors_CorporationId",
@@ -1432,6 +1487,11 @@ namespace ServerApp.Migrations
                 name: "IX_Products_ParentProductId",
                 table: "Products",
                 column: "ParentProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_QualityAssuranceId",
+                table: "Products",
+                column: "QualityAssuranceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SupplierId",
@@ -1539,6 +1599,21 @@ namespace ServerApp.Migrations
                 column: "WebServerSupportWebServerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TechnicalVendors_CorporationId",
+                table: "TechnicalVendors",
+                column: "CorporationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TechnicalVendorSupport_ProductId",
+                table: "TechnicalVendorSupport",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TechnicalVendorSupport_TechnicalVendorId",
+                table: "TechnicalVendorSupport",
+                column: "TechnicalVendorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_DepartmentId",
                 table: "Users",
                 column: "DepartmentId");
@@ -1614,6 +1689,9 @@ namespace ServerApp.Migrations
                 name: "Releases");
 
             migrationBuilder.DropTable(
+                name: "TechnicalVendorSupport");
+
+            migrationBuilder.DropTable(
                 name: "ClientBrowsers");
 
             migrationBuilder.DropTable(
@@ -1626,10 +1704,7 @@ namespace ServerApp.Migrations
                 name: "Environments");
 
             migrationBuilder.DropTable(
-                name: "QualityAssurances");
-
-            migrationBuilder.DropTable(
-                name: "Corporations");
+                name: "TechnicalVendors");
 
             migrationBuilder.DropTable(
                 name: "Companies");
@@ -1647,10 +1722,16 @@ namespace ServerApp.Migrations
                 name: "Servers");
 
             migrationBuilder.DropTable(
+                name: "Corporations");
+
+            migrationBuilder.DropTable(
                 name: "Industries");
 
             migrationBuilder.DropTable(
                 name: "ParentProducts");
+
+            migrationBuilder.DropTable(
+                name: "QualityAssurances");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

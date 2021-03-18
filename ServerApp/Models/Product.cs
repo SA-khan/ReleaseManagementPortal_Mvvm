@@ -22,6 +22,8 @@ namespace ServerApp.Models
         public bool Updated { get; set; }
         public string masterReleaseLink { get; set; }
         public string masterReleaseWorkingDirecotory { get; set; }
+        public QualityAssurance QualityAssurance { get; set; }
+        public List<TechnicalVendorSupport> TechnicalVendorSupports { get; set; }
         public List<ClientBrowserSupport> ClientBrowserSupports { get; set; }
         public string ReleaseNotes { get; set; }
     }

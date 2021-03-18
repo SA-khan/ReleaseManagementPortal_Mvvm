@@ -10,7 +10,7 @@ export class Database {
   constructor(
     public databaseId?: number,
     public name?: string,
-    public vendor?: DatabaseVendor,
+    public databaseVendor?: DatabaseVendor,
     public company?: Company,
     public product?: Product,
     public environmentType?: EnvironmentType,

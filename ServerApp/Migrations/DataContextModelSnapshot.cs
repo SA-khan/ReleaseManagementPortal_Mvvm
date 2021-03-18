@@ -317,6 +317,9 @@ namespace ServerApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("DatabaseVendorId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
 
@@ -359,12 +362,11 @@ namespace ServerApp.Migrations
                     b.Property<long?>("ServerId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("VendorDatabaseVendorId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("DatabaseId");
 
                     b.HasIndex("BackupTakenPOCUserId");
+
+                    b.HasIndex("DatabaseVendorId");
 
                     b.HasIndex("EnvironmentId");
 
@@ -379,8 +381,6 @@ namespace ServerApp.Migrations
                     b.HasIndex("RestoredPOCUserId");
 
                     b.HasIndex("ServerId");
-
-                    b.HasIndex("VendorDatabaseVendorId");
 
                     b.ToTable("Databases");
                 });
@@ -1015,6 +1015,9 @@ namespace ServerApp.Migrations
                     b.Property<long?>("ParentProductId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("QualityAssuranceId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("ReleaseNotes")
                         .HasColumnType("nvarchar(max)");
 
@@ -1036,6 +1039,8 @@ namespace ServerApp.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("ParentProductId");
+
+                    b.HasIndex("QualityAssuranceId");
 
                     b.HasIndex("SupplierId");
 
@@ -1503,6 +1508,54 @@ namespace ServerApp.Migrations
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("ServerApp.Models.TechnicalVendor", b =>
+                {
+                    b.Property<long>("TechnicalVendorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CorporationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TechnicalVendorId");
+
+                    b.HasIndex("CorporationId");
+
+                    b.ToTable("TechnicalVendors");
+                });
+
+            modelBuilder.Entity("ServerApp.Models.TechnicalVendorSupport", b =>
+                {
+                    b.Property<long>("TechnicalVendorSupportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TechnicalVendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("TechnicalVendorSupportId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TechnicalVendorId");
+
+                    b.ToTable("TechnicalVendorSupport");
+                });
+
             modelBuilder.Entity("ServerApp.Models.Theme", b =>
                 {
                     b.Property<long>("ThemeId")
@@ -1752,11 +1805,15 @@ namespace ServerApp.Migrations
                         .WithMany()
                         .HasForeignKey("BackupTakenPOCUserId");
 
+                    b.HasOne("ServerApp.Models.DatabaseVendor", "DatabaseVendor")
+                        .WithMany()
+                        .HasForeignKey("DatabaseVendorId");
+
                     b.HasOne("ServerApp.Models.Environment", null)
                         .WithMany("DatabaseDependency")
                         .HasForeignKey("EnvironmentId");
 
-                    b.HasOne("ServerApp.Models.EnvironmentType", "environmentType")
+                    b.HasOne("ServerApp.Models.EnvironmentType", "EnvironmentType")
                         .WithMany()
                         .HasForeignKey("EnvironmentTypeId");
 
@@ -1779,10 +1836,6 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.Server", "Server")
                         .WithMany()
                         .HasForeignKey("ServerId");
-
-                    b.HasOne("ServerApp.Models.DatabaseVendor", "Vendor")
-                        .WithMany()
-                        .HasForeignKey("VendorDatabaseVendorId");
                 });
 
             modelBuilder.Entity("ServerApp.Models.DatabaseVendor", b =>
@@ -1865,6 +1918,10 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.ParentProduct", "ParentProduct")
                         .WithMany()
                         .HasForeignKey("ParentProductId");
+
+                    b.HasOne("ServerApp.Models.QualityAssurance", "QualityAssurance")
+                        .WithMany()
+                        .HasForeignKey("QualityAssuranceId");
 
                     b.HasOne("ServerApp.Models.Supplier", "Supplier")
                         .WithMany("Products")
@@ -1968,6 +2025,24 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.WebServer", "WebServerSupport")
                         .WithMany()
                         .HasForeignKey("WebServerSupportWebServerId");
+                });
+
+            modelBuilder.Entity("ServerApp.Models.TechnicalVendor", b =>
+                {
+                    b.HasOne("ServerApp.Models.Corporation", "Corporation")
+                        .WithMany()
+                        .HasForeignKey("CorporationId");
+                });
+
+            modelBuilder.Entity("ServerApp.Models.TechnicalVendorSupport", b =>
+                {
+                    b.HasOne("ServerApp.Models.Product", null)
+                        .WithMany("TechnicalVendorSupports")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("ServerApp.Models.TechnicalVendor", "TechnicalVendor")
+                        .WithMany()
+                        .HasForeignKey("TechnicalVendorId");
                 });
 
             modelBuilder.Entity("ServerApp.Models.User", b =>
