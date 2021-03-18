@@ -11,7 +11,7 @@ import { Database } from '../models/database.model';
 
 export class EnvironmentDetailComponent {
 
-  publiic databaseUpdateStatus: boolean;
+  public databaseUpdateStatus: boolean;
 
   constructor(private repo: Repository, private router: Router, activateRoute: ActivatedRoute) {
     let id = Number.parseInt(activateRoute.snapshot.params["id"]);
