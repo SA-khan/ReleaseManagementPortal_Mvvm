@@ -11,8 +11,7 @@ namespace ServerApp.Models
         public DatabaseVendor DatabaseVendor { get; set; }
         public string Name { get; set; }
         public Product Product { get; set; }
-        public EnvironmentType EnvironmentType { get; set; }
-        //public Models.OperatingSystem OperatingSystem { get; set; }
+        public Environment Environment { get; set; }
         public bool Main { get; set; }
         public Server Server { get; set; }
         public string Instance { get; set; }

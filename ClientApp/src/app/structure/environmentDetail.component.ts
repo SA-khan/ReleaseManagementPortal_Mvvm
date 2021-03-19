@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Repository } from "../models/repository";
 import { Environment } from '../models/environment.model';
@@ -27,9 +27,13 @@ export class EnvironmentDetailComponent {
     return this.repo.environment;
   }
 
-  databaseupdate(database: Database) {
-    console.log('Database ID: ' + database.databaseId);
-    this.databaseUpdateStatus = this.repo.setEnvironment(database);
+  databaseupdate(envId: number, databaseId: number, databaseName: string, serverName: string, userId: string, password: string) {
+    console.log('Database ID: ' + databaseId);
+    let changes = new Map<string, any>();
+    changes.set("name", databaseName);
+    //changes.set("server", 1);
+    this.databaseUpdateStatus = this.repo.updateDatabase(databaseId, changes);
+    this.router.navigateByUrl('/environmentoverview/');
   }
 
 }

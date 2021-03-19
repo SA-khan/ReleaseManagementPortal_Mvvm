@@ -11,6 +11,7 @@ const companiesUrl = "api/companies";
 const productsUrl = "api/products";
 const environmentUrl = "api/environments";
 const releaseUrl = "api/releases";
+const databaseUrl = "api/databases";
 
 type environmentsMetadata = { envsdata: Environment[], environmenttypes: string[], companies: string[], products: string[]  }
 
@@ -25,6 +26,9 @@ export class Repository {
 
   environment: Environment;
   environments: Environment[];
+
+  database: Database;
+  databases: Database[];
 
   environmentTypes: string[];
 
@@ -87,6 +91,17 @@ export class Repository {
 
   setEnvironment(database: Database): boolean {
     //this.http.patch
+    return true;
+  }
+
+  getDatabases() {
+    this.http.get<Database[]>(`${databaseUrl}`).subscribe(dbs => this.databases = dbs);
+  }
+
+  updateDatabase(id: number, changes: Map<string, any>): boolean {
+    let patch = [];
+    changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch(`${databaseUrl}/${id}`, patch).subscribe(() => this.getDatabases);
     return true;
   }
 

@@ -336,7 +336,7 @@
         </td>
         <td>
           <div *ngIf="environment?.dockerized == true;else crossed" class="h5 p-2" style="font-family:Tahoma">
-            <img src="../../assets/tick.png" />
+            <img src="../../assets/tick.png" style="float:left;width:15px;height:15px;" />
           </div>
         </td>
       </tr>
@@ -371,7 +371,7 @@
       <tr *ngFor="let database of environment?.databaseDependency">
         <td colspan="2">
           <div class="border border-dark card mx-1" style="font-family:Tahoma">
-            <div class="container bg-warning">
+            <div class="container bg-light">
               <div class="row p-1">
                 <div class="col-sm-3">
                   <img src="{{ database?.databaseVendor?.corporation?.logo }}" width="80" height="80" />
@@ -416,7 +416,10 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.name }}" id="txt{{ database?.name }}" />
+                    {{ database?.name }}
+                  </div>
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" [(ngModel)]="databaseName" value="{{ database?.name }}" id="txt{{ database?.name }}" />
                   </div>
                 </div>
               </div>
@@ -450,9 +453,9 @@
                     
                   </div>
                 </div>
-                <div class="col-sm-6 float-right text-center">
+                <div class="col-sm-6 text-center">
                   <div class="h5 p-2">
-                    <input class="btn btn-danger btn-sm m-1" type="button" [ngStyle]="{'background-color' : toggle ? 'yellow' : 'pink'}" value="UPDATE" style="font-family:Tahoma" id="btn_env_{{ environment?.environmentId }}_server_{{ database?.server?.ip }}\{{ database?.instance }}_db_{{ database?.name }}_userid_{{ database?.server?.userId }}_pwd_{{ database?.server?.password }}" (click)="databaseupdate(database)" />
+                    <input class="btn " type="button" [ngStyle]="{'background-color' : toggle ? 'red' : 'yellow'}" value="UPDATE" style="font-family:Tahoma" id="btn_env_{{ environment?.environmentId }}_server_{{ database?.server?.ip }}\{{ database?.instance }}_db_{{ database?.name }}_userid_{{ database?.server?.userId }}_pwd_{{ database?.server?.password }}" (click)="databaseupdate( environment?.environmentId,database.databaseId, databaseName, 'uha', 'uha123')" />
                   </div>
                 </div>
               </div>
@@ -492,17 +495,15 @@
 
 <ng-template #crossed>
   <div class="text-center">
-    <img src="../../assets/cross.png" style="width:80px;height:60px;" />
+    <img src="../../assets/cross.png" style="float:left;width:15px;height:15px;" />
   </div>
 </ng-template>
 
 <ng-template #nosource>
-  <div class="text-center">
-    <div class="card border border-light m-2">
-      <h4>
+  <div class="text-center h-100 m-2 p-2 ">
+
         No Source Found or Exist.
-      </h4>
-    </div>
+
   </div>
 </ng-template>
 

@@ -23,7 +23,11 @@ namespace ServerApp.Controllers
         public IActionResult GetEnvironment(long id)
         {
             Models.Environment env = _context.Environments.Include(e => e.Company).ThenInclude(e => e.Industry).Include(e => e.EnvironmentType).Include(e => e.DatabaseDependency).ThenInclude( e => e.Server ).Include(e => e.DatabaseDependency).ThenInclude(e => e.DatabaseVendor).ThenInclude(e => e.Corporation).Include(e => e.ApiDependency).Include(e => e.LastHealthCheck).Include(e => e.Product).Include(e => e.Server).ThenInclude(e => e.ServerType).Include(e => e.Server).ThenInclude(e => e.operatingSystem).Include(e => e.WebServer).FirstOrDefault(e => e.EnvironmentId == id);
-            if(env.ApiDependency != null)
+            if (env.DatabaseDependency != null)
+            {
+                env.DatabaseDependency.ForEach(db => db.Environment = null);
+            }
+            if (env.ApiDependency != null)
             {
                 env.ApiDependency.ForEach(ap => ap.Environment = null );
             }
@@ -138,7 +142,7 @@ namespace ServerApp.Controllers
                     }
                     if (e.DatabaseDependency != null)
                     {
-                        //e.DatabaseDependency.ForEach(ev => ev.);
+                        e.DatabaseDependency.ForEach(ev => ev.Environment = null);
                     }
                 });
 
@@ -283,6 +287,8 @@ namespace ServerApp.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+
 
         [HttpDelete("{id}")]
         public IActionResult DeleteEnvironment(long id)
