@@ -66,6 +66,7 @@ namespace ServerApp.Controllers
         {
             Database database = _context.Databases.Include(d => d.DatabaseVendor).ThenInclude(d => d.Corporation).Include(d => d.BackupTakenPOC).Include(d => d.LdfInformation).Include(d => d.MdfInformation).Include(d => d.Product).Include(d => d.RestoredPOC).Include(d => d.Server).First(p => p.DatabaseId == id);
             string _databaseOldName = database.Name;
+            string _databaseOldInstance = database.Instance;
             DatabaseData dData = new DatabaseData { Database = database };
             patch.ApplyTo(dData, ModelState);
             if (ModelState.IsValid && TryValidateModel(dData))
@@ -112,7 +113,7 @@ namespace ServerApp.Controllers
                 try
                 {
                     string text = System.IO.File.ReadAllText(env.WorkingDirectory + "/web.config");
-                    text = text.Replace(_databaseOldName, database.Name);
+                    text = text.Replace(_databaseOldName, database.Name).Replace(_databaseOldInstance, database.Instance);
                     System.IO.File.WriteAllText(env.WorkingDirectory + "/web.config", text);
                     return Ok();
                 }

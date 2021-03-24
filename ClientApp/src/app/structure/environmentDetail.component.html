@@ -404,7 +404,10 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.server?.ip }}\{{ database?.instance }}" id="txt_{{ database?.server?.ip }}_{{ database?.instance }}" />
+                    {{ database?.server?.ip }}\{{ database?.instance }}
+                  </div>
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" [(ngModel)]="databaseServerWithInstance" value="" id="txt_{{ database?.server?.ip }}_{{ database?.instance }}" />
                   </div>
                 </div>
               </div>
@@ -431,7 +434,10 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.server?.userId }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_userid_{{ database?.server?.userId }}" />
+                    {{ database?.server?.userId }}
+                  </div>
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" [(ngModel)]="databaseUserId" value="{{ database?.server?.userId }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_userid_{{ database?.server?.userId }}" />
                   </div>
                 </div>
               </div>
@@ -443,7 +449,10 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" value="{{ database?.server?.password }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_pwd_{{ database?.server?.password }}" />
+                    {{ database?.server?.password }}
+                  </div>
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    <input type="text" [(ngModel)]="databasePassword" value="{{ database?.server?.password }}" id="txt_env_{{ environment?.environmentId }}_db_{{ database?.databaseId }}_{{ database?.name }}_pwd_{{ database?.server?.password }}" />
                   </div>
                 </div>
               </div>
@@ -455,7 +464,7 @@
                 </div>
                 <div class="col-sm-6 text-center">
                   <div class="h5 p-2">
-                    <input class="btn " type="button" [ngStyle]="{'background-color' : toggle ? 'red' : 'yellow'}" value="UPDATE" style="font-family:Tahoma" id="btn_env_{{ environment?.environmentId }}_server_{{ database?.server?.ip }}\{{ database?.instance }}_db_{{ database?.name }}_userid_{{ database?.server?.userId }}_pwd_{{ database?.server?.password }}" (click)="databaseupdate( environment?.environmentId,database.databaseId, databaseName, 'uha', 'uha123')" />
+                    <input class="btn " type="button" [ngStyle]="{'background-color' : toggle ? 'red' : 'yellow'}" value="UPDATE" style="font-family:Tahoma" id="btn_env_{{ environment?.environmentId }}_server_{{ database?.server?.ip }}\{{ database?.instance }}_db_{{ database?.name }}_userid_{{ database?.server?.userId }}_pwd_{{ database?.server?.password }}" (click)="databaseupdate( environment.environmentId, database.databaseId, database.server?.serverId, databaseName, databaseServerWithInstance, databaseUserId, databasePassword)" />
                   </div>
                 </div>
               </div>
@@ -468,7 +477,7 @@
         <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">API Dependency</th>
       </tr>
 
-      <tr *ngIf="environment?.apiDependency.length > 0; else nosource">
+      <tr *ngIf="environment.apiDependency?.length > 0; else nosource">
         <td colspan="2">
           <table>
             <tr *ngFor="let api of environment?.apiDependency" style="font-family:Tahoma">

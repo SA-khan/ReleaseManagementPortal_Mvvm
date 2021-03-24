@@ -15,7 +15,8 @@ namespace ServerApp.Models
         public string Domain { get; set; }
         public string UserId { get; set; }
         public string Password { get; set; }
-        public bool isRemoteBased { get; set; }
+        public bool RemoteEnabled { get; set; }
+        public bool HostMachine { get; set; }
         public bool isVirtualized { get; set; }
         public bool isCloudBased { get; set; }
         public OperatingSystem operatingSystem { get; set; }

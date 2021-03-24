@@ -750,7 +750,8 @@ namespace ServerApp.Migrations
                     Domain = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    isRemoteBased = table.Column<bool>(nullable: false),
+                    RemoteEnabled = table.Column<bool>(nullable: false),
+                    HostMachine = table.Column<bool>(nullable: false),
                     isVirtualized = table.Column<bool>(nullable: false),
                     isCloudBased = table.Column<bool>(nullable: false),
                     OperatingSystemId = table.Column<long>(nullable: true),
@@ -1122,7 +1123,7 @@ namespace ServerApp.Migrations
                     DatabaseVendorId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ProductId = table.Column<long>(nullable: true),
-                    EnvironmentTypeId = table.Column<long>(nullable: true),
+                    EnvironmentId = table.Column<long>(nullable: true),
                     Main = table.Column<bool>(nullable: false),
                     ServerId = table.Column<long>(nullable: true),
                     Instance = table.Column<string>(nullable: true),
@@ -1136,8 +1137,7 @@ namespace ServerApp.Migrations
                     LastRestoredDate = table.Column<DateTime>(nullable: false),
                     RestoredFileName = table.Column<string>(nullable: true),
                     RestoredPOCUserId = table.Column<long>(nullable: true),
-                    Comments = table.Column<string>(nullable: true),
-                    EnvironmentId = table.Column<long>(nullable: true)
+                    Comments = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1159,12 +1159,6 @@ namespace ServerApp.Migrations
                         column: x => x.EnvironmentId,
                         principalTable: "Environments",
                         principalColumn: "EnvironmentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_EnvironmentTypes_EnvironmentTypeId",
-                        column: x => x.EnvironmentTypeId,
-                        principalTable: "EnvironmentTypes",
-                        principalColumn: "EnvironmentTypeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Databases_DataLogFiles_LdfInformationDataLogFileId",
@@ -1367,11 +1361,6 @@ namespace ServerApp.Migrations
                 name: "IX_Databases_EnvironmentId",
                 table: "Databases",
                 column: "EnvironmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Databases_EnvironmentTypeId",
-                table: "Databases",
-                column: "EnvironmentTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Databases_LdfInformationDataLogFileId",

@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210318081752_Initial")]
+    [Migration("20210324100127_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -325,9 +325,6 @@ namespace ServerApp.Migrations
                     b.Property<long?>("EnvironmentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EnvironmentTypeId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 
@@ -371,8 +368,6 @@ namespace ServerApp.Migrations
                     b.HasIndex("DatabaseVendorId");
 
                     b.HasIndex("EnvironmentId");
-
-                    b.HasIndex("EnvironmentTypeId");
 
                     b.HasIndex("LdfInformationDataLogFileId");
 
@@ -1356,6 +1351,9 @@ namespace ServerApp.Migrations
                     b.Property<string>("Domain")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("HostMachine")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("HybridServerSupportHybridServerId")
                         .HasColumnType("bigint");
 
@@ -1385,6 +1383,9 @@ namespace ServerApp.Migrations
 
                     b.Property<string>("Processor")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RemoteEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<long?>("ServerTypeId")
                         .HasColumnType("bigint");
@@ -1423,9 +1424,6 @@ namespace ServerApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("isProxyServer")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isRemoteBased")
                         .HasColumnType("bit");
 
                     b.Property<bool>("isVirtualized")
@@ -1811,13 +1809,9 @@ namespace ServerApp.Migrations
                         .WithMany()
                         .HasForeignKey("DatabaseVendorId");
 
-                    b.HasOne("ServerApp.Models.Environment", null)
+                    b.HasOne("ServerApp.Models.Environment", "Environment")
                         .WithMany("DatabaseDependency")
                         .HasForeignKey("EnvironmentId");
-
-                    b.HasOne("ServerApp.Models.EnvironmentType", "EnvironmentType")
-                        .WithMany()
-                        .HasForeignKey("EnvironmentTypeId");
 
                     b.HasOne("ServerApp.Models.DataLogFile", "LdfInformation")
                         .WithMany()
