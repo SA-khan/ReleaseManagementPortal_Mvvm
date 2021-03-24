@@ -1062,26 +1062,34 @@ namespace ServerApp.Migrations
                     FolderHash = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     DirectoryLocation = table.Column<string>(nullable: true),
-                    DescriptionProductId = table.Column<long>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ProductId = table.Column<long>(nullable: true),
                     TagLine = table.Column<string>(nullable: true),
                     EnvironmentId = table.Column<long>(nullable: true),
                     Main = table.Column<bool>(nullable: false),
-                    Comments = table.Column<string>(nullable: true)
+                    Comments = table.Column<string>(nullable: true),
+                    ApiId1 = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Apis", x => x.ApiId);
                     table.ForeignKey(
-                        name: "FK_Apis_Products_DescriptionProductId",
-                        column: x => x.DescriptionProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
+                        name: "FK_Apis_Apis_ApiId1",
+                        column: x => x.ApiId1,
+                        principalTable: "Apis",
+                        principalColumn: "ApiId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Apis_Environments_EnvironmentId",
                         column: x => x.EnvironmentId,
                         principalTable: "Environments",
                         principalColumn: "EnvironmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Apis_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1111,84 +1119,6 @@ namespace ServerApp.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Databases",
-                columns: table => new
-                {
-                    DatabaseId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DatabaseVendorId = table.Column<long>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    ProductId = table.Column<long>(nullable: true),
-                    EnvironmentId = table.Column<long>(nullable: true),
-                    Main = table.Column<bool>(nullable: false),
-                    ServerId = table.Column<long>(nullable: true),
-                    Instance = table.Column<string>(nullable: true),
-                    Hash = table.Column<string>(nullable: true),
-                    MdfInformationDataLogFileId = table.Column<long>(nullable: true),
-                    LdfInformationDataLogFileId = table.Column<long>(nullable: true),
-                    LastBackUpDate = table.Column<DateTime>(nullable: false),
-                    BackUpFileName = table.Column<string>(nullable: true),
-                    BackUpFileLocation = table.Column<string>(nullable: true),
-                    BackupTakenPOCUserId = table.Column<long>(nullable: true),
-                    LastRestoredDate = table.Column<DateTime>(nullable: false),
-                    RestoredFileName = table.Column<string>(nullable: true),
-                    RestoredPOCUserId = table.Column<long>(nullable: true),
-                    Comments = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Databases", x => x.DatabaseId);
-                    table.ForeignKey(
-                        name: "FK_Databases_Users_BackupTakenPOCUserId",
-                        column: x => x.BackupTakenPOCUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_DatabaseVendors_DatabaseVendorId",
-                        column: x => x.DatabaseVendorId,
-                        principalTable: "DatabaseVendors",
-                        principalColumn: "DatabaseVendorId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_Environments_EnvironmentId",
-                        column: x => x.EnvironmentId,
-                        principalTable: "Environments",
-                        principalColumn: "EnvironmentId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_DataLogFiles_LdfInformationDataLogFileId",
-                        column: x => x.LdfInformationDataLogFileId,
-                        principalTable: "DataLogFiles",
-                        principalColumn: "DataLogFileId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_DataLogFiles_MdfInformationDataLogFileId",
-                        column: x => x.MdfInformationDataLogFileId,
-                        principalTable: "DataLogFiles",
-                        principalColumn: "DataLogFileId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_Users_RestoredPOCUserId",
-                        column: x => x.RestoredPOCUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Databases_Servers_ServerId",
-                        column: x => x.ServerId,
-                        principalTable: "Servers",
-                        principalColumn: "ServerId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1292,15 +1222,105 @@ namespace ServerApp.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Databases",
+                columns: table => new
+                {
+                    DatabaseId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DatabaseVendorId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ProductId = table.Column<long>(nullable: true),
+                    EnvironmentId = table.Column<long>(nullable: true),
+                    Main = table.Column<bool>(nullable: false),
+                    ServerId = table.Column<long>(nullable: true),
+                    Instance = table.Column<string>(nullable: true),
+                    Hash = table.Column<string>(nullable: true),
+                    MdfInformationDataLogFileId = table.Column<long>(nullable: true),
+                    LdfInformationDataLogFileId = table.Column<long>(nullable: true),
+                    LastBackUpDate = table.Column<DateTime>(nullable: false),
+                    BackUpFileName = table.Column<string>(nullable: true),
+                    BackUpFileLocation = table.Column<string>(nullable: true),
+                    BackupTakenPOCUserId = table.Column<long>(nullable: true),
+                    LastRestoredDate = table.Column<DateTime>(nullable: false),
+                    RestoredFileName = table.Column<string>(nullable: true),
+                    RestoredPOCUserId = table.Column<long>(nullable: true),
+                    Comments = table.Column<string>(nullable: true),
+                    ApiId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Databases", x => x.DatabaseId);
+                    table.ForeignKey(
+                        name: "FK_Databases_Apis_ApiId",
+                        column: x => x.ApiId,
+                        principalTable: "Apis",
+                        principalColumn: "ApiId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_Users_BackupTakenPOCUserId",
+                        column: x => x.BackupTakenPOCUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_DatabaseVendors_DatabaseVendorId",
+                        column: x => x.DatabaseVendorId,
+                        principalTable: "DatabaseVendors",
+                        principalColumn: "DatabaseVendorId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_Environments_EnvironmentId",
+                        column: x => x.EnvironmentId,
+                        principalTable: "Environments",
+                        principalColumn: "EnvironmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_DataLogFiles_LdfInformationDataLogFileId",
+                        column: x => x.LdfInformationDataLogFileId,
+                        principalTable: "DataLogFiles",
+                        principalColumn: "DataLogFileId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_DataLogFiles_MdfInformationDataLogFileId",
+                        column: x => x.MdfInformationDataLogFileId,
+                        principalTable: "DataLogFiles",
+                        principalColumn: "DataLogFileId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_Users_RestoredPOCUserId",
+                        column: x => x.RestoredPOCUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Databases_Servers_ServerId",
+                        column: x => x.ServerId,
+                        principalTable: "Servers",
+                        principalColumn: "ServerId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Apis_DescriptionProductId",
+                name: "IX_Apis_ApiId1",
                 table: "Apis",
-                column: "DescriptionProductId");
+                column: "ApiId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Apis_EnvironmentId",
                 table: "Apis",
                 column: "EnvironmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Apis_ProductId",
+                table: "Apis",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientBrowserSupport_BrowserClientBrowserId",
@@ -1346,6 +1366,11 @@ namespace ServerApp.Migrations
                 name: "IX_Companies_TechnicalPocUserId",
                 table: "Companies",
                 column: "TechnicalPocUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Databases_ApiId",
+                table: "Databases",
+                column: "ApiId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Databases_BackupTakenPOCUserId",
@@ -1651,9 +1676,6 @@ namespace ServerApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Apis");
-
-            migrationBuilder.DropTable(
                 name: "AppArchitypes");
 
             migrationBuilder.DropTable(
@@ -1684,16 +1706,22 @@ namespace ServerApp.Migrations
                 name: "ClientBrowsers");
 
             migrationBuilder.DropTable(
+                name: "Apis");
+
+            migrationBuilder.DropTable(
                 name: "DatabaseVendors");
 
             migrationBuilder.DropTable(
                 name: "ProductPrerequisites");
 
             migrationBuilder.DropTable(
+                name: "TechnicalVendors");
+
+            migrationBuilder.DropTable(
                 name: "Environments");
 
             migrationBuilder.DropTable(
-                name: "TechnicalVendors");
+                name: "Corporations");
 
             migrationBuilder.DropTable(
                 name: "Companies");
@@ -1709,9 +1737,6 @@ namespace ServerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Servers");
-
-            migrationBuilder.DropTable(
-                name: "Corporations");
 
             migrationBuilder.DropTable(
                 name: "Industries");

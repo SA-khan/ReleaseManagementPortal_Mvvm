@@ -10,7 +10,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210324100127_Initial")]
+    [Migration("20210324130052_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,11 +28,14 @@ namespace ServerApp.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("ApiId1")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("DescriptionProductId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DirectoryLocation")
                         .HasColumnType("nvarchar(max)");
@@ -49,6 +52,9 @@ namespace ServerApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("ProductId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("TagLine")
                         .HasColumnType("nvarchar(max)");
 
@@ -57,9 +63,11 @@ namespace ServerApp.Migrations
 
                     b.HasKey("ApiId");
 
-                    b.HasIndex("DescriptionProductId");
+                    b.HasIndex("ApiId1");
 
                     b.HasIndex("EnvironmentId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Apis");
                 });
@@ -307,6 +315,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("ApiId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("BackUpFileLocation")
                         .HasColumnType("nvarchar(max)");
 
@@ -362,6 +373,8 @@ namespace ServerApp.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("DatabaseId");
+
+                    b.HasIndex("ApiId");
 
                     b.HasIndex("BackupTakenPOCUserId");
 
@@ -1738,13 +1751,17 @@ namespace ServerApp.Migrations
 
             modelBuilder.Entity("ServerApp.Models.Api", b =>
                 {
-                    b.HasOne("ServerApp.Models.Product", "Description")
-                        .WithMany()
-                        .HasForeignKey("DescriptionProductId");
+                    b.HasOne("ServerApp.Models.Api", null)
+                        .WithMany("Apis")
+                        .HasForeignKey("ApiId1");
 
                     b.HasOne("ServerApp.Models.Environment", "Environment")
                         .WithMany("ApiDependency")
                         .HasForeignKey("EnvironmentId");
+
+                    b.HasOne("ServerApp.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("ServerApp.Models.ClientBrowserSupport", b =>
@@ -1801,6 +1818,10 @@ namespace ServerApp.Migrations
 
             modelBuilder.Entity("ServerApp.Models.Database", b =>
                 {
+                    b.HasOne("ServerApp.Models.Api", null)
+                        .WithMany("Databases")
+                        .HasForeignKey("ApiId");
+
                     b.HasOne("ServerApp.Models.User", "BackupTakenPOC")
                         .WithMany()
                         .HasForeignKey("BackupTakenPOCUserId");

@@ -52,4 +52,9 @@ export class EnvironmentDetailComponent {
 
   }
 
+  apidatabaseupdate(envId: number, serverId: number, databaseName: string, server: string, userId: string, password: string) {
+    console.log("env id: " + envId + ", server Id: " + serverId + ", Database Name: " + databaseName + ", Server: " + server + ", User ID: " + userId + ", Password: " + password);
+  }
+
+
 }

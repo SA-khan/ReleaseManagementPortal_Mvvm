@@ -481,16 +481,106 @@
         <td colspan="2">
           <table>
             <tr *ngFor="let api of environment?.apiDependency" style="font-family:Tahoma">
-              <td><span class="badge badge-pill">{{ api?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ api?.description || 'None' }} </span></td>
-              <td><span class="badge badge-pill">{{ api?.tagline || 'None' }} </span> </td>
+              <td>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-3">
+                      <img src="../../assets/API_APP.png" style="width:120px;height:100px;" />
+                    </div>
+                    <div class="col">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <div class="float-left text-center h5 p-2">
+                              {{ api?.name || 'None' }}
+                            </div>
+                          </div>
+                          <div class="col">
+                            <span class="float-left badge badge-primary badge-pill"> {{ api?.description || 'None' }} </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        API Database Server Name With Instance
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        {{ api.databases[0]?.server?.ip }}\{{ api.databases[0]?.instance }}
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" [(ngModel)]="apiServerwithInstance" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        API Database Name
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        {{ api.databases[0]?.name }}
+                      </div>
+                    </div>
+                      <div class="col-sm-4">
+                        <input type="text" [(ngModel)]="apiDatabaseName" />
+                      </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        API Database Server User ID
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        {{ api.databases[0]?.server?.userId }}
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" [(ngModel)]="apiUserId" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        Api Database Server Password
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="h5 p-2">
+                        {{ api.databases[0]?.server?.password }}
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" [(ngModel)]="apiPassword" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                    <div class="col-sm-4">
+                      <input class="btn" type="button" [ngStyle]="{'background-color' : toggle ? 'red' : 'yellow'}" value="UPDATE" style="font-family:Tahoma" (click)="apidatabaseupdate( environment.environmentId, api.environment?.apiDependency?.environment?.databaseDependency?.server?.serverId, apiDatabaseName, apiServerwithInstance, apiUserId, apiPassword)" />
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
           </table>
         </td>
       </tr>
-
   </table>
 
-  <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/environmentoverview">Back</button></div>
+  <div class="text-center"> <button class="btn btn-primary m-2 p-1" routerLink="/environmentoverview">Back</button></div>
 
 </div>
 
