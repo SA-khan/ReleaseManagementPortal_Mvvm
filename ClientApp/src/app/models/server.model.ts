@@ -15,7 +15,7 @@ export class Server {
     public hostmachine?: boolean,
     public isVirtualized?: boolean,
     public isCloudBased?: boolean,
-    public os?: OperatingSystem,
+    public operatingSystem?: OperatingSystem,
     public processor?: string,
     public memory?: string,
     public description?: string,

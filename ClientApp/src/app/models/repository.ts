@@ -7,6 +7,7 @@ import { Environment } from './environment.model';
 import { Release } from "./release.model";
 import { Database } from "./database.model";
 import { Server } from "./server.model";
+import { Api } from './api.model';
 
 const companiesUrl = "api/companies";
 const productsUrl = "api/products";
@@ -14,6 +15,7 @@ const environmentUrl = "api/environments";
 const releaseUrl = "api/releases";
 const databaseUrl = "api/databases";
 const serverUrl = "api/servers";
+const apiUrl = "api/apis";
 
 type environmentsMetadata = { envsdata: Environment[], environmenttypes: string[], companies: string[], products: string[]  }
 
@@ -34,6 +36,9 @@ export class Repository {
 
   server: Server;
   servers: Server[];
+
+  api: Api;
+  apis: Api[];
 
   environmentTypes: string[];
 
@@ -99,12 +104,20 @@ export class Repository {
     return true;
   }
 
+  getDatabase(id: number) {
+    this.http.get<Database>(`${databaseUrl}`).subscribe(db => this.database = db);
+  }
+
   getDatabases() {
     this.http.get<Database[]>(`${databaseUrl}`).subscribe(dbs => this.databases = dbs);
   }
 
   getServers() {
     this.http.get<Server[]>(`${serverUrl}`).subscribe(srs => this.servers = srs);
+  }
+
+  getApis() {
+    this.http.get<Api[]>(`${apiUrl}`).subscribe(apis => this.apis = apis);
   }
 
   updateDatabase(id: number, changes: Map<string, any>): boolean {
@@ -118,6 +131,13 @@ export class Repository {
     let patch = [];
     changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
     this.http.patch(`${serverUrl}/${id}`, patch).subscribe(() => this.getServers);
+    return true;
+  }
+
+  updateApi(id: number, changes: Map<string, any>): boolean {
+    let patch = [];
+    changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch(`${apiUrl}/${id}`, patch).subscribe(() => this.getApis);
     return true;
   }
 

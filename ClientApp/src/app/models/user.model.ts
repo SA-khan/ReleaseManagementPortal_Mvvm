@@ -8,6 +8,7 @@ export class User {
     public loginName?: string,
     public phoneExtension?: string,
     public mobile?: string,
+    public email?: string,
     public clientPoc?: boolean,
     public processed?: boolean,
     public enabled?: boolean,

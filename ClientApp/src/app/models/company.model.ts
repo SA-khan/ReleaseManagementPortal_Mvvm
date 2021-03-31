@@ -10,6 +10,7 @@ export class Company {
     public industry?: Industry,
     public logo?: string,
     public ntn?: string,
+    public phone?: string,
     public email?: string,
     public fax?: string,
     public website?: string,

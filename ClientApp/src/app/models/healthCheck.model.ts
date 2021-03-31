@@ -4,7 +4,7 @@ export class HealthCheck {
     public date?: string,
     public referenceLink?: string,
     public directory?: string,
-    public isPassed?: boolean,
+    public passed?: boolean,
     public description?: string
   ) { }
 }

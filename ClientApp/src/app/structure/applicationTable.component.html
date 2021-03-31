@@ -1,54 +1,79 @@
-<table class="table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Company</th>
-      <th>Industry</th>
-      <th>Product</th>
-      <th>Environment</th>
-      <th>Patch Number</th>
-      <th>QA Status</th>
-      <th>Deployed Date</th>
-      <th>Link</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let release of releases">
-      <td>
-        <img class="img-thumbnail" src="{{ release?.company?.logo }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:40px;width:60px;" maxwidth="30" maxheight="15" />
-      </td>
-      <td>
-        <span>{{ release?.releaseId }}</span>
-      </td>
-      <td>
-        <span>{{ release?.company?.name }}</span>
-      </td>
-      <td>
-        <span>{{ release?.company?.industry?.name }}</span>
-      </td>
-      <td>
-        <span>{{ release?.product?.name }}</span>
-      </td>
-      <td>
-        <span>{{ release?.environmentType?.name }}</span>
-      </td>
-      <td>
-        <span>{{ release?.patchNumber }}</span>
-      </td>
-      <td>
-        <span>{{ release?.qualityAssurance?.isPassed }}</span>
-      </td>
-      <td>
-        <span>{{ release?.deployedDate }}</span>
-      </td>
-      <td>
-        <a class="btn btn-sm btn-primary" href="{{ release?.environment?.applicationHyperLink }}"> Visit </a>
-      </td>
-      <td>
-        <button class="btn btn-sm btn-primary" [routerLink]="['/applicationdetail', release?.releaseId]">Details</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-fluid bg-light" *ngIf=" releases.length > 0; else nodata ">
+  <div class="bg-dark text-white navbar">
+    <div class="navbar-brand">
+      <a href="/" title="Goto Home Page" style="text-decoration:none;color:inherit;"><span style="font-family:Tahoma;"><i class="ui-icon-home"></i> Release Management Portal</span></a>
+    </div>
+  </div>
+  <table class="table border border-dark table-striped bg-light p-1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Company</th>
+        <th>Industry</th>
+        <th>Product</th>
+        <th>Environment</th>
+        <th>Patch Number</th>
+        <th>Q.A.</th>
+        <th>Deployed Date</th>
+        <th>Link</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let release of releases">
+        <td>
+          <span style="font-weight:bold">{{ release?.releaseId }}.</span>
+        </td>
+        <td>
+          <img class="img-thumbnail" src="{{ release?.company?.logo }}" alt="{{ release?.company?.name }}" title="{{ release?.company?.name }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:30px;width:50px;" maxwidth="45" maxheight="15" />
+        </td>
+        <td>
+          <img class="img-thumbnail" src="{{ release?.company?.industry?.logo }}" alt="{{ release?.company?.industry?.name }}" title="{{ release?.company?.industry?.name }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:30px;width:50px;" maxwidth="45" maxheight="15" />
+        </td>
+        <td>
+          <img class="img-thumbnail" src="{{ release?.product?.logo }}" alt="{{ release?.product?.name }}" title="{{ release?.product?.name }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:30px;width:50px;" maxwidth="45" maxheight="15" />
+        </td>
+        <td>
+          <img class="img-thumbnail" src="{{ release?.environmentType?.logo }}" alt="{{ release?.environmentType?.name }}" title="{{ release?.environmentType?.name }}" style="image-resolution:inherit;image-rendering:optimizeQuality;height:30px;width:50px;" maxwidth="45" maxheight="15" />
+        </td>
+        <td>
+          <span style="font-style:italic;">{{ release?.patchNumber }}</span>
+        </td>
+        <td *ngIf="release?.qualityAssurance?.isPassed == true; else crossed">
+          <div class="text-center h-100">
+            <img src="../../assets/tick.png" style="width:25px;height:25px;" />
+          </div>
+        </td>
+        <td>
+          <span>{{ release?.deployedDate.substring(0,16).replace('T',' ') }}</span>
+        </td>
+        <td *ngIf="release?.environment?.server?.ip != ''; else executable">
+          <a class="btn btn-link" target="_blank" href="{{ release?.environment?.domain }}{{ release?.environment?.applicationHyperLink }}" title="{{release?.environment?.server?.ip}}:{{release?.environment?.server?.port}}{{ release?.environment?.applicationHyperLink }}">Visit</a>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger" [routerLink]="['/releasedetail', release?.releaseId]">Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <ng-template #crossed>
+    <td>
+      <div class="text-center h-100">
+        <img src="../../assets/cross.png" style="width:25px;height:25px;" />
+      </div>
+    </td>
+  </ng-template>
+
+  <ng-template #nodata>
+    <div class="text-center">
+      <h2 style="font-family:Tahoma;color:gray"> There is no release found. </h2>
+    </div>
+  </ng-template>
+
+<ng-template #executable>
+  <div class="text-center text-danger">
+    .exe
+  </div>
+</ng-template>

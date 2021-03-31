@@ -13,11 +13,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ServerApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ServerApp
 {
     public class Startup
     {
+        //public Startup(IWebHostEnvironment env)
+        //{
+        //    var builder = new ConfigurationBuilder()
+        //        .SetBasePath(env.ContentRootPath)
+        //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        //        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+        //        .AddEnvironmentVariables()
+        //        .AddCommandLine(System.Environment.GetCommandLineArgs()
+        //        .Skip(1).ToArray());
+        //    Configuration = builder.Build();
+
+        //}
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,14 +49,15 @@ namespace ServerApp
             });
             services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true).AddNewtonsoftJson(); ;
 
-            services.AddSwaggerGen( options => {
+            services.AddSwaggerGen(options =>
+            {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Release Management API", Version = "v1" });
             });
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services) //,IAntiforgery antiforgery, IHostApplicationLifetime lifetime
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +71,13 @@ namespace ServerApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //app.UseStaticFiles(new StaticFileOptions { 
+            //    RequestPath = "",
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), "./wwwroot/app"))
+            //});
+
+
 
             app.UseRouting();
 
@@ -68,26 +91,36 @@ namespace ServerApp
 
                 endpoints.MapControllerRoute(
                     name: "angular_fallback",
-                    pattern: "{target:regex(company|detail|product|productdetail|environment|environmentdetail|application|applicationdetail|reference|referencedetail|store)}",
+                    pattern: "{target:regex(companies|companydetail|products|productdetail|environments|environmentdetail|releases|releasedetail|reference|referencedetail|store)}",
                     defaults: new { Controller = "Home", Action = "Index" }
                     );
 
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(options => {
+            app.UseSwaggerUI(options =>
+            {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
             SeedData.SeedDatabase(services.GetRequiredService<DataContext>());
 
-            app.UseSpa(spa => {
+            //if ((Configuration["INITDB"] ?? "false") == "true")
+            //{
+            //    System.Console.WriteLine("Preparing Database..");
+            //    SeedData.SeedDatabase(services.GetRequiredService<DataContext>());
+            //    System.Console.WriteLine("Database Preparation Complete");
+            //    lifetime.StopApplication();
+            //}
+
+            app.UseSpa(spa =>
+            {
                 string strategy = Configuration["DevTools:ConnectionStrategy"];
-                if(strategy == "proxy")
+                if (strategy == "proxy")
                 {
                     spa.UseProxyToSpaDevelopmentServer("http://127.0.0.1:4200");
                 }
-                else if(strategy == "managed")
+                else if (strategy == "managed")
                 {
                     spa.Options.SourcePath = "../ClientApp";
                     spa.UseAngularCliServer("start");

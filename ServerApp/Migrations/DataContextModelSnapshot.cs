@@ -525,7 +525,16 @@ namespace ServerApp.Migrations
                     b.Property<bool>("Dockerized")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Domain")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("EnvironmentTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("HttpPort")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("HttpsPort")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("LastHealthCheckHealthCheckId")
@@ -1473,6 +1482,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ServerTypeId");

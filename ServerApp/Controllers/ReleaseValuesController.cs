@@ -39,7 +39,7 @@ namespace ServerApp.Controllers
             IEnumerable<Release> query = null;
             if (updated)
             {
-                query = _context.Releases.Include(r => r.Company).ThenInclude(r => r.Industry).Include(r => r.Company).ThenInclude(r => r.TechnicalPoc).Include(r => r.DevelopedBy).Include(r => r.DeployedBy).ThenInclude(r => r.Region).Include(r => r.Product).Include(r => r.Environment).Include(r => r.EnvironmentType).Include(r => r.QualityAssurance).ThenInclude(r => r.PerformedBy).Include(r => r.QualityAssurance).ThenInclude(r => r.VerifiedBy).OrderBy(r => r.Company.Name ).OrderBy(r => r.Product.Name).OrderByDescending(r => r.DeployedDate).Distinct();
+                query = _context.Releases.Include(r => r.Company).ThenInclude(r => r.Industry).Include(r => r.Company).ThenInclude(r => r.TechnicalPoc).Include(r => r.DevelopedBy).Include(r => r.DeployedBy).ThenInclude(r => r.Region).Include(r => r.Product).Include(r => r.Environment).Include(r => r.EnvironmentType).Include(r => r.Environment).ThenInclude(r => r.Server).Include(r => r.QualityAssurance).ThenInclude(r => r.PerformedBy).Include(r => r.QualityAssurance).ThenInclude(r => r.VerifiedBy).OrderBy(r => r.Company.Name ).OrderBy(r => r.Product.Name).OrderByDescending(r => r.DeployedDate).Distinct();
             }
             else
             {

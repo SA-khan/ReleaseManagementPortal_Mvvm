@@ -17,6 +17,9 @@ namespace ServerApp.Models
 		//public AppArchitype AppType { get; set; }
 		public string ApplicationHyperLink { get; set; }
 		public string WorkingDirectory { get; set; }
+		public string Domain { get; set; }
+		public long HttpPort { get; set; }
+		public long HttpsPort { get; set; }
 		public string Dependency { get; set; }
 		public Company Company { get; set; }
 		public Product Product { get; set; }

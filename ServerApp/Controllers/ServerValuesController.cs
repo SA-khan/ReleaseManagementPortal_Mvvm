@@ -80,15 +80,7 @@ namespace ServerApp.Controllers
 
                 _context.SaveChanges();
 
-                IQueryable<Database> dbs = _context.Databases.Where(dbs => dbs.Server.ServerId == id);
-                Models.Database db = dbs.Include( d => d.Environment ).FirstOrDefault();
-                Debug.WriteLine("db id: " + db.Environment.EnvironmentId);
-                IQueryable<Server> servers = _context.Servers.Where(srsv => srsv.ServerId == id);
-
-                Debug.WriteLine("envs count: " + _context.Environments.Count());
-                //List<Models.Environment> envList = envs.ToList();
-                IQueryable<Models.Environment> envs = _context.Environments.Where( e => e.EnvironmentId == db.Environment.EnvironmentId);
-                Models.Environment env = envs.First();
+                
                 //foreach (Models.Environment environment in envs)
                 //{
                 //    if (environment.Server != null)
@@ -109,6 +101,16 @@ namespace ServerApp.Controllers
                 //Debug.WriteLine("Environment ID: " + env.EnvironmentId);
                 try
                 {
+
+                    IQueryable<Database> dbs = _context.Databases.Where(dbs => dbs.Server.ServerId == id);
+                    Models.Database db = dbs.Include(d => d.Environment).FirstOrDefault();
+                    Debug.WriteLine("db id: " + db.Environment.EnvironmentId);
+                    IQueryable<Server> servers = _context.Servers.Where(srsv => srsv.ServerId == id );
+
+                    Debug.WriteLine("envs count: " + _context.Environments.Count());
+                    IQueryable<Models.Environment> envs = _context.Environments.Where(e => e.EnvironmentId == db.Environment.EnvironmentId);
+                    Models.Environment env = envs.First();
+
                     string text = System.IO.File.ReadAllText(env.WorkingDirectory + "/web.config");
                     text = text.Replace(serverOldIp, server.Ip).Replace(serverOldDomain, server.Domain).Replace(serverOldUserId, server.UserId).Replace(serverOldPassword, server.Password);
                     System.IO.File.WriteAllText(env.WorkingDirectory + "/web.config", text);

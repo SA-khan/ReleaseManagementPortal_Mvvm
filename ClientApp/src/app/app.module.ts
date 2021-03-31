@@ -14,8 +14,7 @@ import { ConfigCompanyComponent } from "./structure/configCompany.component";
 import { ProductTableComponent } from "./structure/productTable.component";
 import { ProductDetailComponent } from "./structure/productDetail.component";
 
-import { EnvironmentTableComponent } from "./structure/environmentTable.component";
-import { EnvironmentDetailComponent } from "./structure/environmentDetail.component";
+import { EnvironmentDetailComponent } from "./environment/environmentDetail.component";
 
 import { EnvironmentModule } from "./environment/environment.module";
 
@@ -23,6 +22,7 @@ import { ApplicationTableComponent } from "./structure/applicationTable.componen
 import { ApplicationDetailComponent } from "./structure/applicationDetail.component";
 
 import { FormsModule } from "@angular/forms";
+
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { FormsModule } from "@angular/forms";
     CompanyDetailComponent,
     ProductTableComponent,
     ProductDetailComponent,
-    EnvironmentTableComponent,
     EnvironmentDetailComponent,
     ApplicationTableComponent,
     ApplicationDetailComponent

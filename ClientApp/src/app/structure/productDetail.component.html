@@ -305,7 +305,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ product?.parentProduct?.tagLine }}
+            {{ product?.parentProduct?.tagline }}
           </div>
         </td>
       </tr>
@@ -397,11 +397,11 @@
         <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Operating System Support</th>
       </tr>
 
-      <tr *ngFor="let os of product.operatingSystemSupport float-right" style="font-family:Tahoma">
+      <tr *ngFor="let operatingSystem of product.operatingSystemSupports float-right" style="font-family:Tahoma">
         <td>
-          <img class="img-thumbnail card-img-bottom align-content-around" src="{{ os?.operatingSystem?.logo }}" alt="{{ os?.operatingSystem?.name }}" title="{{ os?.operatingSystem?.description }}" style="width:120px;height:80px;" />
+          <img class="img-thumbnail card-img-bottom align-content-around" src="{{ operatingSystem?.logo }}" alt="{{ operatingSystem?.name }}" title="{{ operatingSystem?.description }}" style="width:120px;height:80px;" />
         </td>
-        <td><span class="badge badge-pill">{{ os?.operatingSystem?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ os?.operatingSystem?.version || 'None' }} </span></td>
+        <td><span class="badge badge-pill">{{ operatingSystem?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ operatingSystem?.version || 'None' }} </span></td>
       </tr>
 
       <tr style="font-family:Tahoma">
@@ -410,7 +410,7 @@
 
       <tr *ngFor="let clientbrowser of product.clientBrowserSupports" style="font-family:Tahoma">
         <td>
-          <img class="img-thumbnail card-img-bottom align-content-around" src="{{ clientbrowser?.browser?.logo }}" alt="{{ os?.name }}" title="{{os?.description}}" style="width:80px;height:60px;" />
+          <img class="img-thumbnail card-img-bottom align-content-around" src="{{ clientbrowser?.browser?.logo }}" style="width:80px;height:60px;" />
         </td>
         <td><span class="badge badge-pill">{{ clientbrowser?.browser?.name || 'None' }} </span> <span class="badge badge-primary badge-pill"> {{ clientbrowser?.browser?.version || 'None' }} </span></td>
       </tr>
@@ -434,7 +434,7 @@
       </tr>
     </table>
 
-    <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/product">Back</button></div>
+    <div class="text-center"> <button class="btn btn-primary m-1" routerLink="/products">Back</button></div>
 
   </div>
 

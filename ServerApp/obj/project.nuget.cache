@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "o8yAB1u3bIlLY++BC0H32zA5RlkY1F3YWHt17ijjDEqiNAldqEGRGJrcdYSvH8PBHkqE/EBnPVB/E9P39KT0sg==",
+  "dgSpecHash": "2k/K7FUBRvdxLKKO+bBizNiLP88GNmzOHFIh4d2aS9zHujm9W/na5KLfPsgYi8wGrpeRp11RhdEQZ5hREDhlYQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Saad.Ahmed\\Desktop\\Projects\\NG\\ServerApp\\ServerApp.csproj",
   "expectedPackageFiles": [
@@ -39,6 +39,7 @@
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.configuration\\3.0.0\\microsoft.extensions.configuration.3.0.0.nupkg.sha512",
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.0.0\\microsoft.extensions.configuration.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.0.0\\microsoft.extensions.configuration.binder.3.0.0.nupkg.sha512",
+    "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.configuration.commandline\\3.0.0\\microsoft.extensions.configuration.commandline.3.0.0.nupkg.sha512",
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.0\\microsoft.extensions.dependencyinjection.3.0.0.nupkg.sha512",
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\Saad.Ahmed\\.nuget\\packages\\microsoft.extensions.dependencymodel\\2.0.0\\microsoft.extensions.dependencymodel.2.0.0.nupkg.sha512",
