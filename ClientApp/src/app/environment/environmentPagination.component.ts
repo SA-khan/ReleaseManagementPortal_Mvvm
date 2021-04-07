@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Repository } from "../models/repository";
+import { NavigationService } from "../models/navigation.service";
 
 
 @Component({
@@ -8,18 +9,18 @@ import { Repository } from "../models/repository";
 })
 
 export class EnvironmentPaginationComponent {
-  constructor() {
+  constructor(public navigation: NavigationService) {
 
   }
 
-  //get pages(): number[] {
-  //  if (this.navigation.environmentsCount > 0) {
-  //    return Array(Math.ceil(this.navigation.environmentsCount / this.navigation.environmentsPerPage))
-  //      .fill(0).map((x, i) => i + 1);
-  //  }
-  //  else {
-  //    return [];
-  //  }
-  //}
+  get pages(): number[] {
+    if (this.navigation.environmentsCount > 0) {
+      return Array(Math.ceil(this.navigation.environmentsCount / this.navigation.environmentsPerPage))
+        .fill(0).map((x, i) => i + 1);
+    }
+    else {
+      return [];
+    }
+  }
 
 }

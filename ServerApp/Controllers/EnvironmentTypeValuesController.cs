@@ -8,7 +8,7 @@ using ServerApp.Models.BindingTargets;
 
 namespace ServerApp.Controllers
 {
-    [Route("api/environmenttype")]
+    [Route("api/environmenttypes")]
     [ApiController]
     public class EnvironmentTypeValuesController : Controller
     {

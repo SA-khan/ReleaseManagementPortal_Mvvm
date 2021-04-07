@@ -10,8 +10,8 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210331084701_EnvironmentHttpPortAdded")]
-    partial class EnvironmentHttpPortAdded
+    [Migration("20210402045728_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -526,6 +526,9 @@ namespace ServerApp.Migrations
 
                     b.Property<bool>("Dockerized")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Domain")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("EnvironmentTypeId")
                         .HasColumnType("bigint");
@@ -1701,6 +1704,9 @@ namespace ServerApp.Migrations
 
                     b.Property<long?>("RegionId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("RsaSignature")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TermsAgreeed")
                         .HasColumnType("bit");

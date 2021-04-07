@@ -1703,6 +1703,9 @@ namespace ServerApp.Migrations
                     b.Property<long?>("RegionId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("RsaSignature")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TermsAgreeed")
                         .HasColumnType("bit");
 

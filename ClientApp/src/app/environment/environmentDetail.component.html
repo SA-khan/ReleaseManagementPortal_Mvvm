@@ -388,8 +388,8 @@
           <div class="border border-dark card mx-1" style="font-family:Tahoma">
             <div class="container bg-light">
               <div class="row p-1">
-                <div class="col-sm-3">
-                  <img src="{{ database?.databaseVendor?.corporation?.logo }}" width="80" height="80" />
+                <div class="col-sm-3" >
+                  <img class="img-thumbnail" src="{{ database?.databaseVendor?.corporation?.logo }}" width="80" height="80" />
                 </div>
                 <div class="col-sm-3">
                   <div class="h5 p-2" style="font-family:Tahoma">
@@ -414,7 +414,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    Server Instance
+                    Server With Instance
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -483,7 +483,7 @@
         <th colspan="2">
           <table>
             <tr *ngFor="let api of environment?.apiDependency; let in=index" style="font-family:Tahoma">
-              <td colspan="2">
+              <th colspan="2">
                 <div class="container-fluid bg-light m-1 p-1">
                   <div class="row">
                     <div class="col-3">
@@ -498,13 +498,13 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
                       <div class="h5 p-2">
                         API Database Server With Instance
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <input type="text" class="border-bottom" [(ngModel)]="sherd" [name]="environment?.apiDependency[in].name.replace(' ', '')" [attr.placeholder]="api.databases[0]?.server?.ip + '\\' + api.databases[0]?.instance" />
+                    <div class="col-sm-6">
+                      <input type="text" class="border" [(ngModel)]="serverd" [attr.placeholder]="api.databases[0]?.server?.ip + '\\' + api.databases[0]?.instance" />
                     </div>
                   </div>
                   <div class="row">
@@ -541,11 +541,11 @@
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6">
-                      <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma" (click)="apidatabaseupdate( environment.environmentId, api.databases[0]?.server?.serverId, api.databases[0]?.databaseId, apiDatabaseName, sherd, apiUserId, apiPassword)" />
+                      <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma;margin-left:5px;" (click)="apidatabaseupdate( environment.environmentId, api.databases[0]?.server?.serverId, api.databases[0]?.databaseId, apiDatabaseName, serverd, apiUserId, apiPassword)" />
                     </div>
                   </div>
                 </div>
-              </td>
+              </th>
             </tr>
           </table>
         </th>

@@ -3,21 +3,28 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Filter, Pagination } from "./configCompanies.repository";
 import { Product } from './product.model';
+import { EnvironmentType } from './environmentType.model';
 import { Environment } from './environment.model';
 import { Release } from "./release.model";
 import { Database } from "./database.model";
 import { Server } from "./server.model";
 import { Api } from './api.model';
 
-const companiesUrl = "api/companies";
-const productsUrl = "api/products";
-const environmentUrl = "api/environments";
-const releaseUrl = "api/releases";
-const databaseUrl = "api/databases";
-const serverUrl = "api/servers";
-const apiUrl = "api/apis";
+const companiesUrl = "/api/companies";
+const productsUrl = "/api/products";
+const environmentTypeUrl = "/api/environmenttypes";
+const environmentUrl = '/api/environments'; 
+const releaseUrl = "/api/releases";
+const databaseUrl = "/api/databases";
+const serverUrl = "/api/servers";
+const apiUrl = "/api/apis";
 
-type environmentsMetadata = { envsdata: Environment[], environmenttypes: string[], companies: string[], products: string[]  }
+type environmentsMetadata = {
+  environments: Environment[],
+  distinctEnvironmentTypes: string[],
+  distinctCompanies: string[],
+  distinctProducts: string[]
+}
 
 @Injectable()
 export class Repository {
@@ -40,7 +47,12 @@ export class Repository {
   api: Api;
   apis: Api[];
 
-  environmentTypes: string[];
+  distinctEnvironmentTypes?: string[] = [];
+  distinctCompanies?: string[] = [];
+  distinctProducts?: string[] = [];
+
+  environmentType: EnvironmentType;
+  environmentTypes: EnvironmentType[];
 
   release: Release;
   releases: Release[];
@@ -49,16 +61,16 @@ export class Repository {
   paginationObject = new Pagination();
   envFilter = new Filter();
 
-
   constructor(public http: HttpClient) {
     //this.filter.industry = null;
     //this.filter.search = null;
     this.filter.related = true;
+    this.envFilter.related = true;
     //this.filter.still = true;
     //this.getCompanies();
     this.getCompanies();
     this.getProducts();
-    this.getEnvironments();
+    //this.getEnvironments();
     this.getReleases();
   }
 
@@ -95,12 +107,15 @@ export class Repository {
     this.http.get<Product[]>(productsUrl).subscribe(prods => this.products = prods);
   }
 
+  getEnvironmentType(id: number) {
+    this.http.get<EnvironmentType>(`${environmentTypeUrl}/${id}`).subscribe(envType => this.environmentType = envType);
+  }
+
   getEnvironment(id: number) {
     this.http.get<Environment>(`${environmentUrl}/${id}`).subscribe(env => this.environment = env);
   }
 
   setEnvironment(database: Database): boolean {
-    //this.http.patch
     return true;
   }
 
@@ -141,10 +156,40 @@ export class Repository {
     return true;
   }
 
+  getEnvironmentTypes() {
+    let url = environmentTypeUrl;
+    this.http.get<EnvironmentType[]>(`${url}`).subscribe(envTypes => this.environmentTypes = envTypes);
+  }
+
   getEnvironments() {
     let url = environmentUrl;
-
-    this.http.get<Environment[]>(`${environmentUrl}`).subscribe(envs => this.environments = envs);
+    console.log('related =>' + this.envFilter.related);
+    if (this.envFilter.related) {
+      url += `?related=${this.envFilter.related}`; 
+    }
+    console.log('environmenttype =>' + this.envFilter.environmentType);
+    if (this.envFilter.environmentType) {
+      url += `&environmenttype=${this.envFilter.environmentType}`;
+    }
+    console.log('company =>' + this.envFilter.company);
+    if (this.envFilter.company) {
+      url += `&company=${this.envFilter.company}`;
+    }
+    console.log('product =>' + this.envFilter.product);
+    if (this.envFilter.product) {
+      url += `&product=${this.envFilter.product}`;
+    }
+    if (this.envFilter.industry) {
+      url += `&industry=${this.envFilter.industry}`;
+    }
+    if (this.envFilter.search) {
+      url += `&search=${this.envFilter.search}`;
+    }
+    url += '&metadata=true';
+    console.log('url =>' + url);
+    let a = '/api/environments?related=true&metatdata=true';
+    this.http.get<environmentsMetadata>(a).subscribe(md => { this.environments = md.environments; this.distinctEnvironmentTypes = md.distinctEnvironmentTypes; this.distinctCompanies = md.distinctCompanies; this.distinctProducts = md.distinctProducts; });
+    //console.log(this.environments[0].logo);
   }
 
   getRelease(id: number) {

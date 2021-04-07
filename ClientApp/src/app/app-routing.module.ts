@@ -11,13 +11,15 @@ import { EnvironmentDetailComponent } from './environment/environmentDetail.comp
 import { EnvironmentSupplierComponent } from "./environment/environmentSupplier.component";
 
 const routes: Routes = [
+  { path: "environments/:EnvironmenType/:Company/:Product/:Search/:Page", component: EnvironmentSupplierComponent },
+  { path: "environments/:environmentTypeOrCompanyOrProductOrSearchOrPage", component: EnvironmentSupplierComponent },
+  { path: "environments", component: EnvironmentSupplierComponent },
   { path: "productdetail", component: ProductDetailComponent },
   { path: "productdetail/:id", component: ProductDetailComponent },
   { path: "products", component: ProductTableComponent },
   { path: "companydetail", component: CompanyDetailComponent },
   { path: "companydetail/:id", component: CompanyDetailComponent },
   { path: "companies", component: CompanyTableComponent },
-  { path: "environments", component: EnvironmentSupplierComponent },
   { path: "environmentdetail", component: EnvironmentDetailComponent },
   { path: "environmentdetail/:id", component: EnvironmentDetailComponent },
   { path: "releasedetail", component: ApplicationDetailComponent },

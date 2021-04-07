@@ -156,14 +156,14 @@ namespace ServerApp.Controllers
             }
         }
 
-        private IActionResult CreateMetadata(IEnumerable<Models.Environment> environments)
+        private IActionResult CreateMetadata(IEnumerable<Models.Environment> data)
         {
             return Ok(new
             {
-                data = environments,
-                environmentTypes = _context.Environments.Select(env => env.EnvironmentType).Distinct().OrderBy(e => e),
-                companies = _context.Environments.Select(env => env.Company).Distinct().OrderBy(e => e),
-                products = _context.Environments.Select(env => env.Product).Distinct().OrderBy(e => e)
+                environments = data,
+                distinctEnvironmentTypes = _context.Environments.Select(env => env.EnvironmentType.Name).Distinct().OrderBy(e => e),
+                distinctCompanies = _context.Environments.Select(env => env.Company.Name).Distinct().OrderBy(e => e),
+                distinctProducts = _context.Environments.Select(env => env.Product.Name).Distinct().OrderBy(e => e)
             });
         }
 

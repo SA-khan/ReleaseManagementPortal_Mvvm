@@ -18,7 +18,11 @@ export class EnvironmentListComponent {
   }
 
   get environments(): Environment[] {
-    return this.repo.environments;
+    if (this.repo.environments != null && this.repo.environments.length > 0) {
+      let pageIndex = (this.repo.paginationObject.currentPage - 1) * this.repo.paginationObject.environmentsPerPage;
+      return this.repo.environments.slice(pageIndex, pageIndex + this.repo.paginationObject.environmentsPerPage);
+    }
+    //return this.repo.environments;
   }
 
   environmentoverview(environment: Environment) {

@@ -13,6 +13,7 @@ namespace ServerApp.Models
 		public string LastName { get; set; }
 		public string Logo { get; set; }
 		public string LoginName { get; set; }
+		public string RsaSignature { get; set; }
 		public string Email { get; set; }
 		public long PhoneExtension { get; set; }
 		public string Mobile { get; set; }

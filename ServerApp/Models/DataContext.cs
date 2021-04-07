@@ -29,7 +29,6 @@ namespace ServerApp.Models
         public DbSet<Language> Languages { get; set; }
         public DbSet<OperatingSystemSupport> OperatingSystemSupport { get; set; }
         public DbSet<OperatingSystem> OperatingSystems { get; set; }
-        
         public DbSet<ParentProduct> ParentProducts { get; set; }
         public DbSet<PasswordPolicy> PasswordPolicies { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }

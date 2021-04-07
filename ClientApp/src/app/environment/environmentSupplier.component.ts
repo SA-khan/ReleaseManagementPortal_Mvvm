@@ -10,6 +10,6 @@ import { Router } from "@angular/router";
 export class EnvironmentSupplierComponent {
   constructor(private router: Router) { }
   environmentoverview(environment: Environment) {
-    this.router.navigateByUrl("/environmentoverview/" + environment.environmentId);
+    this.router.navigateByUrl("/environments/" + environment.environmentId);
   }
 }

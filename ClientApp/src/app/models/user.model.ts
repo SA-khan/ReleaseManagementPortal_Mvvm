@@ -6,6 +6,7 @@ export class User {
     public lastName?: string,
     public logo?: string,
     public loginName?: string,
+    public rsaSignature?: string,
     public phoneExtension?: string,
     public mobile?: string,
     public email?: string,

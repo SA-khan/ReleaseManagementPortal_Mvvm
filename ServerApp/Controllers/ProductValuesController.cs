@@ -45,7 +45,8 @@ namespace ServerApp.Controllers
         [HttpGet]
         public IEnumerable<Product> GetProducts()
         {
-            IQueryable<Product> products = _context.Products.Include(p => p.Type).Include(p => p.OperatingSystemSupport).ThenInclude( p => p.OperatingSystem ).Include(p => p.ParentProduct).ThenInclude(pp => pp.MainPoc).Include(p => p.Prerequisites).Include(p => p.Ratings).ThenInclude( r => r.Product).Include(p => p.Supplier).Include(p => p.ClientBrowserSupports).ThenInclude( p => p.Browser ).OrderBy(p => p.Name);
+            IQueryable<Product> products = _context.Products.Include(p => p.Ratings).Include(p => p.Supplier);
+            ///IQueryable<Product> products = _context.Products.Include(p => p.Type).Include(p => p.OperatingSystemSupport).ThenInclude( p => p.OperatingSystem ).Include(p => p.ParentProduct).ThenInclude(pp => pp.MainPoc).Include(p => p.Prerequisites).Include(p => p.Ratings).ThenInclude( r => r.Product).Include(p => p.Supplier).Include(p => p.ClientBrowserSupports).ThenInclude( p => p.Browser ).OrderBy(p => p.Name);
             List<Product> list = products.ToList();
             if(list != null)
             {

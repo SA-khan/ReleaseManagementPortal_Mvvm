@@ -1,1 +1,59 @@
-<h4 class="border border-dark bg-secondary p-2 h-100">Placeholder: Selection panel</h4>
+<!--<h4 class="m-1">-->
+
+<div class="p-2 table table-sm text-center">
+
+  <div class="row">
+
+    <!--<button class="btn btn-outline-primary btn-block" [class.active]="service.currentEnvironmentType == ''" (click)="service.currentEnvironmentType = ''">
+      <span style="font-family:Tahoma;">All Categories</span>
+    </button>-->
+
+  </div>
+
+  <div class="row">
+
+    <!--<button *ngFor="let environmenttype of service.environmenttypes" [class.active]="service.currentEnvironmentType.toLowerCase() == environmenttype.toLowerCase()" class="btn btn-outline-primary btn-block" (click)="service.currentEnvironmentType = environmenttype">
+      <span style="font-family:Tahoma;">{{ environmenttype }}</span>
+    </button>-->
+
+  </div>
+
+  <div class="row col text-center p-1">
+
+    <select [(ngModel)]="selEnvironmentType" class="p-1" style="width: 100%;font-size: 12px; font-family: Tahoma;" name="sel2" (change)="onEnvironmentTypeChange($event.target.value)">
+      <option [value]="" [selected]="true">Select Environment Type..</option>
+      <option *ngFor="let environmenttype of service.environmenttypes" [value]="environmenttype">{{ environmenttype }}</option>
+    </select>
+
+  </div>
+
+  <div class="row col text-center p-1">
+
+    <select [(ngModel)]="selCompany" class="p-1" style="width: 100%; font-size: 12px; font-family: Tahoma;" (change)="onCompanyChange($event.target.value)">
+      <option value="" [selected]="true" title="select one company from the list">Select Company..</option>
+      <option *ngFor="let company of service.companies" value="{{ company }}">{{ company }}</option>
+    </select>
+
+  </div>
+
+  <div class="row col text-center p-1">
+
+    <select [(ngModel)]="selProduct" class="p-1" style="width: 100%; font-size: 12px; font-family: Tahoma;" (change)="onProductChange($event.target.value)">
+      <option value="" [selected]="true">Select Product..</option>
+      <option  *ngFor="let product of service.products" value="{{ product }}">{{ product }}</option>
+    </select>
+
+  </div>
+
+  <div class="row col text-center p-1">
+
+    <button class="btn btn-outline-primary btn-block p-1" (click)="onBtnGoClick(selEnvironmentType, selCompany, selProduct)">Go</button>
+
+  </div>
+
+</div>
+
+<!--(ngModelChange)="onEnvironmentTypeChange($event)"-->
+<!--[ngModel]="selectedEnvironmentType"-->
+<!--</h4>-->
+<!--[click.active]="service.currentEnvironmentType === environmenttype"-->
