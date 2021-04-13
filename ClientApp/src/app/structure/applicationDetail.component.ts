@@ -7,6 +7,7 @@ import { QualityAssurance } from '../models/qualityAssurance.model';
 import { EnvironmentType } from '../models/environmentType.model';
 import { Product } from '../models/product.model';
 import { Company } from '../models/company.model';
+import { NavigationService } from '../models/navigation.service';
 
 @Component({
   selector: "application-detail",
@@ -14,7 +15,7 @@ import { Company } from '../models/company.model';
 })
 
 export class ApplicationDetailComponent {
-  constructor(private repo: Repository, router: Router, activateRoute: ActivatedRoute) {
+  constructor(private repo: Repository, private router: Router, private activateRoute: ActivatedRoute, public service: NavigationService) {
     let id = Number.parseInt(activateRoute.snapshot.params["id"]);
     if (id) {
       this.repo.getRelease(id);
@@ -52,6 +53,38 @@ export class ApplicationDetailComponent {
     changes.set("patchNumber", patchNumber);
     this.repo.updateRelease(id, changes);
     this.repo.getRelease(id);
+  }
+
+  updateTitle(id: number, title: string) {
+    console.log('Release ID: ' + id + ', Release Title: ' + title);
+    let changes = new Map<string, any>();
+    changes.set("title", title);
+    this.repo.updateRelease(id, changes);
+    this.router.navigateByUrl("releasedetail/"+ id);
+  }
+
+  updateDescription(id: number, description: string) {
+    console.log('Release ID: ' + id + ', Release Description: ' + description);
+    let changes = new Map<string, any>();
+    changes.set("description", description);
+    this.repo.updateRelease(id, changes);
+    this.router.navigateByUrl("releasedetail/" + id);
+  }
+
+  updateRemarks(id: number, remarks: string) {
+    console.log('Release ID: ' + id + ', Release Remarks: ' + remarks);
+    let changes = new Map<string, any>();
+    changes.set("remarks", remarks);
+    this.repo.updateRelease(id, changes);
+    this.router.navigateByUrl("releasedetail/" + id);
+  }
+
+  updateEnvironmentType(id: number, environmentTypeName: string) {
+    console.log('Release ID: ' + id + ', Release Environment Type: ' + environmentTypeName);
+    //let changes = new Map<string, any>();
+    //changes.set("name", environmentTypeName);
+    //this.repo.updateEnvironmentType(id, changes);
+    //this.router.navigateByUrl("releasedetail/" + id);
   }
 
 }

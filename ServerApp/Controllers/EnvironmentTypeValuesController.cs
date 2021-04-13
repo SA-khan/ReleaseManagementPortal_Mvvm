@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using ServerApp.Models;
 using ServerApp.Models.BindingTargets;
@@ -44,6 +45,23 @@ namespace ServerApp.Controllers
             else
             {
                 return BadRequest(envTypeData.EnvironmentTypeId);
+            }
+        }
+
+        [HttpPatch]
+        public IActionResult UpdateEnvironmentType(long id, [FromBody] JsonPatchDocument<EnvironmentTypeData> patch)
+        {
+            EnvironmentType environmentType = _context.EnvironmentTypes.FirstOrDefault(et => et.EnvironmentTypeId == id);
+            EnvironmentTypeData typeData = new EnvironmentTypeData { EnvironmentType = environmentType };
+            patch.ApplyTo(typeData, ModelState);
+            if(ModelState.IsValid && TryValidateModel(patch))
+            {
+                _context.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 

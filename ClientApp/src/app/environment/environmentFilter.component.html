@@ -1,6 +1,6 @@
 <!--<h4 class="m-1">-->
 
-<div class="p-2 table table-sm text-center">
+<div class="table table-sm text-center m-2 p-2 ">
 
   <div class="row">
 
@@ -20,8 +20,8 @@
 
   <div class="row col text-center p-1">
 
-    <select [(ngModel)]="selEnvironmentType" class="p-1" style="width: 100%;font-size: 12px; font-family: Tahoma;" name="sel2" (change)="onEnvironmentTypeChange($event.target.value)">
-      <option [value]="" [selected]="true">Select Environment Type..</option>
+    <select [(ngModel)]="selEnvironmentType" class="p-1" style="width: 100%;font-size: 12px; font-family: Tahoma;" name="sel2" (change)="onEnvironmentTypeChange($event.target.value)" >
+      <option [value]=""  selected="selected">Select Environment Type..</option>
       <option *ngFor="let environmenttype of service.environmenttypes" [value]="environmenttype">{{ environmenttype }}</option>
     </select>
 
@@ -30,7 +30,7 @@
   <div class="row col text-center p-1">
 
     <select [(ngModel)]="selCompany" class="p-1" style="width: 100%; font-size: 12px; font-family: Tahoma;" (change)="onCompanyChange($event.target.value)">
-      <option value="" [selected]="true" title="select one company from the list">Select Company..</option>
+      <option value=""  selected="selected" title="select one company from the list">Select Company..</option>
       <option *ngFor="let company of service.companies" value="{{ company }}">{{ company }}</option>
     </select>
 
@@ -39,7 +39,7 @@
   <div class="row col text-center p-1">
 
     <select [(ngModel)]="selProduct" class="p-1" style="width: 100%; font-size: 12px; font-family: Tahoma;" (change)="onProductChange($event.target.value)">
-      <option value="" [selected]="true">Select Product..</option>
+      <option value=""  [attr.selected]="selected" >Select Product..</option>
       <option  *ngFor="let product of service.products" value="{{ product }}">{{ product }}</option>
     </select>
 

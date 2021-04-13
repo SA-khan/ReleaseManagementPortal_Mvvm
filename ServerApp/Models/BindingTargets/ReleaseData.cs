@@ -8,7 +8,6 @@ namespace ServerApp.Models.BindingTargets
 {
     public class ReleaseData
     {
-		[Required]
 		public string Title { 
 			get => Release.Title; 
 			set {
@@ -127,7 +126,26 @@ namespace ServerApp.Models.BindingTargets
                 }
             } 
 		}
-		[Required]
+		//[Required]
+		public long? Environment
+		{
+			get => Release.Environment?.EnvironmentId;
+			set
+			{
+				if (!value.HasValue)
+				{
+					Release.Environment = null;
+				}
+				else
+				{
+					if (Release.Environment == null)
+					{
+						Release.Environment = new Environment();
+					}
+					Release.Environment.EnvironmentId = value.Value;
+				}
+			}
+		}
 		public long? EnvironmentType { 
 			get => Release.EnvironmentType?.EnvironmentTypeId; 
 			set

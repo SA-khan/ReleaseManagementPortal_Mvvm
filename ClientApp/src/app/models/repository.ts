@@ -202,10 +202,16 @@ export class Repository {
 
   updateRelease(id: number, changes: Map<string, any>): boolean {
     let patch = [];
-    changes.forEach((key, value) => patch.push({ op: "replace", path: key, value: value }));
-    this.http.patch<Release>(`${releaseUrl}/${id}`, patch).subscribe( () => this.getReleases() );
+    changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch<Release>(`${releaseUrl}/${id}`, patch).subscribe(() => { this.getRelease(id); this.getReleases() });
     return true;
   }
 
+  updateEnvironmentType(id: number, changes: Map<string, any>): boolean {
+    let patch = [];
+    changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch<EnvironmentType>(`${environmentTypeUrl}/${id}`, patch).subscribe(() => this.getEnvironmentType(id));
+    return true;
+  }
 
 }

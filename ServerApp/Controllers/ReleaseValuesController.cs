@@ -98,7 +98,7 @@ namespace ServerApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateRelease(long id, [FromBody] ReleaseData rData)
+        public IActionResult EditRelease(long id, [FromBody] ReleaseData rData)
         {
             if (ModelState.IsValid)
             {
@@ -140,9 +140,9 @@ namespace ServerApp.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult EditRelease(long id,[FromBody] JsonPatchDocument<ReleaseData> patch)
+        public IActionResult UpdateRelease(long id,[FromBody] JsonPatchDocument<ReleaseData> patch)
         {
-                Release release = _context.Releases.FirstOrDefault(r => r.ReleaseId == id);
+                Release release = _context.Releases.Include(r => r.Company).ThenInclude(r => r.Industry).Include(r => r.Company).ThenInclude(r => r.TechnicalPoc).Include(r => r.DevelopedBy).Include(r => r.DeployedBy).ThenInclude(r => r.Region).Include(r => r.Product).Include(r => r.Environment).Include(r => r.EnvironmentType).Include(r => r.Environment).ThenInclude(r => r.Server).Include(r => r.QualityAssurance).ThenInclude(r => r.PerformedBy).Include(r => r.QualityAssurance).ThenInclude(r => r.VerifiedBy).OrderBy(r => r.Company.Name).OrderBy(r => r.Product.Name).OrderByDescending(r => r.DeployedDate).FirstOrDefault(r => r.ReleaseId == id);
                 ReleaseData rData = new ReleaseData { Release = release };
                 patch.ApplyTo(rData, ModelState);
                 if( ModelState.IsValid && TryValidateModel(rData) )

@@ -95,7 +95,7 @@
   <div class="container border border-dark">
     <div class="row">
       <div class="col-sm-3 p-1 align-items-center">
-        <img class="img-thumbnail card-img-bottom align-content-around m-2" src="{{ environment?.logo }}" style="width:220px;height:180px;" />
+        <img class="img-thumbnail card-img-bottom align-content-around m-2" src="../../assets/release.png" style="width:220px;height:180px;" />
       </div>
       <div class="col-sm-9 p-1">
         <div class="align-content-sm-center">
@@ -177,12 +177,22 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.patchNumber }}
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release?.patchNumber }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchNumber" [value]="release.patchNumber" [attr.placeholder]="release?.patchNumber" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger text-white" style="font-family:Tahoma;" type="button" value="UPDATE" (click)="updatePatchNumber(release.releaseId,txtPatchNumber)" />
+              </div>
+            </div>
           </div>
-          <input type="text" [(ngModel)]="txtPatchNumber" [attr.placeholder]="release?.patchNumber" />
-          <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updatePatchNumber(release.releaseId,txtPatchNumber)" />
-        </td>
+          </td>
       </tr>
       <tr>
         <td>
@@ -191,8 +201,20 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.title }}
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release?.title }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchTitle" [attr.value]="release.title" [attr.placeholder]="release?.title" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateTitle(release.releaseId,txtPatchTitle)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -203,8 +225,20 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.environmentType?.name }}
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release?.environmentType?.name }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchEnvironmentType" [attr.value]="release.environmentType?.name" [attr.placeholder]="release.environmentType?.name" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateEnvironmentType(release.releaseId,txtPatchEnvironmentType)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -218,6 +252,10 @@
           <div class="h5 p-2" style="font-family:Tahoma">
             {{ release?.description }}
           </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="txtPatchDescription" [value]="release.description" [attr.placeholder]="release?.description" />
+            <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateDescription(release.releaseId,txtPatchDescription)" />
+          </div>
         </td>
       </tr>
       <tr>
@@ -227,8 +265,8 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            <input type="button" value="{{ release?.company?.name }}" class="btn btn-link" [routerLink]="['/companydetail', environment?.company?.companyId]" />
+          <div class="h5" style="font-family:Tahoma">
+            <input type="button" value="{{ release?.company?.name }}" class="btn btn-link" [routerLink]="['/companydetail', release.company?.companyId]" />
           </div>
         </td>
       </tr>
@@ -251,8 +289,8 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            <input type="button" value="{{ release?.product?.name }}" class="btn btn-link" [routerLink]="['/productdetail', environment?.product.productId]" />
+          <div class="h5" style="font-family:Tahoma">
+            <input type="button" value="{{ release?.product?.name }}" class="btn btn-link" [routerLink]="['/productdetail', release.product?.productId]" />
           </div>
         </td>
       </tr>
@@ -263,7 +301,7 @@
           </div>
         </td>
         <td>
-          {{ release?.product?.parentProduct?.name }}
+          {{ release.product?.parentProduct?.name }}
           <div class="h5 p-2" style="font-family:Tahoma">
             {{ release.product?.parentProduct?.tagline }}
           </div>
@@ -278,6 +316,10 @@
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
             {{ release.remarks }}
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="txtPatchRemarks" [value]="release.remarks" [attr.placeholder]="release?.remarks" />
+            <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateRemarks(release.releaseId,txtPatchRemarks)" />
           </div>
         </td>
       </tr>
@@ -344,7 +386,7 @@
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
             <div *ngIf="release?.qualityAssurance?.isPassed == true;else crossed" class="h5 p-2 h-100" style="font-family:Tahoma">
-              <img src="../../assets/tick.png" />
+              <img src="../../assets/tick.png" style="width:15px;height:15px;" />
             </div>
           </div>
         </td>
@@ -650,7 +692,7 @@
 
     <hr />
 
-    <div class="text-center"> <button class="btn btn-primary m-2 p-3" routerLink="/environments">Back</button></div>
+    <div class="text-center"> <button class="btn btn-primary m-2 p-3" routerLink="/releases">Back</button></div>
 
   </div>
 
