@@ -9,29 +9,149 @@ namespace ServerApp.Models.BindingTargets
     public class ReleaseData
     {
 		[Required]
-		public string Title { get; set; }
-		public string Description { get; set; }
+		public string Title { 
+			get => Release.Title; 
+			set {
+				Release.Title = value;
+			} 
+		}
+		public string Description { 
+			get => Release.Description;
+			set {
+				Release.Description = value;
+			} 
+		}
 		[Required]
-		public string PatchNumber { get; set; }
-		public User DevelopedBy { get; set; }
-		public User DeployedBy { get; set; }
-		public DateTime CreatedDate { get; set; }
-		public DateTime DeployedDate { get; set; }
-		public QualityAssurance QualityAssurance { get; set; }
+		public string PatchNumber { 
+			get => Release.PatchNumber;
+			set => Release.PatchNumber = value;
+		}
+		public long? DevelopedBy { 
+			get => Release.DevelopedBy?.UserId ?? null; 
+			set
+            {
+                if (!value.HasValue)
+                {
+					Release.DevelopedBy = null;
+                }
+				else
+                {
+					if(Release.DevelopedBy == null)
+                    {
+						Release.DevelopedBy = new User();
+                    }
+					Release.DevelopedBy.UserId = value.Value;
+                }
+            } 
+		}
+		public long? DeployedBy {
+			get => Release.DeployedBy?.UserId ?? null;
+			set
+			{
+				if (!value.HasValue)
+				{
+					Release.DeployedBy = null;
+				}
+				else
+				{
+					if (Release.DeployedBy == null)
+					{
+						Release.DeployedBy = new User();
+					}
+					Release.DeployedBy.UserId = value.Value;
+				}
+			}
+		}
+		public DateTime CreatedDate { 
+			get => Release.CreatedDate; 
+			set => Release.CreatedDate = value; 
+		}
+		public DateTime DeployedDate {
+			get => Release.DeployedDate;
+			set => Release.DeployedDate = value;
+		}
+		public long? QualityAssurance { 
+			get => Release.QualityAssurance?.QualityAssuranceId ?? null; 
+			set
+            {
+                if ( !value.HasValue )
+                {
+					Release.QualityAssurance = null;
+                }
+				else
+                {
+					if(Release.QualityAssurance == null)
+                    {
+						Release.QualityAssurance = new QualityAssurance();
+                    }
+					Release.QualityAssurance.QualityAssuranceId = value.Value;
+                }
+            } 
+		}
 		[Required]
-		public Company Company { get; set; }
+		public long? Company { 
+			get => Release.Company?.CompanyId ?? null; 
+			set
+            {
+                if (!value.HasValue)
+                {
+					Release.Company = null;
+                }
+				else
+                {
+					if(Release.Company == null)
+                    {
+						Release.Company = new Company();
+                    }
+					Release.Company.CompanyId = value.Value;
+					
+                }
+            } 
+		}
 		[Required]
-		public Product Product { get; set; }
+		public long? Product { 
+			get => Release.Product?.ProductId ?? null; 
+			set
+            {
+                if (!value.HasValue)
+                {
+					Release.Product = null;
+                }
+				else
+                {
+					if(Release.Product == null)
+                    {
+						Release.Product = new Product();
+                    }
+					Release.Product.ProductId = value.Value;
+                }
+            } 
+		}
 		[Required]
-		public EnvironmentType EnvironmentType { get; set; }
-		public string Remarks { get; set; }
+		public long? EnvironmentType { 
+			get => Release.EnvironmentType?.EnvironmentTypeId; 
+			set
+            {
+                if (!value.HasValue)
+                {
+					Release.EnvironmentType = null;
+                }
+				else
+                {
+					if(Release.EnvironmentType == null)
+                    {
+						Release.EnvironmentType = new EnvironmentType();
+                    }
+					Release.EnvironmentType.EnvironmentTypeId = value.Value;
+                }
+            } 
+		}
+		public string Remarks { 
+			get => Release.Remarks; 
+			set => Release.Remarks = value; 
+		}
 
-		public Release Release => new Release { 
-			Title = Title, Description = Description, PatchNumber = PatchNumber,
-			DevelopedBy = DevelopedBy, DeployedBy = DeployedBy, CreatedDate = CreatedDate,
-			DeployedDate = DeployedDate, QualityAssurance = QualityAssurance, Company = Company,
-			Product = Product, EnvironmentType = EnvironmentType, Remarks = Remarks
-		};
+		public Release Release { get; set; } = new Release();
 
 	}
 }

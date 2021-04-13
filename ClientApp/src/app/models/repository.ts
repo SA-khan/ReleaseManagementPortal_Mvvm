@@ -200,5 +200,12 @@ export class Repository {
     this.http.get<Release[]>(`${releaseUrl}`).subscribe(rels => this.releases = rels);
   }
 
+  updateRelease(id: number, changes: Map<string, any>): boolean {
+    let patch = [];
+    changes.forEach((key, value) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch<Release>(`${releaseUrl}/${id}`, patch).subscribe( () => this.getReleases() );
+    return true;
+  }
+
 
 }

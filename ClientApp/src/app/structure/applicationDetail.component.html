@@ -1,4 +1,4 @@
-<table class="table table-sm">
+<!--<table class="table table-sm">
   <thead>
     <tr>
       <th colspan="2">
@@ -89,4 +89,594 @@
 
 <div class="text-center">
   <button class="btn btn-primary m-1" [routerLink]="['/releases']">Back</button>
+</div>-->
+
+<div class="m-1 p-1" *ngIf="release?.title != null; else nodata">
+  <div class="container border border-dark">
+    <div class="row">
+      <div class="col-sm-3 p-1 align-items-center">
+        <img class="img-thumbnail card-img-bottom align-content-around m-2" src="{{ environment?.logo }}" style="width:220px;height:180px;" />
+      </div>
+      <div class="col-sm-9 p-1">
+        <div class="align-content-sm-center">
+          <div class="container p-2">
+            <div class="row">
+              <div class="col-6">
+                <div class="h2 p-2" style="font-family:Tahoma">{{ release?.title || "Loading.." }}</div>
+                <div class="p-2">
+                  <div class="row">
+                    <div class="col">
+                      <img class="img-thumbnail card-img-bottom align-content-around m-1 uk-display-inline" src="{{ release?.product?.logo }}" style="width:70px;height:50px;" />
+                    </div>
+                    <div class="col float-left uk-align-right">
+                      <div class="h4 m-1 p-2" style="font-family:Tahoma">{{ release?.product?.name }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom align-text-bottom">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="{{ release?.company?.logo }}" style="width:160px;height:80px;" />
+                  <div class="h5 p-2" style="font-family:Tahoma">
+                    {{ release?.company?.name }} - {{ release?.company?.industry?.name }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="text-right m-1 align-bottom text-center">
+                  <img class="img-thumbnail card-img-bottom align-content-around" src="{{ release?.company?.logo }}" style="width:160px;height:80px;" />
+                  <div class="h5 p-2" style="font-family:Tahoma">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <!--<div class="h4 p-2" style="font-family:Tahoma">{{ release?.product?.type?.name }}</div>-->
+            </div>
+            <div class="col-6">
+              <div class="text-right m-1">
+
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-right m-1">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th class="bg-warning text-center" colspan="2">
+          <div class="h3 p-2" style="font-family:Tahoma">
+            Release Details
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            ID
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.releaseId }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Patch Number
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.patchNumber }}
+          </div>
+          <input type="text" [(ngModel)]="txtPatchNumber" [attr.placeholder]="release?.patchNumber" />
+          <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updatePatchNumber(release.releaseId,txtPatchNumber)" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Title
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.title }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Type
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.environmentType?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Description
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.description }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Company
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            <input type="button" value="{{ release?.company?.name }}" class="btn btn-link" [routerLink]="['/companydetail', environment?.company?.companyId]" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Industry
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.company?.industry?.name }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Application
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            <input type="button" value="{{ release?.product?.name }}" class="btn btn-link" [routerLink]="['/productdetail', environment?.product.productId]" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Application Parent
+          </div>
+        </td>
+        <td>
+          {{ release?.product?.parentProduct?.name }}
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release.product?.parentProduct?.tagline }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Remarks
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release.remarks }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Deployed Date
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.deployedDate.substring(0, 10) }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Deployed By
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.deployedBy }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Created Date
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release.createdDate.substring(0, 10) }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Module Created By
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.developedBy }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">
+          <img class="img-thumbnail card-img-bottom align-content-around" src="../../assets/QUALITY_ASSURANCE.png" style="width:120px;height:70px;" />
+          Quality Assurance Details
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Status
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            <div *ngIf="release?.qualityAssurance?.isPassed == true;else crossed" class="h5 p-2 h-100" style="font-family:Tahoma">
+              <img src="../../assets/tick.png" />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Remarks
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.remarks }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Performed By
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.performedBy?.firstName }} {{ release?.qualityAssurance?.performedBy?.middleName }} {{ release?.qualityAssurance?.performedBy?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Verified By
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.verifiedBy?.firstName }} {{ release?.qualityAssurance?.verifiedBy?.middleName }} {{ release?.qualityAssurance?.verifiedBy?.lastName }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Document Link
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.documentLink }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Document Location
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.documentLocation }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Title
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.title }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            Description
+          </div>
+        </td>
+        <td>
+          <div class="h5 p-2" style="font-family:Tahoma">
+            {{ release?.qualityAssurance?.description }}
+          </div>
+        </td>
+      </tr>
+
+      <!--<tr>
+    <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">
+      <img src="../../assets/DOCKER.png" style="width:40px;height:40px;" /> Docker Support Details
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <div class="h5 p-2" style="font-family:Tahoma">
+        Is Dockerized
+      </div>
+    </td>
+    <td>
+      <div *ngIf="environment?.dockerized == true;else crossed" class="h5 p-2" style="font-family:Tahoma">
+        <img src="../../assets/tick.png" style="float:left;width:15px;height:15px;" />
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="h5 p-2" style="font-family:Tahoma">
+        Docker Image URL
+      </div>
+    </td>
+    <td>
+      <div *ngIf="environment?.dockerImage != null; else nosource" class="h5 p-2" style="font-family:Tahoma">
+        <a href="{{ environment?.dockerImage }}" target="_blank">Docker Link</a>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="h5 p-2" style="font-family:Tahoma">
+        Description
+      </div>
+    </td>
+    <td>
+      <div class="h5 p-2" style="font-family:Tahoma">
+        {{ environment?.dockerDescription }}
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Database Dependencies</th>
+  </tr>
+  <tr *ngFor="let database of environment?.databaseDependency; let in=index">
+    <td colspan="2">
+      <div class="border border-dark card mx-1" style="font-family:Tahoma">
+        <div class="container bg-light">
+          <div class="row p-1">
+            <div class="col-sm-3">
+              <img class="img-thumbnail" src="{{ database?.databaseVendor?.corporation?.logo }}" width="80" height="80" />
+            </div>
+            <div class="col-sm-3">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                {{ database?.databaseVendor?.corporation?.name }}
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <img src="{{ database?.databaseVendor?.logo }}" width="80" height="80" />
+            </div>
+            <div class="col-sm-3">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                {{ database?.databaseVendor?.name }}
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                {{ database?.databaseVendor?.name }}
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                Server With Instance
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                <input type="text" [(ngModel)]="databaseServerWithInstance[in]" [attr.placeholder]="database?.server?.ip + '\\' + database?.instance" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                Database Name
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                <input type="text" [(ngModel)]="databaseName[in]" value="{{ database?.name }}" [attr.placeholder]="database?.name" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                User ID
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                <input type="text" [(ngModel)]="databaseUserId[in]" value="{{ database?.server?.userId }}" [attr.placeholder]="database?.server?.userId" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                Password
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+                <input type="text" [(ngModel)]="databasePassword[in]" value="{{ database?.server?.password }}" [attr.placeholder]="database?.server?.password" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="h5 p-2" style="font-family:Tahoma">
+              </div>
+            </div>
+            <div class="col-sm-6 text-center">
+              <div class="h5 p-2 float-left">
+                <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma" (click)="databaseupdate( environment.environmentId, database.databaseId, database.server?.serverId, databaseName[in], databaseServerWithInstance[in], databaseUserId[in], databasePassword[in])" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">API Dependency</th>
+  </tr>
+
+  <tr *ngIf="environment?.apiDependency?.length > 0; else nosource">
+    <th colspan="2">
+      <table>
+        <tr *ngFor="let api of environment?.apiDependency; let in=index" style="font-family:Tahoma">
+          <th colspan="2">
+            <div class="container-fluid bg-light m-1 p-1">
+              <div class="row">
+                <div class="col-3">
+                  <img class="img-thumbnail" src="../../assets/API_APP.png" style="width:120px;height:100px;" />
+                </div>
+                <div class="col">
+                  <div class="float-left text-capitalize uk-text-bottom h5 p-2 font-weight-bold" style="font-family:Tahoma;">
+                    {{ api?.name || 'None' }}
+                  </div>
+                  <br />
+                  <span class="badge badge-pill badge-danger text-sm-left text-center float-left" style="font-family:Tahoma;"> {{ api?.description || 'None' }} </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="h5 p-2">
+                    API Database Server With Instance
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" class="border border-dark" [(ngModel)]="apiServerwithInstance[in]" [attr.placeholder]="api.databases[0]?.server?.ip + '\\' + api.databases[0]?.instance" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="h5 p-2">
+                    API Database Name
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" [(ngModel)]="apiDatabaseName[in]" [attr.placeholder]="api.databases[0]?.name" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="h5 p-2">
+                    API Database Server User ID
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" [(ngModel)]="apiUserId[in]" [attr.placeholder]="api.databases[0]?.server?.userId" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="h5 p-2">
+                    Api Database Server Password
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" [(ngModel)]="apiPassword[in]" [attr.placeholder]="api.databases[0]?.server?.password" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma;margin-left:5px;" (click)="apidatabaseupdate( environment.environmentId, api.databases[0]?.server?.serverId, api.databases[0]?.databaseId, apiDatabaseName[in], apiServerwithInstance[in], apiUserId[in], apiPassword[in])" />
+                </div>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </table>
+    </th>
+  </tr>-->
+    </table>
+
+    <hr />
+
+    <div class="text-center"> <button class="btn btn-primary m-2 p-3" routerLink="/environments">Back</button></div>
+
+  </div>
+
 </div>
+
+<ng-template #nodata>
+  <div class="text-center">
+    <img src="../../assets/Loading.gif" />
+  </div>
+</ng-template>
+
+<ng-template #crossed>
+  <div class="text-center h-100">
+    <img src="../../assets/cross.png" style="float:left;width:15px;height:15px;" />
+  </div>
+</ng-template>
+
+<ng-template #nosource>
+  <div class="text-center h-100 m-2 p-2 ">
+
+    No Source Found or Exist.
+
+  </div>
+</ng-template>
+
+
+
+
+

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServerApp.Models;
@@ -136,6 +137,51 @@ namespace ServerApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult EditRelease(long id,[FromBody] JsonPatchDocument<ReleaseData> patch)
+        {
+                Release release = _context.Releases.FirstOrDefault(r => r.ReleaseId == id);
+                ReleaseData rData = new ReleaseData { Release = release };
+                patch.ApplyTo(rData, ModelState);
+                if( ModelState.IsValid && TryValidateModel(rData) )
+                {
+                    if(release.Company != null && release.Company.CompanyId != 0)
+                    {
+                        _context.Attach(release.Company);
+                    }
+                    if(release.DeployedBy != null && release.DeployedBy.UserId != 0)
+                    {
+                        _context.Attach(release.DeployedBy);
+                    }
+                    if (release.DevelopedBy != null && release.DevelopedBy.UserId != 0)
+                    {
+                        _context.Attach(release.DevelopedBy);
+                    }
+                    if (release.Environment != null && release.Environment.EnvironmentId != 0)
+                    {
+                        _context.Attach(release.Environment);
+                    }
+                    if (release.EnvironmentType != null && release.EnvironmentType.EnvironmentTypeId != 0)
+                    {
+                        _context.Attach(release.EnvironmentType);
+                    }
+                    if (release.Product != null && release.Product.ProductId != 0)
+                    {
+                        _context.Attach(release.Product);
+                    }
+                    if (release.QualityAssurance != null && release.QualityAssurance.QualityAssuranceId != 0)
+                    {
+                        _context.Attach(release.QualityAssurance);
+                    }
+                    _context.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
         }
 
         [HttpDelete("{id}")]
