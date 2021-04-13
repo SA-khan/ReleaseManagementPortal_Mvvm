@@ -14,26 +14,33 @@ export class NavigationService {
   private handleNavigationChange() {
     let active = this.active.firstChild.snapshot;
     if (active.url.length > 0 && active.url[0].path === "environments") {
-      if (active.params["EnvironmentTypOrCompanyOrProductOrSearchOrPage"] !== undefined) {
-        let value = Number.parseInt(active.params["EnvironmentTypeOrCompanyOrProductOrSearchOrPage"]);
+      //if (active.params["EnvironmentTypOrCompanyOrProductOrSearchOrPage"] !== undefined) {
+      if (active.params["categoryOrPage"] !== undefined) {
+        //let value = Number.parseInt(active.params["EnvironmentTypeOrCompanyOrProductOrSearchOrPage"]);
+        let value = Number.parseInt(active.params["categoryOrPage"]);
         if (!Number.isNaN(value)) {
           this.repository.envFilter.environmentType = "";
+          //this.repository.envFilter.company = "";
+          //this.repository.envFilter.product = "";
+          //this.repository.envFilter.search = "";
           this.repository.paginationObject.currentPage = value;
         }
         else {
-          this.repository.envFilter.environmentType = active.params["EnvironmentTypeOrCompanyOrProductOrSearchOrPage"];
+          this.repository.envFilter.environmentType = active.params["categoryOrPage"];
+          //this.repository.envFilter.environmentType = active.params["EnvironmentTypeOrCompanyOrProductOrSearchOrPage"];
           this.repository.paginationObject.currentPage = Number.parseInt(active.params["Page"]);
         }
       }
       else {
-        let envType = active.params["EnvironmentType"];
-        let company = active.params["Company"];
-        let product = active.params["Product"];
-        let search = active.params["Search"];
+        let envType = active.params["category"];
+        //let envType = active.params["EnvironmentType"];
+        //let company = active.params["Company"];
+        //let product = active.params["Product"];
+        //let search = active.params["Search"];
         this.repository.envFilter.environmentType = envType || "";
-        this.repository.envFilter.company = company || "";
-        this.repository.envFilter.product = product || "";
-        this.repository.envFilter.search = search || "";
+        //this.repository.envFilter.company = company || "";
+        //this.repository.envFilter.product = product || "";
+        //this.repository.envFilter.search = search || "";
         this.repository.paginationObject.currentPage = Number.parseInt(active.params["Page"]) || 1;
       }
       //let envType = active.params["environmenttype"];
@@ -85,12 +92,12 @@ export class NavigationService {
     if (this.currentEnvironmentType === "") {
       this.router.navigateByUrl(`/environments/${newPage}`);
     }
-    else if (this.currentCompany != "") {
-      this.router.navigateByUrl(`/environments/${this.currentEnvironmentType}/${this.currentCompany}/${newPage}`);
-    }
-    else if (this.currentProduct != "") {
-      this.router.navigateByUrl(`/environments/${this.currentEnvironmentType}/${this.currentCompany}/${this.currentProduct}/${newPage}`);
-    }
+    //else if (this.currentCompany != "") {
+    //  this.router.navigateByUrl(`/environments/${this.currentEnvironmentType}/${this.currentCompany}/${newPage}`);
+    //}
+    //else if (this.currentProduct != "") {
+    //  this.router.navigateByUrl(`/environments/${this.currentEnvironmentType}/${this.currentCompany}/${this.currentProduct}/${newPage}`);
+    //}
     else {
       this.router.navigateByUrl(`/environments/${this.currentEnvironmentType}/${newPage}`);
     }

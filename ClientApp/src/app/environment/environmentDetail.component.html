@@ -383,7 +383,7 @@
       <tr>
         <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">Database Dependencies</th>
       </tr>
-      <tr *ngFor="let database of environment?.databaseDependency">
+      <tr *ngFor="let database of environment?.databaseDependency; let in=index">
         <td colspan="2">
           <div class="border border-dark card mx-1" style="font-family:Tahoma">
             <div class="container bg-light">
@@ -419,7 +419,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" [(ngModel)]="databaseServerWithInstance" [attr.placeholder]="database?.server?.ip" />
+                    <input type="text" [(ngModel)]="databaseServerWithInstance[in]" [attr.placeholder]="database?.server?.ip + '\\' + database?.instance" />
                   </div>
                 </div>
               </div>
@@ -431,7 +431,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" [(ngModel)]="databaseName" value="{{ database?.name }}" [attr.placeholder]="database?.name" />
+                    <input type="text" [(ngModel)]="databaseName[in]" value="{{ database?.name }}" [attr.placeholder]="database?.name" />
                   </div>
                 </div>
               </div>
@@ -443,7 +443,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" [(ngModel)]="databaseUserId" value="{{ database?.server?.userId }}" [attr.placeholder]="database?.server?.userId" />
+                    <input type="text" [(ngModel)]="databaseUserId[in]" value="{{ database?.server?.userId }}" [attr.placeholder]="database?.server?.userId" />
                   </div>
                 </div>
               </div>
@@ -455,7 +455,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="h5 p-2" style="font-family:Tahoma">
-                    <input type="text" [(ngModel)]="databasePassword" value="{{ database?.server?.password }}" [attr.placeholder]="database?.server?.password" />
+                    <input type="text" [(ngModel)]="databasePassword[in]" value="{{ database?.server?.password }}" [attr.placeholder]="database?.server?.password" />
                   </div>
                 </div>
               </div>
@@ -466,7 +466,7 @@
                 </div>
                 <div class="col-sm-6 text-center">
                   <div class="h5 p-2 float-left">
-                    <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma" (click)="databaseupdate( environment.environmentId, database.databaseId, database.server?.serverId, databaseName, databaseServerWithInstance, databaseUserId, databasePassword)" />
+                    <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma" (click)="databaseupdate( environment.environmentId, database.databaseId, database.server?.serverId, databaseName[in], databaseServerWithInstance[in], databaseUserId[in], databasePassword[in])" />
                   </div>
                 </div>
               </div>
@@ -504,7 +504,7 @@
                       </div>
                     </div>
                     <div class="col-sm-6">
-                      <input type="text" class="border" [(ngModel)]="serverd" [attr.placeholder]="api.databases[0]?.server?.ip + '\\' + api.databases[0]?.instance" />
+                      <input type="text" class="border border-dark" [(ngModel)]="apiServerwithInstance[in]" [attr.placeholder]="api.databases[0]?.server?.ip + '\\' + api.databases[0]?.instance" />
                     </div>
                   </div>
                   <div class="row">
@@ -514,7 +514,7 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <input type="text" [(ngModel)]="apiDatabaseName" [attr.placeholder]="api.databases[0]?.name" />
+                      <input type="text" [(ngModel)]="apiDatabaseName[in]" [attr.placeholder]="api.databases[0]?.name" />
                     </div>
                   </div>
                   <div class="row">
@@ -524,7 +524,7 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <input type="text" [(ngModel)]="apiUserId" [attr.placeholder]="api.databases[0]?.server?.userId" />
+                      <input type="text" [(ngModel)]="apiUserId[in]" [attr.placeholder]="api.databases[0]?.server?.userId" />
                     </div>
                   </div>
                   <div class="row">
@@ -534,14 +534,14 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <input type="text" [(ngModel)]="apiPassword" [attr.placeholder]="api.databases[0]?.server?.password" />
+                      <input type="text" [(ngModel)]="apiPassword[in]" [attr.placeholder]="api.databases[0]?.server?.password" />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6">
-                      <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma;margin-left:5px;" (click)="apidatabaseupdate( environment.environmentId, api.databases[0]?.server?.serverId, api.databases[0]?.databaseId, apiDatabaseName, serverd, apiUserId, apiPassword)" />
+                      <input class="btn btn-sm btn-danger p-1" type="button" value="UPDATE" style="font-family:Tahoma;margin-left:5px;" (click)="apidatabaseupdate( environment.environmentId, api.databases[0]?.server?.serverId, api.databases[0]?.databaseId, apiDatabaseName[in], apiServerwithInstance[in], apiUserId[in], apiPassword[in])" />
                     </div>
                   </div>
                 </div>

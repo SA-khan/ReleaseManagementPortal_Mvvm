@@ -20,7 +20,6 @@ import { EnvironmentModule } from "./environment/environment.module";
 
 import { ApplicationTableComponent } from "./structure/applicationTable.component";
 import { ApplicationDetailComponent } from "./structure/applicationDetail.component";
-
 import { FormsModule } from "@angular/forms";
 
 

@@ -17,16 +17,16 @@ export class EnvironmentDetailComponent {
   public serverUpdateStatus: boolean;
 
   //databases: Database[];
-  databaseServerWithInstance: string;
-  databaseName: string;
-  databaseUserId: string;
-  databasePassword: string;
+  databaseServerWithInstance: string[] = [];
+  databaseName: string[] = [];
+  databaseUserId: string[] = [];
+  databasePassword: string[] = [];
 
   //apis: Api[];
-  apiServerwithInstance: string;
-  apiDatabaseName: string;
-  apiUserId: string;
-  apiPassword: string;
+  apiServerwithInstance: string[] = [];
+  apiDatabaseName: string[] = [];
+  apiUserId: string[] = [];
+  apiPassword: string[] = [];
 
   constructor(private repo: Repository, private router: Router, activateRoute: ActivatedRoute) {
     let id = Number.parseInt(activateRoute.snapshot.params["id"]);
@@ -44,7 +44,7 @@ export class EnvironmentDetailComponent {
 
   databaseupdate(envId: number, databaseId: number, serverId: number, databaseName: string, serverName: string, userId: string, password: string) {
     console.log('Database ID: ' + databaseId);
-    
+    console.log("db id: " + databaseId + ", server Id: " + serverId + ", Database Name: " + databaseName + ", Server: " + server + ", User ID: " + userId + ", Password: " + password);
     var server = serverName.split("\\", 2);
     console.log('server: ' + server);
 
@@ -61,7 +61,7 @@ export class EnvironmentDetailComponent {
     schanges.set("password", password);
     this.serverUpdateStatus = this.repo.updateServer(serverId, schanges);
 
-    this.router.navigateByUrl('environments/'+envId);
+    this.router.navigateByUrl('environments/');
 
   }
 
@@ -86,7 +86,7 @@ export class EnvironmentDetailComponent {
     schanges.set("password", password);
     this.serverUpdateStatus = this.repo.updateServer(serverId, schanges);
 
-    this.router.navigateByUrl('environments/' + envId);
+    this.router.navigateByUrl('environments/');
   }
 
 

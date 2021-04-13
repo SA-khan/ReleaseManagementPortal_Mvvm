@@ -29,9 +29,13 @@ export class EnvironmentFilterComponent {
   }
 
   onBtnGoClick(environmentType: string, company: string, product: string) {
-    let search = '';
-    let page = 1;
+    //let search = '';
+    //let page = 1;
     console.log('Environment Type: ' + environmentType + 'company: ' + company + ', product: ' + product);
-    this.router.navigateByUrl('/environments/' + environmentType + '/' + company + '/' + product +'/'+ search +'/'+page+'');
+    this.service.currentEnvironmentType = environmentType;
+    //this.service.currentCompany = company;
+    //this.service.currentProduct = product;
+    //this.router.navigateByUrl('/environments/' + environmentType + '/' + company + '/' + product +'/'+ search +'/'+page+'');
+    //this.router.navigateByUrl('/environments/' + environmentType + '/' + company + '/' + product + '/' + search + '/' + page + '');
   }
 }
