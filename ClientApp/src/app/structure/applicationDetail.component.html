@@ -185,7 +185,7 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <input type="text" [(ngModel)]="txtPatchNumber" [value]="release.patchNumber" [attr.placeholder]="release?.patchNumber" />
+                <input type="text" [(ngModel)]="txtPatchNumber" value=" {{ release.patchNumber }} " [attr.placeholder]="release?.patchNumber" />
               </div>
               <div class="col-md-4 text-center">
                 <input class="btn btn-sm bg-danger text-white" style="font-family:Tahoma;" type="button" value="UPDATE" (click)="updatePatchNumber(release.releaseId,txtPatchNumber)" />
@@ -249,12 +249,20 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.description }}
-          </div>
-          <div class="form-group">
-            <input type="text" [(ngModel)]="txtPatchDescription" [value]="release.description" [attr.placeholder]="release?.description" />
-            <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateDescription(release.releaseId,txtPatchDescription)" />
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release?.description }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchDescription" [value]="release.description" [attr.placeholder]="release?.description" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateDescription(release.releaseId,txtPatchDescription)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -314,12 +322,20 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release.remarks }}
-          </div>
-          <div class="form-group">
-            <input type="text" [(ngModel)]="txtPatchRemarks" [value]="release.remarks" [attr.placeholder]="release?.remarks" />
-            <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateRemarks(release.releaseId,txtPatchRemarks)" />
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release.remarks }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchRemarks" [value]="release.remarks" [attr.placeholder]="release?.remarks" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateRemarks(release.releaseId,txtPatchRemarks)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -330,8 +346,20 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.deployedDate.substring(0, 10) }}
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release?.deployedDate.substring(0, 10) }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchDeployedDate" [value]="release.deployedDate" [attr.placeholder]="release?.deployedDate" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateDeployedDate(release.releaseId,txtPatchDeployedDate)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -354,15 +382,27 @@
           </div>
         </td>
         <td>
-          <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release.createdDate.substring(0, 10) }}
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="h5 p-2" style="font-family:Tahoma">
+                  {{ release.createdDate.substring(0, 10) }}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <input type="text" [(ngModel)]="txtPatchCreatedDate" [value]="release.createdDate" [attr.placeholder]="release?.createdDate" />
+              </div>
+              <div class="col-md-4 text-center">
+                <input class="btn btn-sm bg-danger" type="button" value="UPDATE" (click)="updateCreatedDate(release.releaseId,txtPatchCreatedDate)" />
+              </div>
+            </div>
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            Module Created By
+            Develop By
           </div>
         </td>
         <td>
@@ -373,7 +413,7 @@
       </tr>
       <tr>
         <th class="bg-dark text-white" colspan="2" style="font-family:Tahoma">
-          <img class="img-thumbnail card-img-bottom align-content-around" src="../../assets/QUALITY_ASSURANCE.png" style="width:120px;height:70px;" />
+          <img class="img-thumbnail card-img-bottom align-content-around p-1" src="../../assets/QUALITY_ASSURANCE.png" style="width:120px;height:70px;" />
           Quality Assurance Details
         </th>
       </tr>
@@ -435,7 +475,7 @@
         </td>
         <td>
           <div class="h5 p-2" style="font-family:Tahoma">
-            {{ release?.qualityAssurance?.documentLink }}
+            {{ release.qualityAssurance?.documentationLocation }}
           </div>
         </td>
       </tr>
