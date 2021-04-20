@@ -696,7 +696,9 @@ namespace ServerApp.Migrations
                     isPassed = table.Column<bool>(nullable: false),
                     DocumentationLink = table.Column<string>(nullable: true),
                     DocumentLocation = table.Column<string>(nullable: true),
-                    Remarks = table.Column<string>(nullable: true)
+                    Remarks = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -996,42 +998,6 @@ namespace ServerApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ratings",
-                columns: table => new
-                {
-                    RatingId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<long>(nullable: true),
-                    IsCompany = table.Column<bool>(nullable: false),
-                    IsProduct = table.Column<bool>(nullable: false),
-                    Stars = table.Column<int>(nullable: false),
-                    CompanyId = table.Column<long>(nullable: true),
-                    ProductId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ratings", x => x.RatingId);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TechnicalVendorSupport",
                 columns: table => new
                 {
@@ -1121,6 +1087,50 @@ namespace ServerApp.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    RatingId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(nullable: true),
+                    IsCompany = table.Column<bool>(nullable: false),
+                    IsProduct = table.Column<bool>(nullable: false),
+                    IsEnvironment = table.Column<bool>(nullable: false),
+                    Stars = table.Column<int>(nullable: false),
+                    CompanyId = table.Column<long>(nullable: true),
+                    ProductId = table.Column<long>(nullable: true),
+                    EnvironmentId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.RatingId);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Environments_EnvironmentId",
+                        column: x => x.EnvironmentId,
+                        principalTable: "Environments",
+                        principalColumn: "EnvironmentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -1536,6 +1546,11 @@ namespace ServerApp.Migrations
                 name: "IX_Ratings_CompanyId",
                 table: "Ratings",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_EnvironmentId",
+                table: "Ratings",
+                column: "EnvironmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ratings_ProductId",

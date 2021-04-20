@@ -51,10 +51,12 @@ namespace ServerApp.Models.BindingTargets
                 }
             }
         }
-        public bool isPassed { get; set; }
-        public string DocumentationLink { get; set; }
-        public string DocumentLocation { get; set; }
-        public string Remarks { get; set; }
+        public bool isPassed { get => QualityAssurance.isPassed; set => QualityAssurance.isPassed = value; }
+        public string DocumentationLink { get => QualityAssurance.DocumentationLink; set => QualityAssurance.DocumentationLink = value; }
+        public string DocumentLocation { get => QualityAssurance.DocumentLocation; set => QualityAssurance.DocumentLocation = value; }
+        public string Remarks { get => QualityAssurance.Remarks; set => QualityAssurance.Remarks = value; }
+        public DateTime CreatedDate { get => QualityAssurance.CreatedDate; set => QualityAssurance.CreatedDate = value; }
+        public DateTime ModifiedDate { get => QualityAssurance.ModifiedDate; set => QualityAssurance.ModifiedDate = value; }
         public QualityAssurance QualityAssurance { get; set; } = new QualityAssurance();
 
     }

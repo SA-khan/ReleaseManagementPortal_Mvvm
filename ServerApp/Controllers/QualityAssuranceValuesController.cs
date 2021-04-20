@@ -14,24 +14,24 @@ namespace ServerApp.Controllers
     [ApiController]
     public class QualityAssuranceValuesController : Controller
     {
-        private DataContext _context;
-        private QualityAssuranceValuesController(DataContext ctx)
+        public DataContext _context;
+        public QualityAssuranceValuesController( DataContext ctx )
         {
             _context = ctx;
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetQualityAssurance(long id)
+        public QualityAssurance GetQualityAssurance(long id)
         {
             QualityAssurance result = _context.QualityAssurances.Include(qa => qa.PerformedBy).Include(qa => qa.VerifiedBy).FirstOrDefault(qa => qa.QualityAssuranceId == id);
-            return Ok(result);
+            return result;
         }
 
         [HttpGet]
-        public IActionResult GetAllQualityAssurance()
+        public IEnumerable<QualityAssurance> GetAllQualityAssurance()
         {
-            IEnumerable<QualityAssurance> result = _context.QualityAssurances.Include(qa => qa.PerformedBy).Include(qa => qa.VerifiedBy);
-            return Ok(result);
+            IEnumerable<QualityAssurance> result = _context.QualityAssurances;//.Include(qa => qa.PerformedBy).Include(qa => qa.VerifiedBy);
+            return result;
         }
 
         [HttpPost]
@@ -81,7 +81,15 @@ namespace ServerApp.Controllers
             QualityAssurance qa = _context.QualityAssurances.Find(id);
             QualityAssuranceData qad = new QualityAssuranceData { QualityAssurance = qa };
             patch.ApplyTo(qad, ModelState);
-            if (ModelState.IsValid && TryValidateModel(patch)) { 
+            if (ModelState.IsValid && TryValidateModel(qad)) { 
+                if(qa.PerformedBy != null && qa.VerifiedBy.UserId != 0)
+                {
+                    _context.Attach(qa.PerformedBy);
+                }
+                if (qa.VerifiedBy != null && qa.VerifiedBy.UserId != 0)
+                {
+                    _context.Attach(qa.VerifiedBy);
+                }
                 _context.SaveChanges();
                 return Ok();
             }

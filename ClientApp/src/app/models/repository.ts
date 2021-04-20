@@ -18,6 +18,7 @@ const releaseUrl = "/api/releases";
 const databaseUrl = "/api/databases";
 const serverUrl = "/api/servers";
 const apiUrl = "/api/apis";
+const apiQualityAssurance = "api/qualityassurances";
 
 type environmentsMetadata = {
   environments: Environment[],
@@ -156,6 +157,13 @@ export class Repository {
     return true;
   }
 
+  updateQualityAssurance(id: number, changes: Map<string, any>): boolean {
+    let patch = [];
+    changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+    this.http.patch(`${apiQualityAssurance}/${id}`, patch).subscribe(() => this.getApis);
+    return true;
+  }
+
   getEnvironmentTypes() {
     let url = environmentTypeUrl;
     this.http.get<EnvironmentType[]>(`${url}`).subscribe(envTypes => this.environmentTypes = envTypes);
@@ -206,6 +214,13 @@ export class Repository {
     this.http.patch<Release>(`${releaseUrl}/${id}`, patch).subscribe(() => { this.getRelease(id); this.getReleases() });
     return true;
   }
+
+  //updateReleaseEnvironmentType(id: number, changes: Map<string, any>): boolean {
+  //  let patch = [];
+  //  changes.forEach((value, key) => patch.push({ op: "replace", path: key, value: value }));
+  //  this.http.patch<Release>(`${releaseUrl}/${id}`, patch).subscribe(() => this.getRelease(id));
+  //  return true;
+  //}
 
   updateEnvironmentType(id: number, changes: Map<string, any>): boolean {
     let patch = [];

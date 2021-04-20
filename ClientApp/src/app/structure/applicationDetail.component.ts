@@ -15,6 +15,7 @@ import { NavigationService } from '../models/navigation.service';
 })
 
 export class ApplicationDetailComponent {
+  myDate = new Date();
   constructor(private repo: Repository, private router: Router, private activateRoute: ActivatedRoute, public service: NavigationService) {
     let id = Number.parseInt(activateRoute.snapshot.params["id"]);
     if (id) {
@@ -60,7 +61,7 @@ export class ApplicationDetailComponent {
     let changes = new Map<string, any>();
     changes.set("title", title);
     this.repo.updateRelease(id, changes);
-    this.router.navigateByUrl("releasedetail/"+ id);
+    this.repo.getRelease(id);
   }
 
   updateDescription(id: number, description: string) {
@@ -68,7 +69,7 @@ export class ApplicationDetailComponent {
     let changes = new Map<string, any>();
     changes.set("description", description);
     this.repo.updateRelease(id, changes);
-    this.router.navigateByUrl("releasedetail/" + id);
+    this.repo.getRelease(id);
   }
 
   updateRemarks(id: number, remarks: string) {
@@ -76,15 +77,94 @@ export class ApplicationDetailComponent {
     let changes = new Map<string, any>();
     changes.set("remarks", remarks);
     this.repo.updateRelease(id, changes);
-    this.router.navigateByUrl("releasedetail/" + id);
+    this.repo.getRelease(id);
   }
 
-  updateEnvironmentType(id: number, environmentTypeName: string) {
-    console.log('Release ID: ' + id + ', Release Environment Type: ' + environmentTypeName);
+  updateEnvironmentType(id: number, environmentType: number) {
+    console.log('Release ID: ' + id + ', Release Environment Type: ' + environmentType);
     //let changes = new Map<string, any>();
-    //changes.set("name", environmentTypeName);
-    //this.repo.updateEnvironmentType(id, changes);
-    //this.router.navigateByUrl("releasedetail/" + id);
+    //changes.set("environmentType", environmentType);
+    //this.repo.updateRelease(id, changes);
+    //this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    //this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceStatus(id: number, qaid: number, PatchQAStatusTrue: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Pass Status: ' + PatchQAStatusTrue.toString() + ', Release Quality Assurance Fail Status: ' );
+    let changes = new Map<string, any>();
+    if (PatchQAStatusTrue.toString()) {
+      changes.set("isPassed", PatchQAStatusTrue.toString());
+      this.repo.updateQualityAssurance(qaid, changes);
+      this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    }
+    //if (PatchQAStatusFalse.toString()) {
+    //  changes.set("isPassed", PatchQAStatusFalse.toString());
+    //  this.repo.updateQualityAssurance(qaid, changes);
+    //  this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    //}
+    this.repo.getRelease(id);
+    this.repo.getReleases();
+  }
+
+  updateQualityAssuranceRemarks(id: number, qaid: number, PatchQARemarks: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Remarks: ' + PatchQARemarks);
+    let changes = new Map<string, any>();
+    changes.set("remarks", PatchQARemarks);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceDocumentationLink(id: number, qaid: number, PatchQADocumentationLink: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Documentation Link: ' + PatchQADocumentationLink);
+    let changes = new Map<string, any>();
+    changes.set("documentationLink", PatchQADocumentationLink);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceDocumentLocation(id: number, qaid: number, PatchQADocumentLocation: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Document Location: ' + PatchQADocumentLocation);
+    let changes = new Map<string, any>();
+    changes.set("documentLocation", PatchQADocumentLocation);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceTitle(id: number, qaid: number, title: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Document Title: ' + title);
+    let changes = new Map<string, any>();
+    changes.set("title", title);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceDescription(id: number, qaid: number, description: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Description: ' + description);
+    let changes = new Map<string, any>();
+    changes.set("description", description);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceCreatedDate(id: number, qaid: number, PatchQACreatedDate: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Created Date: ' + PatchQACreatedDate);
+    let changes = new Map<string, any>();
+    changes.set("createdDate", PatchQACreatedDate);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.repo.getRelease(id);
+  }
+
+  updateQualityAssuranceModifiedDate(id: number, qaid: number, PatchQAModifiedDate: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Created Date: ' + PatchQAModifiedDate);
+    let changes = new Map<string, any>();
+    changes.set("modifiedDate", PatchQAModifiedDate);
+    this.repo.updateQualityAssurance(qaid, changes);
+    this.repo.getRelease(id);
   }
 
 }

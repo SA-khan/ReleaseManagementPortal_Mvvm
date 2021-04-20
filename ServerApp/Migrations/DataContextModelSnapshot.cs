@@ -1141,6 +1141,9 @@ namespace ServerApp.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -1149,6 +1152,9 @@ namespace ServerApp.Migrations
 
                     b.Property<string>("DocumentationLink")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("PerformedByUserId")
                         .HasColumnType("bigint");
@@ -1226,7 +1232,13 @@ namespace ServerApp.Migrations
                     b.Property<long?>("CompanyId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("EnvironmentId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsCompany")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEnvironment")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsProduct")
@@ -1244,6 +1256,8 @@ namespace ServerApp.Migrations
                     b.HasKey("RatingId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("EnvironmentId");
 
                     b.HasIndex("ProductId");
 
@@ -1985,6 +1999,10 @@ namespace ServerApp.Migrations
                     b.HasOne("ServerApp.Models.Company", "Company")
                         .WithMany("Ratings")
                         .HasForeignKey("CompanyId");
+
+                    b.HasOne("ServerApp.Models.Environment", "Environment")
+                        .WithMany()
+                        .HasForeignKey("EnvironmentId");
 
                     b.HasOne("ServerApp.Models.Product", "Product")
                         .WithMany("Ratings")

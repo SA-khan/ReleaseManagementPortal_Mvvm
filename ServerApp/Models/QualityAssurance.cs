@@ -16,6 +16,8 @@ namespace ServerApp.Models
         public string DocumentationLink { get; set; }
         public string DocumentLocation { get; set; }
         public string Remarks { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
     }
 }

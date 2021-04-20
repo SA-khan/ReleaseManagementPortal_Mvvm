@@ -24,7 +24,7 @@ namespace ServerApp.Controllers
         [HttpGet("{id}")]
         public Release GetRelease(long id)
         {
-            Release query = _context.Releases.Include( r => r.Company ).ThenInclude( r => r.Industry ).Include( r => r.DevelopedBy ).Include(r => r.DeployedBy ).Include(r => r.EnvironmentType).Include(r => r.Product).Include(r => r.QualityAssurance).ThenInclude(r => r.PerformedBy).Include(r => r.QualityAssurance).ThenInclude(r => r.VerifiedBy).FirstOrDefault(r => r.ReleaseId == id);
+            Release query = _context.Releases.Include(r => r.Product).ThenInclude(r => r.ParentProduct).Include( r => r.Company ).ThenInclude( r => r.Industry ).Include( r => r.DevelopedBy ).Include(r => r.DeployedBy ).Include(r => r.EnvironmentType).Include(r => r.Product).Include(r => r.QualityAssurance).ThenInclude(r => r.PerformedBy).Include(r => r.QualityAssurance).ThenInclude(r => r.VerifiedBy).FirstOrDefault(r => r.ReleaseId == id);
 
             if (query.Product.Releases != null)
             {

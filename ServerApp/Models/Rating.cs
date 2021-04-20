@@ -11,8 +11,10 @@ namespace ServerApp.Models
         public User User { get; set; }
         public bool IsCompany { get; set; }
         public bool IsProduct { get; set; }
+        public bool IsEnvironment { get; set; }
         public int Stars { get; set; }
         public Company Company { get; set; }
         public Product Product { get; set; }
+        public Environment Environment { get; set; }
     }
 }
