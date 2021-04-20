@@ -518,15 +518,15 @@
                 <!-- class="h5 p-2 h-100"  -->
                 <div class="row">
                   <div class="col">
-                    <span style="font-family:Tahoma;font-size:12px;">Passed</span> <input type="checkbox" [(ngModel)]="chkPatchQAStatusTrue" [checked]="release.qualityAssurance?.isPassed == 1 ? '' : null" />
+                    <span style="font-family:Tahoma;font-size:14px;">Passed </span> <input type="checkbox" [(ngModel)]="chkPatchQAStatusTrue" [checked]="release.qualityAssurance?.isPassed == 1 ? '' : null" />
                   </div>
                   <div class="col">
-                    <!--<span style="font-family:Tahoma;font-size:12em;">Failed</span> <input type="checkbox" [(ngModel)]="chkPatchQAStatusFalse" [checked]="release.qualityAssurance?.isPassed == 1 ? '' : null"  />-->
+                    <span style="font-family:Tahoma;font-size:14px;">Failed </span> <input type="checkbox" [(ngModel)]="chkPatchQAStatusFalse" [checked]="release.qualityAssurance?.isPassed == 1 ? '' : null"  />
                   </div>
                 </div>
               </div>
               <div class="col-md-2 h-100">
-                <input class="btn btn-sm bg-danger text-white" type="button" value="UPDATE" (click)="updateQualityAssuranceStatus(release.releaseId, release.qualityAssurance?.qualityAssuranceId, chkPatchQAStatusTrue.toString() )" />
+                <input class="btn btn-sm bg-danger text-white" type="button" value="UPDATE" (click)="updateQualityAssuranceStatus(release.releaseId, release.qualityAssurance?.qualityAssuranceId, chkPatchQAStatusTrue.toString(), chkPatchQAStatusFalse.toString() )" />
               </div>
             </div>
           </div>
@@ -1029,6 +1029,7 @@
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 

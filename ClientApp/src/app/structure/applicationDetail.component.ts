@@ -89,21 +89,22 @@ export class ApplicationDetailComponent {
     //this.repo.getRelease(id);
   }
 
-  updateQualityAssuranceStatus(id: number, qaid: number, PatchQAStatusTrue: string) {
-    console.log('Release ID: ' + id + ', Release Quality Assurance Pass Status: ' + PatchQAStatusTrue.toString() + ', Release Quality Assurance Fail Status: ' );
+  updateQualityAssuranceStatus(id: number, qaid: number, PatchQAStatusTrue: string, PatchQAStatusFalse: string) {
+    console.log('Release ID: ' + id + ', Release Quality Assurance Pass Status: ' + PatchQAStatusTrue.toString() + ', Release Quality Assurance Fail Status: ' + PatchQAStatusFalse.toString() );
     let changes = new Map<string, any>();
     if (PatchQAStatusTrue.toString()) {
       changes.set("isPassed", PatchQAStatusTrue.toString());
       this.repo.updateQualityAssurance(qaid, changes);
       this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
     }
-    //if (PatchQAStatusFalse.toString()) {
-    //  changes.set("isPassed", PatchQAStatusFalse.toString());
-    //  this.repo.updateQualityAssurance(qaid, changes);
-    //  this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
-    //}
+    else if (PatchQAStatusFalse.toString()) {
+      changes.set("isPassed", PatchQAStatusFalse.toString());
+      this.repo.updateQualityAssurance(qaid, changes);
+      this.updateQualityAssuranceModifiedDate(id, qaid, this.myDate.toString());
+    }
     this.repo.getRelease(id);
     this.repo.getReleases();
+    //this.router.navigateByUrl("/releasedetail/" + id);
   }
 
   updateQualityAssuranceRemarks(id: number, qaid: number, PatchQARemarks: string) {
